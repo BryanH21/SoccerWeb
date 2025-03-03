@@ -253,4 +253,41 @@ nav {
         right: 20px;
         z-index: 1100;
     }
+
+    .benefits-container {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .benefits-left, .beneifts-right {
+        width: 90%;
+    }
+}
+
+.benefits {
+    text-align: center;
+    padding: 50px 20px;
+    background-color: #f4f4f4;
+}
+
+.benefits-container {
+    display: flex;
+    justify-content: center;
+    gap: 40px;
+    flex-wrap: wrap;
+    max-width: 90%;
+    margin: 0 auto;
+}
+
+.benefits-left, .beneifts-right {
+    width: 45%;
+}
+
+.benefit {
+    background: white;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    margin-bottom: 20px;
+    text-align: left;
 }
