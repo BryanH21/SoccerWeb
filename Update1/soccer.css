@@ -392,6 +392,39 @@ footer {
     margin-bottom: 10px;
 }
 
+.training-intro {
+    background: #111;
+    color: white;
+    text-align: center;
+    padding: 100px 10% 60px;
+    margin-top: 80px;
+}
+
+.training-intro-content {
+    max-width: 800px;
+    margin: auto;
+}
+
+.training-intro h1 {
+    font-size: 2.5rem;
+    text-transform:uppercase;
+    letter-spacing: 2px;
+    margin-bottom: 20px;
+    color:#f4f4f4;
+}
+
+.training-intro h2 {
+    font-size: 1.8rem;
+    margin-top: 30px;
+    color: #f4f4f4;
+}
+
+.training-intro p {
+    font-size: 1.2rem;
+    line-height: 1.6;
+    color: #ddd
+}
+
 .hamburger {
     display: none;
 }
@@ -483,6 +516,26 @@ footer {
 
     .footerlinks ul, .footer-contact ul {
         padding: 0;
+    }
+
+    .training-intro {
+        padding: 80px 5% 40px;
+    }
+
+    .training-intro-content {
+        max-width: 100%;
+    }
+
+    .training-intro h1{
+        font-size: 2rem;
+    }
+
+    .training-intro h2 {
+        font-size: 1.5rem;
+    }
+
+    .training-intro p{
+        font-size: 1rem;
     }
 
 }
