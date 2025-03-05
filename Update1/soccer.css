@@ -68,7 +68,7 @@ nav {
     left: 0;
     width: 100%;
     height: 100%;
-    background: rgba(0, 0, 0, 0.5); 
+    background: rgba(0, 0, 0, 0.5);
 }
 
 /* text above overlay */
@@ -77,7 +77,7 @@ nav {
     max-width: 50%;
     color: white;
     text-align: left;
-    z-index: 1; 
+    z-index: 1;
 }
 
 .hero-content h1 {
@@ -124,9 +124,8 @@ nav {
     transform: scale(1.05);
 }
 
-
 .train {
-    background-color: rgb(211, 209, 209); 
+    background-color: #222;
     padding: 40px 0;
     text-align: center;
 }
@@ -134,7 +133,7 @@ nav {
 .train h1 {
     font-size: 2.5em;
     margin-bottom: 30px;
-    color: #333;
+    color: white;
 }
 
 .train-container {
@@ -147,9 +146,9 @@ nav {
 }
 
 .skill {
-    flex: 1;  
+    flex: 1;
     min-width: 300px;
-    max-width: 350px; 
+    max-width: 350px;
     height: 350px;
     display: flex;
     flex-direction: column;
@@ -202,11 +201,199 @@ nav {
     background-image: url("images/defend.jpg");
 }
 
+.benefits {
+    background: #111; 
+    color: white; 
+    text-align: center;
+    padding: 50px 10%;
+}
+
+.benefits h1 {
+    font-size: 2.5rem;
+    text-transform: uppercase; 
+    letter-spacing: 2px;
+    margin-bottom: 20px;
+    color: #f4f4f4;
+}
+
+.benefits-container {
+    display: flex;
+    justify-content: center;
+    gap: 30px;
+    flex-wrap: wrap;
+    max-width: 90%;
+    margin: auto;
+}
+
+.benefit {
+    background: rgba(255, 255, 255, 0.1); 
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5);
+    width: 300px;
+    text-align: center;
+    transition: transform 0.3s ease-in-out, background 0.3s ease-in-out;
+    margin: 15px;
+}
+
+.benefit:hover {
+    background: rgba(255, 255, 255, 0.2); 
+    transform: scale(1.05); 
+}
+
+.benefit h2 {
+    font-size: 1.5rem;
+    margin-bottom: 10px;
+    color: #fff;
+}
+
+.benefit p {
+    font-size: 1rem;
+    color: #ddd;
+    line-height: 1.5;
+}
+
+.myself {
+    background-color: #222;
+    color: white;
+    padding: 50px 10%;
+}
+
+.myself-container {
+    display: flex;
+    align-items: center;
+    gap: 30px;
+}
+
+.myself-image img {
+    width: 300px;
+    height: auto;
+    border-radius: 10px;
+}
+
+.myself-text {
+    max-width: 500px;
+}
+
+.myself-text h1 {
+    font-size: 2rem;
+    margin-bottom: 10px;
+}
+
+.myself-text p {
+    font-size: 1.2rem;
+    line-height: 1.5;
+}
+
+.signup {
+    background-color: #111;
+    color: white;
+    padding: 60px 20px;
+    text-align: center;
+}
+
+.signup h1 {
+    padding-bottom: 15px;
+}
+
+.signup form{
+    max-width: 500px;
+    margin: auto;
+    padding: 20px;
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 10px;
+}
+
+.signup input, .signup select {
+    width:100%;
+    padding: 12px;
+    margin:10px 0;
+    border: 2px solid #3498db;
+    border-radius: 5px;
+    background:#222;
+    color:white;
+    font-size: 1rem;
+}
+
+.signup label {
+    display: block;
+    font-weight: bold;
+    margin-top: 15px;
+    color:#f4f4f4;
+    text-align: left;
+}
+
+.signup button {
+    width: 100%;
+    padding: 12px;
+    margin-top: 20px;
+    border:none;
+    border-radius: 5px;
+    background: #16cb2b;
+    font-size: 1.2rem;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background 0.3s ease-in-out;
+}
+
+.signup button:hover {
+    background: #04a40c
+}
+
+footer {
+    background: #161616;
+    padding: 40px 0;
+    color:white;
+}
+
+.footer-container { 
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    max-width: 1200px;
+    margin: auto;
+    padding: 20px;
+    flex-wrap: wrap;
+}
+
+.footer-logo img {
+    max-width: 150px;
+}
+
+.footer-links h2{
+    font-size: 1.5rem;
+    text-decoration: underline;
+    margin-bottom: 10px;
+}
+
+.footer-links ul, .footer-contact ul {
+    list-style: none;
+    padding: 0;
+}
+
+.footer-links ul li, .footer-contact ul li {
+    margin: 5px 0;
+}
+
+.footer-links a, .footer-contact a{
+    text-decoration: none;
+    color: white;
+    font-size: 1rem;
+    transition: color 0.3s ease-in-out;
+}
+
+.footer-links a:hover, .footer-contact a:hover {
+    color: #3498db;
+}
+
+.footer-contact h2 {
+    font-size: 1.5rem;
+    text-decoration: underline;
+    margin-bottom: 10px;
+}
+
 .hamburger {
     display: none;
-    font-size: 30px;
-    cursor: pointer;
-    color: white;
 }
 
 @media (max-width: 768px) {
@@ -220,7 +407,6 @@ nav {
         max-width: 80%;
     }
 
-    /* Hide Navigation Links Initially */
     .nav-links {
         display: none;
         flex-direction: column;
@@ -242,6 +428,10 @@ nav {
         margin: 15px 0;
     }
 
+    .hamburger {
+        display: block;
+    }
+
     /* Show Hamburger Menu */
     .hamburger {
         display: block;
@@ -259,35 +449,40 @@ nav {
         align-items: center;
     }
 
-    .benefits-left, .beneifts-right {
+    .benefit {
+        width: 90%;
+        margin-bottom: 20px;
+    }
+
+    .benefits-left,
+    .benefits-right {
         width: 90%;
     }
-}
 
-.benefits {
-    text-align: center;
-    padding: 50px 20px;
-    background-color: #f4f4f4;
-}
+    .myself-container {
+        flex-direction: column;
+        text-align: center;
+    }
 
-.benefits-container {
-    display: flex;
-    justify-content: center;
-    gap: 40px;
-    flex-wrap: wrap;
-    max-width: 90%;
-    margin: 0 auto;
-}
+    .myself-image {
+        width: 80%;
+    }
 
-.benefits-left, .beneifts-right {
-    width: 45%;
-}
+    .signup form {
+        width: 90%
+    }
 
-.benefit {
-    background: white;
-    padding: 20px;
-    border-radius: 10px;
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-    margin-bottom: 20px;
-    text-align: left;
+    .footer-container {
+        flex-direction: column;
+        text-align: center;
+    }
+
+    .footer-logo img {
+        margin-bottom: 20px;
+    }
+
+    .footerlinks ul, .footer-contact ul {
+        padding: 0;
+    }
+
 }
