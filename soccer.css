@@ -1,0 +1,919 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: Arial, sans-serif;
+}
+
+body {
+    background-color: #f4f4f4;
+}
+
+nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 15px 20px;
+    background: rgba(0, 0, 0, 0.8);
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    color: white;
+    z-index: 1000;
+}
+
+.logo img {
+    max-height: 50px;
+    width: auto;
+}
+
+.nav-links {
+    list-style: none;
+    display: flex;
+}
+
+.nav-links li {
+    margin: 0 15px;
+}
+
+.nav-links a {
+    text-decoration: none;
+    color: white;
+    font-size: 18px;
+    transition: color 0.3s ease-in-out;
+}
+
+.nav-links a:hover {
+    color: #3498db;
+}
+
+.hero {
+    position: relative;
+    width: 100%;
+    height: 100vh;
+    background: url("images/trainingOne.jpg") no-repeat center center/cover;
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    padding-left: 5%;
+    overflow: hidden;
+}
+
+/* overlay */
+.hero::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5);
+}
+
+/* text above overlay */
+.hero-content {
+    position: relative;
+    max-width: 50%;
+    color: white;
+    text-align: left;
+    z-index: 1;
+}
+
+.hero-content h1 {
+    font-size: 5rem;
+    margin-bottom: 5px;
+}
+
+.hero-content p {
+    font-size: 1.5rem;
+    line-height: 1.5;
+    max-width: 90%;
+}
+
+.hero-buttons {
+    margin-top: 20px;
+}
+
+.hero-buttons a {
+    display: inline-block;
+    padding: 10px 20px;
+    margin-right: 10px;
+    text-decoration: none;
+    color: white;
+    font-weight: bold;
+    border-radius: 5px;
+    transition: background 0.3s ease-in-out, transform 0.2s ease-in-out;
+}
+
+.learn-more {
+    background: #3498db;
+}
+
+.learn-more:hover {
+    background: #2980b9;
+    transform: scale(1.05);
+}
+
+.book-now {
+    background: #e74c3c;
+}
+
+.book-now:hover {
+    background: #c0392b;
+    transform: scale(1.05);
+}
+
+.train {
+    background-color: #222;
+    padding: 40px 0;
+    text-align: center;
+}
+
+.train h1 {
+    font-size: 2.5em;
+    margin-bottom: 30px;
+    color: white;
+}
+
+.train-container {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    flex-wrap: wrap;
+    max-width: 90%;
+    margin: 0 auto;
+}
+
+.skill {
+    flex: 1;
+    min-width: 300px;
+    max-width: 350px;
+    height: 350px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    background-size: cover;
+    background-position: center;
+    border-radius: 10px;
+    overflow: hidden;
+    padding: 20px;
+}
+
+.skill::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5);
+}
+
+.skill h2, .skill p {
+    position: relative;
+    color: white;
+    z-index: 10;
+    text-align: center;
+}
+
+.skill h2 {
+    font-size: 1.8em;
+    margin-bottom: 10px;
+}
+
+.skill p {
+    font-size: 1em;
+    width: 80%;
+}
+
+.skill.ball-control {
+    background-image: url("images/ballcontrol.jpeg");
+}
+
+.skill.shooting {
+    background-image: url("images/shooting.jpg");
+}
+
+.skill.defending {
+    background-image: url("images/defend.jpg");
+}
+
+.benefits {
+    background: #111; 
+    color: white; 
+    text-align: center;
+    padding: 50px 10%;
+}
+
+.benefits h1 {
+    font-size: 2.5rem;
+    text-transform: uppercase; 
+    letter-spacing: 2px;
+    margin-bottom: 20px;
+    color: #f4f4f4;
+}
+
+.benefits-container {
+    display: flex;
+    justify-content: center;
+    gap: 30px;
+    flex-wrap: wrap;
+    max-width: 90%;
+    margin: auto;
+}
+
+.benefit {
+    background: rgba(255, 255, 255, 0.1); 
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5);
+    width: 300px;
+    text-align: center;
+    transition: transform 0.3s ease-in-out, background 0.3s ease-in-out;
+    margin: 15px;
+}
+
+.benefit:hover {
+    background: rgba(255, 255, 255, 0.2); 
+    transform: scale(1.05); 
+}
+
+.benefit h2 {
+    font-size: 1.5rem;
+    margin-bottom: 10px;
+    color: #fff;
+}
+
+.benefit p {
+    font-size: 1rem;
+    color: #ddd;
+    line-height: 1.5;
+}
+
+.myself {
+    background-color: #222;
+    color: white;
+    padding: 50px 10%;
+}
+
+.myself-container {
+    display: flex;
+    align-items: center;
+    gap: 30px;
+}
+
+.myself-image img {
+    width: 300px;
+    height: auto;
+    border-radius: 10px;
+}
+
+.myself-text {
+    max-width: 500px;
+}
+
+.myself-text h1 {
+    font-size: 2rem;
+    margin-bottom: 10px;
+}
+
+.myself-text p {
+    font-size: 1.2rem;
+    line-height: 1.5;
+}
+
+.signup {
+    background-color: #111;
+    color: white;
+    padding: 60px 20px;
+    text-align: center;
+}
+
+.signup h1 {
+    padding-bottom: 15px;
+}
+
+.signup form{
+    max-width: 500px;
+    margin: auto;
+    padding: 20px;
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 10px;
+}
+
+.signup input, .signup select {
+    width:100%;
+    padding: 12px;
+    margin:10px 0;
+    border: 2px solid #3498db;
+    border-radius: 5px;
+    background:#222;
+    color:white;
+    font-size: 1rem;
+}
+
+.signup label {
+    display: block;
+    font-weight: bold;
+    margin-top: 15px;
+    color:#f4f4f4;
+    text-align: left;
+}
+
+.signup button {
+    width: 100%;
+    padding: 12px;
+    margin-top: 20px;
+    border:none;
+    border-radius: 5px;
+    background: #16cb2b;
+    font-size: 1.2rem;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background 0.3s ease-in-out;
+}
+
+.signup button:hover {
+    background: #04a40c
+}
+
+footer {
+    background: #161616;
+    padding: 40px 0;
+    color:white;
+}
+
+.footer-container { 
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    max-width: 1200px;
+    margin: auto;
+    padding: 20px;
+    flex-wrap: wrap;
+}
+
+.footer-logo img {
+    max-width: 150px;
+}
+
+.footer-links h2{
+    font-size: 1.5rem;
+    text-decoration: underline;
+    margin-bottom: 10px;
+}
+
+.footer-links ul, .footer-contact ul {
+    list-style: none;
+    padding: 0;
+}
+
+.footer-links ul li, .footer-contact ul li {
+    margin: 5px 0;
+}
+
+.footer-links a, .footer-contact a{
+    text-decoration: none;
+    color: white;
+    font-size: 1rem;
+    transition: color 0.3s ease-in-out;
+}
+
+.footer-links a:hover, .footer-contact a:hover {
+    color: #3498db;
+}
+
+.footer-contact h2 {
+    font-size: 1.5rem;
+    text-decoration: underline;
+    margin-bottom: 10px;
+}
+
+.training-intro {
+    background: #111;
+    color: white;
+    text-align: center;
+    padding: 100px 10% 60px;
+    margin-top: 80px;
+}
+
+.training-intro-content {
+    max-width: 800px;
+    margin: auto;
+}
+
+.training-intro h1 {
+    font-size: 2.5rem;
+    text-transform:uppercase;
+    letter-spacing: 2px;
+    margin-bottom: 20px;
+    color:#f4f4f4;
+}
+
+.training-intro h2 {
+    font-size: 1.8rem;
+    margin-top: 30px;
+    color: #f4f4f4;
+}
+
+.training-intro p {
+    font-size: 1.2rem;
+    line-height: 1.6;
+    color: #ddd
+}
+
+.drill-section {
+    background: #222;
+    color: white;
+    text-align: center;
+    padding: 60px 10%;
+}
+
+.drill-title {
+    font-size: 2.5rem;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    margin-bottom: 30px;
+    color: #f4f4f4
+}
+
+.phase {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 30px;
+    max-width: 1200px;
+    margin:auto;
+    padding: 20px 0;
+}
+
+.phase-image img {
+    width: 350px;
+    height: auto;
+    border-radius: 10px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5);
+}
+
+.phase-text h2 {
+    font-size: 1.8rem;
+    margin-bottom: 10px;
+    color: #f4f4f4;
+}
+
+.phase-text p {
+    font-size: 1.2rem;
+    line-height: 1.6rem;
+    color: #ddd
+}
+
+.about-us, .qualifications {
+    background: linear-gradient(to bottom, #000000, #111111); 
+    color: white;
+    padding: 120px 10% 60px; 
+    margin-top: 100px; 
+}
+
+.about-us h1, .qualifications h1 {
+    font-size: 2.5rem;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    text-align: center;
+    color: #f4f4f4;
+    margin-bottom: 40px;
+    position: relative;
+}
+
+.about-us h1::after, .qualifications h1::after {
+    content: "";
+    width: 120px;
+    height: 4px;
+    background-color: #e74c3c; 
+    position: absolute;
+    bottom: -10px;
+    left: 50%;
+    transform: translateX(-50%);
+}
+
+.about-container, .qualifications-container {
+    display: flex;
+    align-items: center;
+    gap: 40px;
+    max-width: 1000px;
+    margin: auto;
+    padding: 20px 0;
+}
+
+.intro-image img, .license-image img {
+    width: 350px;
+    height: auto;
+    border-radius: 10px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5);
+}
+
+.intro-text, .qual-text, .future-text {
+    color: white;
+    font-size: 1.2rem;
+    line-height: 1.6;
+    max-width: 600px;
+}
+
+.pricing {
+    text-align: center;
+    padding: 80px 10%;
+    background: linear-gradient(to bottom, #0d0d0d, #1a1a1a);
+    color: white;
+}
+
+.pricing-table {
+    width: 100%;
+    max-width: 600px;
+    margin: auto;
+    border-collapse: collapse;
+}
+
+.pricing-table th {
+    background: #e74c3c;
+    color: white;
+    font-size: 1.5rem;
+    padding: 15px;
+    border-bottom: 3px solid white;
+}
+
+.pricing-table td {
+    font-size: 1.3rem;
+    padding: 12px;
+    border-bottom: 1px solid #ddd;
+}
+
+.fine-print {
+    font-size: 0.9rem;
+    color: #bbb;
+}
+
+.session-info {
+    font-size: 1rem;
+    margin-top: 10px;
+    color: #f4f4f4;
+    font-style: italic;
+}
+
+.contact-form {
+    text-align: center;
+    padding: 140px 10% 60px; 
+    background: linear-gradient(to bottom, #0d0d0d, #1a1a1a);
+    color: white;
+}
+
+.contact-form h1 {
+    font-size: 2.5rem;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    margin-bottom: 30px;
+    color: #f4f4f4;
+}
+
+.contact-form form {
+    max-width: 500px;
+    margin: auto;
+}
+
+.form-group {
+    margin-bottom: 20px;
+    text-align: left;
+}
+
+.form-group label {
+    display: block;
+    font-size: 1.2rem;
+    margin-bottom: 5px;
+    color: #f4f4f4;
+}
+
+.form-group input, .form-group textarea {
+    width: 100%;
+    padding: 10px;
+    border: 2px solid #3498db;
+    border-radius: 5px;
+    font-size: 1.1rem;
+    background: #222;
+    color: white;
+}
+
+.form-group textarea {
+    resize: vertical;
+}
+
+button[type="submit"] {
+    background: #16cb2b;
+    color: white;
+    border: none;
+    padding: 12px 20px;
+    font-size: 1.2rem;
+    font-weight: bold;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background 0.3s ease-in-out;
+}
+
+button[type="submit"]:hover {
+    background: #04a40c
+}
+
+.schedule {
+    text-align: center;
+    padding: 80px 10% 40px;
+    background: linear-gradient(to bottom, #0d0d0d, #1a1a1a);
+    color: white;
+}
+
+.schedule h1 {
+    font-size: 2.5rem;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    margin-bottom: 20px;
+    color: #f4f4f4;
+}
+
+.calendar-container {
+    max-width: 800px;
+    margin: auto;
+    padding-bottom: 20px;
+}
+
+.calendar-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.calendar-header button {
+    background: #e74c3c;
+    color: white;
+    border: none;
+    padding: 10px;
+    font-size: 1.2rem;
+    cursor: pointer;
+    border-radius: 5px;
+}
+
+.calendar-header h2 {
+    font-size: 1.5rem;
+}
+
+.calendar-grid {
+    display: flex;
+    flex-direction: column;
+    background: #222;
+    padding: 10px;
+    border-radius: 10px;
+}
+
+.calendar-days {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    font-size: 1rem;
+    font-weight: bold;
+    padding-bottom: 5px;
+}
+
+#calendar-dates {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    gap: 5px;
+    min-height: auto;
+}
+
+.date, .empty {
+    background: #333;
+    color: white;
+    padding: 15px;
+    border-radius: 5px;
+    text-align: center;
+}
+
+.today {
+    background: #e74c3c;
+}
+
+.event {
+    background: #ffcc00;
+    color: black;
+    padding: 3px;
+    font-size: 0.8rem;
+    border-radius: 3px;
+}
+
+.filler-section {
+    height: 200px;
+    background: linear-gradient(to bottom, #0d0d0d, #1a1a1a);
+}
+
+.hamburger {
+    display: none;
+}
+
+@media (max-width: 768px) {
+    .hero {
+        justify-content: center;
+        text-align: center;
+        padding-left: 0;
+    }
+
+    .hero-content {
+        max-width: 80%;
+    }
+
+    .nav-links {
+        display: none;
+        flex-direction: column;
+        background: rgba(0, 0, 0, 0.9);
+        position: absolute;
+        top: 60px;
+        left: 0;
+        width: 100%;
+        text-align: center;
+        padding: 10px 0;
+        transition: all 0.3s ease-in-out;
+    }
+
+    .nav-links.active {
+        display: flex;
+    }
+
+    .nav-links li {
+        margin: 15px 0;
+    }
+
+    .hamburger {
+        display: block;
+    }
+
+    /* Show Hamburger Menu */
+    .hamburger {
+        display: block;
+        font-size: 30px;
+        cursor: pointer;
+        color: white;
+        position: absolute;
+        top: 20px;
+        right: 20px;
+        z-index: 1100;
+    }
+
+    .benefits-container {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .benefit {
+        width: 90%;
+        margin-bottom: 20px;
+    }
+
+    .benefits-left,
+    .benefits-right {
+        width: 90%;
+    }
+
+    .myself-container {
+        flex-direction: column;
+        text-align: center;
+    }
+
+    .myself-image {
+        width: 80%;
+    }
+
+    .signup form {
+        width: 90%
+    }
+
+    .footer-container {
+        flex-direction: column;
+        text-align: center;
+    }
+
+    .footer-logo img {
+        margin-bottom: 20px;
+    }
+
+    .footerlinks ul, .footer-contact ul {
+        padding: 0;
+    }
+
+    .training-intro {
+        padding: 80px 5% 40px;
+    }
+
+    .training-intro-content {
+        max-width: 100%;
+    }
+
+    .training-intro h1{
+        font-size: 2rem;
+    }
+
+    .training-intro h2 {
+        font-size: 1.5rem;
+    }
+
+    .training-intro p{
+        font-size: 1rem;
+    }
+
+    .phase {
+        flex-direction:column;
+        text-align: center;
+    }
+
+    .phase-image img {
+        width: 80%;
+    }
+
+    .about-container, .qualifications-container {
+        flex-direction: column;
+        align-items: center; 
+        margin-bottom: 60px; 
+    }
+
+    .intro-image img, .license-image img {
+        width: 80%;
+        max-width: 350px; 
+    }
+
+    .intro-text, .qual-text, .future-text {
+        text-align: center; 
+        max-width: 90%; 
+        padding: 10px; 
+    }
+
+    .pricing-table {
+        width: 100%;
+        max-width: 90%;
+    }
+
+    .pricing-table th, .pricing-table td {
+        font-size: 1rem;
+        padding: 10px;
+    }
+
+    .fine-print {
+        font-size: 0.8rem;
+    }
+
+    .contact-form {
+        padding: 160px 5% 40px;
+    }
+
+    .contact-form form{
+        max-width: 90%;
+    }
+
+    .form-group input, .form-group textarea {
+        font-size: 1rem;
+    }
+
+    .schedule {
+        padding: 80px 5%;
+    }
+
+    .calendar-container {
+        max-width: 100%;
+    }
+
+    .calendar-header {
+        flex-direction: column;
+        gap: 10px;
+    }
+
+    .calendar-header button {
+        padding: 8px;
+        font-size: 1rem;
+    }
+
+    .calendar-header h2 {
+        font-size: 1.3rem;
+    }
+
+    .calendar-days {
+        font-size: 0.9rem;
+    }
+
+    #calendar-dates {
+        gap: 3px;
+    }
+
+    .date, .empty {
+        padding: 10px;
+        font-size: 0.9rem;
+    }
+
+    .event {
+        font-size: 0.7rem;
+        padding: 2px;
+    }
+}
