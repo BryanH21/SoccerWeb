@@ -190,7 +190,7 @@ nav {
 }
 
 .skill.ball-control {
-    background-image: url("images/ballcontrol.jpg");
+    background-image: url("images/ballcontrol.jpeg");
 }
 
 .skill.shooting {
@@ -560,6 +560,158 @@ footer {
     font-style: italic;
 }
 
+.contact-form {
+    text-align: center;
+    padding: 140px 10% 60px; 
+    background: linear-gradient(to bottom, #0d0d0d, #1a1a1a);
+    color: white;
+}
+
+.contact-form h1 {
+    font-size: 2.5rem;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    margin-bottom: 30px;
+    color: #f4f4f4;
+}
+
+.contact-form form {
+    max-width: 500px;
+    margin: auto;
+}
+
+.form-group {
+    margin-bottom: 20px;
+    text-align: left;
+}
+
+.form-group label {
+    display: block;
+    font-size: 1.2rem;
+    margin-bottom: 5px;
+    color: #f4f4f4;
+}
+
+.form-group input, .form-group textarea {
+    width: 100%;
+    padding: 10px;
+    border: 2px solid #3498db;
+    border-radius: 5px;
+    font-size: 1.1rem;
+    background: #222;
+    color: white;
+}
+
+.form-group textarea {
+    resize: vertical;
+}
+
+button[type="submit"] {
+    background: #16cb2b;
+    color: white;
+    border: none;
+    padding: 12px 20px;
+    font-size: 1.2rem;
+    font-weight: bold;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background 0.3s ease-in-out;
+}
+
+button[type="submit"]:hover {
+    background: #04a40c
+}
+
+.schedule {
+    text-align: center;
+    padding: 80px 10% 40px;
+    background: linear-gradient(to bottom, #0d0d0d, #1a1a1a);
+    color: white;
+}
+
+.schedule h1 {
+    font-size: 2.5rem;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    margin-bottom: 20px;
+    color: #f4f4f4;
+}
+
+.calendar-container {
+    max-width: 800px;
+    margin: auto;
+    padding-bottom: 20px;
+}
+
+.calendar-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.calendar-header button {
+    background: #e74c3c;
+    color: white;
+    border: none;
+    padding: 10px;
+    font-size: 1.2rem;
+    cursor: pointer;
+    border-radius: 5px;
+}
+
+.calendar-header h2 {
+    font-size: 1.5rem;
+}
+
+.calendar-grid {
+    display: flex;
+    flex-direction: column;
+    background: #222;
+    padding: 10px;
+    border-radius: 10px;
+}
+
+.calendar-days {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    font-size: 1rem;
+    font-weight: bold;
+    padding-bottom: 5px;
+}
+
+#calendar-dates {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    gap: 5px;
+    min-height: auto;
+}
+
+.date, .empty {
+    background: #333;
+    color: white;
+    padding: 15px;
+    border-radius: 5px;
+    text-align: center;
+}
+
+.today {
+    background: #e74c3c;
+}
+
+.event {
+    background: #ffcc00;
+    color: black;
+    padding: 3px;
+    font-size: 0.8rem;
+    border-radius: 3px;
+}
+
+.filler-section {
+    height: 200px;
+    background: linear-gradient(to bottom, #0d0d0d, #1a1a1a);
+}
+
 .hamburger {
     display: none;
 }
@@ -711,5 +863,57 @@ footer {
 
     .fine-print {
         font-size: 0.8rem;
+    }
+
+    .contact-form {
+        padding: 160px 5% 40px;
+    }
+
+    .contact-form form{
+        max-width: 90%;
+    }
+
+    .form-group input, .form-group textarea {
+        font-size: 1rem;
+    }
+
+    .schedule {
+        padding: 80px 5%;
+    }
+
+    .calendar-container {
+        max-width: 100%;
+    }
+
+    .calendar-header {
+        flex-direction: column;
+        gap: 10px;
+    }
+
+    .calendar-header button {
+        padding: 8px;
+        font-size: 1rem;
+    }
+
+    .calendar-header h2 {
+        font-size: 1.3rem;
+    }
+
+    .calendar-days {
+        font-size: 0.9rem;
+    }
+
+    #calendar-dates {
+        gap: 3px;
+    }
+
+    .date, .empty {
+        padding: 10px;
+        font-size: 0.9rem;
+    }
+
+    .event {
+        font-size: 0.7rem;
+        padding: 2px;
     }
 }

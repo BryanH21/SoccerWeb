@@ -1,17 +1,18 @@
 <!DOCTYPE html>
 <html lang="en">
-    <head>
-        <meta charset="utf-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>Futbol Mentality | Training</title>
-        <link rel="stylesheet" href="soccer.css">
-        <script defer src="script.js/menu.js"></script>
-    </head>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Futbol Mentality | Schedule</title>
+    <link rel="stylesheet" href="soccer.css">
+    <script defer src="script.js/menu.js"></script>
+    <script defer src="script.js/calendar.js"></script>
+</head>
 <body>
     <nav>
         <div class="logo">
             <a href="index.html">
-            <img src="images/logo.png" alt="Futbol Mentality Logo">
+                <img src="images/logo.png" alt="Futbol Mentality Logo">
             </a>
         </div>
 
@@ -26,3 +27,24 @@
             <li><a href="contactus.html">Contact Us</a></li>
         </ul>
     </nav>
+
+    <section class="schedule">
+        <h1>Training Schedule</h1>
+
+        <div class="calendar-container">
+            <div class="calendar-header">
+                <button id="prev-month">&lt;</button>
+                <h2 id="current-month-year"></h2>
+                <button id="next-month">&gt;</button>
+            </div>
+            <div class="calendar-grid">
+                <div class="calendar-days">
+                    <span>Sun</span><span>Mon</span><span>Tue</span><span>Wed</span><span>Thu</span><span>Fri</span><span>Sat</span>
+                </div>
+                <div id="calendar-dates"></div>
+            </div>
+        </div>
+    </section>
+    <section class="filler-section"></section>
+</body>
+</html>
