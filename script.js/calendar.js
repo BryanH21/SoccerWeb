@@ -9,7 +9,7 @@ document.addEventListener("DOMContentLoaded", function () {
     let currentYear = today.getFullYear();
 
     function generateCalendar(month, year) {
-        calendarDates.innerHTML = ""; 
+        calendarDates.innerHTML = "";
         currentMonthYear.textContent = `${getMonthName(month)} ${year}`;
 
         let firstDay = new Date(year, month, 1).getDay();
@@ -30,20 +30,25 @@ document.addEventListener("DOMContentLoaded", function () {
             eventList.classList.add("event-list");
             dateCell.appendChild(eventList);
 
-            // Highlight today's date
-            if (year === today.getFullYear() && month === today.getMonth() && day === today.getDate()) {
+            if (
+                year === today.getFullYear() &&
+                month === today.getMonth() &&
+                day === today.getDate()
+            ) {
                 dateCell.classList.add("today");
             }
 
             calendarDates.appendChild(dateCell);
         }
 
-        // Load pre-set training events
         loadEvents();
     }
 
     function getMonthName(month) {
-        return ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"][month];
+        return [
+            "January", "February", "March", "April", "May", "June",
+            "July", "August", "September", "October", "November", "December"
+        ][month];
     }
 
     prevMonthBtn.addEventListener("click", () => {
@@ -67,9 +72,11 @@ document.addEventListener("DOMContentLoaded", function () {
     });
 
     function addEvent(monthIndex, day, text) {
+        if (monthIndex !== currentMonth) return;
+
         const eventDiv = document.createElement("div");
         eventDiv.classList.add("event");
-        eventDiv.textContent = text;
+        eventDiv.innerHTML = `${text} <br><a href="https://www.google.com/maps/place/8501+E+196th+St,+Noblesville,+IN+46062" target="_blank" style="color: #3498db;">Directions</a>`;
 
         const days = document.querySelectorAll("#calendar-dates .date");
         days.forEach(d => {
@@ -80,10 +87,19 @@ document.addEventListener("DOMContentLoaded", function () {
     }
 
     function loadEvents() {
-        // Add training sessions (modify these as needed)
-        addEvent(3, 10, "Training - 6:00 PM - Field A"); // April 10
-        addEvent(5, 5, "Training - 5:30 PM - Field A"); // June 5
-        addEvent(7, 15, "Training - 4:00 PM - Field B"); // August 15
+        if (currentMonth >= 3 && currentMonth <= 9) { // April to October
+            const daysInMonth = new Date(currentYear, currentMonth + 1, 0).getDate();
+
+            for (let day = 1; day <= daysInMonth; day++) {
+                const date = new Date(currentYear, currentMonth, day);
+                const weekday = date.getDay(); // 0 = Sun, 1 = Mon, ..., 6 = Sat
+
+                if ([1, 2, 4].includes(weekday)) { // Mon, Tues, Thurs
+                    const label = `Training: 5:20PM–6:20PM<br>Location: NUSC Fields`;
+                    addEvent(currentMonth, day, label);
+                }
+            }
+        }
     }
 
     generateCalendar(currentMonth, currentYear);

@@ -28,22 +28,56 @@
     </nav>
 
     <section class="pricing">
-        <h1>Pricing Options</h1>
-        <table class="pricing-table">
+        <h1>Program Plans</h1>
+        <table class="pricing-table green-pricing">
             <tr>
-                <th>Session Type</th>
+                <th>Plan</th>
                 <th>Price</th>
             </tr>
             <tr>
-                <td>Per Session</td>
-                <td>$20</td>
+                <td>1 Month Access</td>
+                <td>$150</td>
             </tr>
             <tr>
-                <td>10 Sessions</td>
-                <td>$150 <br> <span class="fine-print">(Must be used within two months)</span></td>
+                <td>Season Pass (April–October)</td>
+                <td>$900 <br> <span class="fine-print">Includes 1 FREE Month</span></td>
+            </tr>
+            <tr>
+                <td>Winter Pass (November–March)</td>
+                <td>$500</td>
             </tr>
         </table>
-        <p class="session-info">*One session equals one hour.</p>
+        <p class="session-info">All plans include <strong>1 session per week</strong>.</p>
+        <p class="session-info"><strong>Select between Monday, Tuesday, or Thursday</strong>.</p>
+    </section>
+
+    <section class="info-section">
+        <h2>Important Pricing Info</h2>
+        <p>Program pricing will vary depending on <strong>when you join</strong>.</p>
+        <p>For example, if you join in <strong>June</strong> and choose the <strong>Season Pass</strong>, your total would be:</p>
+        <p class="formula">$150 × (Remaining months in season) <strong>minus one free month</strong></p>
+    </section>
+
+    <section class="pricing">
+        <h1>Referral Program</h1>
+        <table class="pricing-table green-pricing">
+            <tr>
+                <th>Referrals</th>
+                <th>Reward</th>
+            </tr>
+            <tr>
+                <td>1 Referral</td>
+                <td>1 Month of Training FREE</td>
+            </tr>
+            <tr>
+                <td>2 Referrals</td>
+                <td>2 Months FREE</td>
+            </tr>
+            <tr>
+                <td>3+ Referrals</td>
+                <td>Earn back the full Season Pass!</td>
+            </tr>
+        </table>
     </section>
 
     <section class="signup">
@@ -84,9 +118,53 @@
                     <option value="forward">Forward</option>
                 </select>
             </div>
+
+            <div class="form-group">
+                <label for="pass-selected">What pass have you selected?</label>
+                <select id="pass-selected" name="pass-selected" required>
+                    <option value="">Select a Pass</option>
+                    <option value="1 Month Access">1 Month Access</option>
+                    <option value="Season Pass (April–October)">Season Pass (April–October)</option>
+                    <option value="Winter Pass (November–March)">Winter Pass (November–March)</option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label for="heard-from">Where did you hear about us?</label>
+                <select id="heard-from" name="heard-from" required>
+                    <option value="">Select an option</option>
+                    <option value="Facebook">Facebook</option>
+                    <option value="Yard Sign">Yard Sign</option>
+                    <option value="Murphy's">Murphy's</option>
+                    <option value="Instagram">Instagram</option>
+                    <option value="NextDoor">NextDoor</option>
+                    <option value="Referral">Referral</option>
+                </select>
+            </div>
+            
+            <div class="form-group" id="referral-name-group" style="display: none;">
+                <label for="referral-name">Who referred you?</label>
+                <input type="text" id="referral-name" name="referral-name">
+            </div>
     
             <button type="submit">Sign Up</button>
         </form>
     </section>
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            const heardFrom = document.getElementById("heard-from");
+            const referralGroup = document.getElementById("referral-name-group");
+        
+            heardFrom.addEventListener("change", function () {
+                if (this.value === "Referral") {
+                    referralGroup.style.display = "block";
+                    document.getElementById("referral-name").required = true;
+                } else {
+                    referralGroup.style.display = "none";
+                    document.getElementById("referral-name").required = false;
+                }
+            });
+        });
+        </script>
 </body>
 </html>

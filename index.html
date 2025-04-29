@@ -30,11 +30,12 @@
         <div class="hero-content">
             <h1>Learning to Play Just Got Easy</h1>
             <p> Soccer is a sport that requires a high level of understanding and skill, 
-                learn to master these elements to reach the highest level of your game!
+                learn to master these elements to reach the highest level of your game! Join our 
+                program and watch as your player transforms in their technical skills and mentality.
             </p>
             <div class="hero-buttons">
-                <a href="trainings.html" class="learn-more">Learn More</a>
-                <a href="booknow.html" class="book-now">Book Now</a>
+                <a href="https://www.facebook.com/profile.php?id=61574597385375" class="learn-more" target="_blank" rel="noopener noreferrer">Our Facebook</a>
+                <a href="booknow.html" class="book-now">Sign Up Now</a>
             </div>
         </div>
     </section>
@@ -163,10 +164,54 @@
                     <option value="forward">Forward</option>
                 </select>
             </div>
+
+            <div class="form-group">
+                <label for="pass-selected">What pass have you selected?</label>
+                <select id="pass-selected" name="pass-selected" required>
+                    <option value="">Select a Pass</option>
+                    <option value="1 Month Access">1 Month Access</option>
+                    <option value="Season Pass (April–October)">Season Pass (April–October)</option>
+                    <option value="Winter Pass (November–March)">Winter Pass (November–March)</option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label for="heard-from">Where did you hear about us?</label>
+                <select id="heard-from" name="heard-from" required>
+                    <option value="">Select an option</option>
+                    <option value="Facebook">Facebook</option>
+                    <option value="Yard Sign">Yard Sign</option>
+                    <option value="Murphy's">Murphy's</option>
+                    <option value="Instagram">Instagram</option>
+                    <option value="NextDoor">NextDoor</option>
+                    <option value="Referral">Referral</option>
+                </select>
+            </div>
+            
+            <div class="form-group" id="referral-name-group" style="display: none;">
+                <label for="referral-name">Who referred you?</label>
+                <input type="text" id="referral-name" name="referral-name">
+            </div>
     
             <button type="submit">Sign Up</button>
         </form>
-    </section> 
+    </section>
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            const heardFrom = document.getElementById("heard-from");
+            const referralGroup = document.getElementById("referral-name-group");
+        
+            heardFrom.addEventListener("change", function () {
+                if (this.value === "Referral") {
+                    referralGroup.style.display = "block";
+                    document.getElementById("referral-name").required = true;
+                } else {
+                    referralGroup.style.display = "none";
+                    document.getElementById("referral-name").required = false;
+                }
+            });
+        });
+        </script>
 
 <footer>
     <div class="footer-container">
@@ -189,9 +234,8 @@
         <div class="footer-contact">
             <h2>Additional Contacts</h2>
             <ul>
-                <li><a href="https://www.facebook.com/coach.bryan.hernandez" target="_blank">Facebook</a></li>
+                <a href="https://www.facebook.com/profile.php?id=61574597385375" target="_blank" rel="noopener noreferrer">Facebook</a>
                 <li><a href="mailto:officialfutbolmentality@gmail.com">Email: officialfutbolmentality@gmail.com</a></li>
-                <li><a href="https://band.us/@futbolmentality" target="_blank">Join Our Band Group</a></li>
             </ul>
         </div>
     </div>
