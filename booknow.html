@@ -3,15 +3,23 @@
     <head>
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>Futbol Mentality | Book Now</title>
+        <title>Foundry Soccer Academy | Book Now</title>
         <link rel="stylesheet" href="soccer.css">
         <script defer src="script.js/menu.js"></script>
+        <style>
+            button[type="submit"] {
+                margin-bottom: 1em;
+            }
+            .disclaimer {
+                margin-top: 0;
+            }
+        </style>
     </head>
 <body>
     <nav>
         <div class="logo">
             <a href="index.html">
-            <img src="images/logo.png" alt="Futbol Mentality Logo">
+            <img src="images/logo.png" alt="Foundry Soccer Academy Logo">
             </a>
         </div>
 
@@ -22,11 +30,11 @@
             <li><a href="trainings.html">Training</a></li>
             <li><a href="aboutcoach.html">About Coach</a></li>
             <li><a href="dates.html">Schedule</a></li>
-            <li><a href="booknow.html">Book Now</a></li>
+            <li><a href="booknow.html">Sign Up Now</a></li>
             <li><a href="contactus.html">Contact Us</a></li>
         </ul>
     </nav>
-
+    <main>
     <section class="pricing">
         <h1>Program Plans</h1>
         <table class="pricing-table green-pricing">
@@ -36,19 +44,19 @@
             </tr>
             <tr>
                 <td>1 Month Access</td>
-                <td>$150</td>
+                <td>$200</td>
             </tr>
             <tr>
                 <td>Season Pass (April–October)</td>
-                <td>$900 <br> <span class="fine-print">Includes 1 FREE Month</span></td>
+                <td>$1200 <br> <span class="fine-print">Includes 1 FREE Month</span></td>
             </tr>
             <tr>
                 <td>Winter Pass (November–March)</td>
-                <td>$500</td>
+                <td>$800 <br> <span class="fine-print">Includes 1 FREE Month</span></td>
             </tr>
         </table>
-        <p class="session-info">All plans include <strong>1 session per week</strong>.</p>
-        <p class="session-info"><strong>Select between Monday, Tuesday, or Thursday</strong>.</p>
+        <p class="session-info"><strong>Outdoor plans include 2 sessions per week</strong>, while the Winter Pass includes only 1 session per week.</p>
+        <p class="session-info"><strong>Select between Tuesday or Thursday</strong>.</p>
     </section>
 
     <section class="info-section">
@@ -58,9 +66,10 @@
         <p class="formula">$150 × (Remaining months in season) <strong>minus one free month</strong></p>
     </section>
 
-    <section class="pricing">
-        <h1>Referral Program</h1>
-        <table class="pricing-table green-pricing">
+    <section class="referral-section">
+        <h2>Referral Program</h2>
+        <p>Looking to save on your training and help other players achieve their goals in soccer? Refer a friend and enjoy the benefits of our referral program!</p>
+        <table class="referral-table">
             <tr>
                 <th>Referrals</th>
                 <th>Reward</th>
@@ -78,37 +87,38 @@
                 <td>Earn back the full Season Pass!</td>
             </tr>
         </table>
+        <p class="referral-note">* Referred players must sign up for a pass for the referral to count.</p>
     </section>
 
     <section class="signup">
         <h1>Sign Up Now!</h1>
         <form action="https://formspree.io/f/mbldnnwk" method="POST">
-            <div class="form-group">
+            <div class="signup-group">
                 <label for="first-name">First Name</label>
                 <input type="text" id="first-name" name="first-name" required>
             </div>
     
-            <div class="form-group">
+            <div class="signup-group">
                 <label for="last-name">Last Name</label>
                 <input type="text" id="last-name" name="last-name" required>
             </div>
     
-            <div class="form-group">
+            <div class="signup-group">
                 <label for="email">Email</label>
                 <input type="email" id="email" name="email" required>
             </div>
     
-            <div class="form-group">
+            <div class="signup-group">
                 <label for="phone">Phone Number (Optional)</label>
                 <input type="tel" id="phone" name="phone">
             </div>
     
-            <div class="form-group">
+            <div class="signup-group">
                 <label for="player-name">Player Name</label>
                 <input type="text" id="player-name" name="player-name" required>
             </div>
     
-            <div class="form-group">
+            <div class="signup-group">
                 <label for="position">Player Position</label>
                 <select id="position" name="position" required>
                     <option value="">Select a Position</option>
@@ -119,7 +129,7 @@
                 </select>
             </div>
 
-            <div class="form-group">
+            <div class="signup-group">
                 <label for="pass-selected">What pass have you selected?</label>
                 <select id="pass-selected" name="pass-selected" required>
                     <option value="">Select a Pass</option>
@@ -129,7 +139,7 @@
                 </select>
             </div>
 
-            <div class="form-group">
+            <div class="signup-group">
                 <label for="heard-from">Where did you hear about us?</label>
                 <select id="heard-from" name="heard-from" required>
                     <option value="">Select an option</option>
@@ -142,14 +152,39 @@
                 </select>
             </div>
             
-            <div class="form-group" id="referral-name-group" style="display: none;">
+            <div class="signup-group" id="referral-name-group" style="display: none;">
                 <label for="referral-name">Who referred you?</label>
                 <input type="text" id="referral-name" name="referral-name">
+            </div>
+
+            <div class="signup-group">
+                <label for="meeting-time">Schedule 1 on 1 Meeting</label>
+                <input type="datetime-local" id="meeting-time" name="meeting-time" required>
             </div>
     
             <button type="submit">Sign Up</button>
         </form>
+        <p class="disclaimer"><strong>Disclaimer:</strong> Submitting this form does not guarantee enrollment in the program. After submission, you will be contacted to schedule a one-on-one meeting where we will determine if the program is the right fit for you and your player.</p>
     </section>
+    </main>
+    <footer>
+        <div class="footer-container">
+            <div class="footer-logo">
+                <img src="images/logo.png" alt="Foundry Soccer Academy Logo">
+            </div>
+            <div class="footer-links">
+                <h2>Quick Links</h2>
+                <ul>
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="trainings.html">Training</a></li>
+                    <li><a href="aboutcoach.html">About Coach</a></li>
+                    <li><a href="dates.html">Schedule</a></li>
+                    <li><a href="booknow.html">Sign Up Now</a></li>
+                    <li><a href="contactus.html">Contact Us</a></li>
+                </ul>
+            </div>
+        </div>
+    </footer>
     <script>
         document.addEventListener("DOMContentLoaded", function () {
             const heardFrom = document.getElementById("heard-from");

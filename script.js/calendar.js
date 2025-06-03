@@ -4,31 +4,48 @@ document.addEventListener("DOMContentLoaded", function () {
     const prevMonthBtn = document.getElementById("prev-month");
     const nextMonthBtn = document.getElementById("next-month");
 
+    if (!currentMonthYear || !calendarDates || !prevMonthBtn || !nextMonthBtn) {
+        console.error("Calendar DOM elements are missing.");
+        return;
+    }
+
     let today = new Date();
+
+    const MONTH_NAMES = [
+        "January", "February", "March", "April", "May", "June",
+        "July", "August", "September", "October", "November", "December"
+    ];
+
     let currentMonth = today.getMonth();
     let currentYear = today.getFullYear();
+
+    // Returns the month name for a given month index
+    function getMonthName(month) {
+        return MONTH_NAMES[month];
+    }
 
     function generateCalendar(month, year) {
         calendarDates.innerHTML = "";
         currentMonthYear.textContent = `${getMonthName(month)} ${year}`;
 
-        let firstDay = new Date(year, month, 1).getDay();
-        let daysInMonth = new Date(year, month + 1, 0).getDate();
+        const firstDayIndex = new Date(year, month, 1).getDay(); // 0 = Sun, ..., 6 = Sat
+        const totalDays = new Date(year, month + 1, 0).getDate();
 
-        for (let i = 0; i < firstDay; i++) {
-            let emptyCell = document.createElement("div");
+        // Add empty cells to align the first day correctly
+        for (let i = 0; i < firstDayIndex; i++) {
+            const emptyCell = document.createElement("div");
             emptyCell.classList.add("empty");
             calendarDates.appendChild(emptyCell);
         }
 
-        for (let day = 1; day <= daysInMonth; day++) {
-            let dateCell = document.createElement("div");
+        // Generate calendar day cells
+        for (let day = 1; day <= totalDays; day++) {
+            const date = new Date(year, month, day);
+            const weekday = date.getDay(); // 0 = Sun ... 6 = Sat
+
+            const dateCell = document.createElement("div");
             dateCell.classList.add("date");
             dateCell.textContent = day;
-
-            let eventList = document.createElement("div");
-            eventList.classList.add("event-list");
-            dateCell.appendChild(eventList);
 
             if (
                 year === today.getFullYear() &&
@@ -38,20 +55,18 @@ document.addEventListener("DOMContentLoaded", function () {
                 dateCell.classList.add("today");
             }
 
+            const eventList = document.createElement("div");
+            eventList.classList.add("event-list");
+            dateCell.appendChild(eventList);
+
             calendarDates.appendChild(dateCell);
         }
 
         loadEvents();
     }
 
-    function getMonthName(month) {
-        return [
-            "January", "February", "March", "April", "May", "June",
-            "July", "August", "September", "October", "November", "December"
-        ][month];
-    }
-
-    prevMonthBtn.addEventListener("click", () => {
+    // Handles clicking the previous month button
+    function handlePrevMonth() {
         if (currentMonth === 0) {
             currentMonth = 11;
             currentYear--;
@@ -59,9 +74,10 @@ document.addEventListener("DOMContentLoaded", function () {
             currentMonth--;
         }
         generateCalendar(currentMonth, currentYear);
-    });
+    }
 
-    nextMonthBtn.addEventListener("click", () => {
+    // Handles clicking the next month button
+    function handleNextMonth() {
         if (currentMonth === 11) {
             currentMonth = 0;
             currentYear++;
@@ -69,7 +85,10 @@ document.addEventListener("DOMContentLoaded", function () {
             currentMonth++;
         }
         generateCalendar(currentMonth, currentYear);
-    });
+    }
+
+    prevMonthBtn.addEventListener("click", handlePrevMonth);
+    nextMonthBtn.addEventListener("click", handleNextMonth);
 
     function addEvent(monthIndex, day, text) {
         if (monthIndex !== currentMonth) return;
@@ -86,6 +105,7 @@ document.addEventListener("DOMContentLoaded", function () {
         });
     }
 
+    // Loads events for the current month
     function loadEvents() {
         if (currentMonth >= 3 && currentMonth <= 9) { // April to October
             const daysInMonth = new Date(currentYear, currentMonth + 1, 0).getDate();
@@ -94,8 +114,8 @@ document.addEventListener("DOMContentLoaded", function () {
                 const date = new Date(currentYear, currentMonth, day);
                 const weekday = date.getDay(); // 0 = Sun, 1 = Mon, ..., 6 = Sat
 
-                if ([1, 2, 4].includes(weekday)) { // Mon, Tues, Thurs
-                    const label = `Training: 5:20PM–6:20PM<br>Location: NUSC Fields`;
+                if ([2, 4].includes(weekday)) { // Tues, Thurs
+                    const label = `Foundry Soccer Academy Training: 5:20PM–6:20PM<br>Location: NUSC Fields`;
                     addEvent(currentMonth, day, label);
                 }
             }
