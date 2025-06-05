@@ -857,6 +857,15 @@ button[type="submit"]:hover {
     .hero-content {
         max-width: 80%;
     }
+    .hero-content h1 {
+        font-size: 3rem;
+    }
+    .hero-content h2 {
+        font-size: 1.8rem;
+    }
+    .hero-content p {
+        font-size: 1rem;
+    }
 
     .nav-links {
         visibility: hidden;
@@ -1038,13 +1047,17 @@ button[type="submit"]:hover {
     }
 
     .calendar-days {
-        grid-template-columns: repeat(6, 1fr);
+        grid-template-columns: repeat(7, 1fr);
         font-size: 0.9rem;
     }
 
     #calendar-dates {
-        grid-template-columns: repeat(6, 1fr);
+        grid-template-columns: repeat(7, 1fr);
         gap: 5px;
+    }
+
+    .calendar-container {
+        overflow-x: auto;
     }
 
     .date, .empty {
@@ -1200,6 +1213,15 @@ button[type="submit"]:hover {
 
     .hero-content {
         max-width: 80%;
+    }
+    .hero-content h1 {
+        font-size: 3rem;
+    }
+    .hero-content h2 {
+        font-size: 1.8rem;
+    }
+    .hero-content p {
+        font-size: 1rem;
     }
 
     .nav-links {
