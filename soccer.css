@@ -336,12 +336,15 @@ header, nav, .logo img {
     background-color: #222;
     color: white;
     padding: 50px 10%;
+    margin-top: 40px;
 }
 
 .myself-container {
     display: flex;
     align-items: center;
     gap: 30px;
+    flex-direction: column;
+    text-align: center;
 }
 
 .myself-image img {
@@ -355,8 +358,10 @@ header, nav, .logo img {
 }
 
 .myself-text h1 {
-    font-size: 2rem;
-    margin-bottom: 10px;
+    font-size: 2.8rem;
+    text-align: center;
+    padding-bottom: 10px;
+    color: white;
 }
 
 .myself-text p {
@@ -844,232 +849,6 @@ button[type="submit"]:hover {
 }
 
 
-@media (max-width: 768px) {
-    .hero {
-        justify-content: center;
-        text-align: center;
-        padding-left: 0;
-        padding-top: 120px;
-        padding-bottom: 60px;
-        height: auto;
-    }
-
-    .hero-content {
-        max-width: 80%;
-    }
-    .hero-content h1 {
-        font-size: 3rem;
-    }
-    .hero-content h2 {
-        font-size: 1.8rem;
-    }
-    .hero-content p {
-        font-size: 1rem;
-    }
-
-    .nav-links {
-        visibility: hidden;
-        opacity: 0;
-        pointer-events: none;
-        flex-direction: column;
-        background: rgba(0, 0, 0, 0.95);
-        position: fixed;
-        top: 60px;
-        left: 0;
-        width: 100%;
-        text-align: center;
-        padding: 20px 0;
-        transition: opacity 0.3s ease-in-out, visibility 0.3s ease-in-out;
-        z-index: 1002;
-    }
-
-    .nav-links.active {
-        visibility: visible;
-        opacity: 1;
-        pointer-events: auto;
-    }
-
-    .nav-links li {
-        margin: 15px 0;
-    }
-
-    .hamburger {
-        display: block;
-        font-size: 30px;
-        cursor: pointer;
-        color: white;
-        position: absolute;
-        top: 15px;
-        right: 15px;
-        z-index: 1100;
-    }
-    .contact-us-form {
-        padding: 160px 5% 40px;
-    }
-
-    .contact-wrapper {
-        max-width: 90%;
-    }
-
-    .benefits-container {
-        flex-direction: column;
-        align-items: center;
-    }
-
-    .benefit {
-        width: 90%;
-        margin-bottom: 20px;
-    }
-
-    .benefits-left,
-    .benefits-right {
-        width: 90%;
-    }
-
-    .myself-container {
-        flex-direction: column;
-        text-align: center;
-    }
-
-    .myself-image {
-        width: 80%;
-    }
-
-    .signup form {
-        width: 90%;
-    }
-
-    .footer-container {
-        flex-direction: column;
-        text-align: center;
-    }
-
-    .footer-logo img {
-        margin-bottom: 20px;
-    }
-
-    .footer-links ul, .footer-contact ul {
-        padding: 0;
-    }
-
-    .training-intro {
-        padding: 80px 5% 40px;
-    }
-
-    .training-intro-content {
-        max-width: 100%;
-    }
-
-    .training-intro h1{
-        font-size: 2rem;
-    }
-
-    .training-intro h2 {
-        font-size: 1.5rem;
-    }
-
-    .training-intro p{
-        font-size: 1rem;
-    }
-
-    .phase {
-        flex-direction:column;
-        text-align: center;
-    }
-
-    .phase-image img {
-        width: 80%;
-    }
-
-    .about-container, .qualifications-container {
-        flex-direction: column;
-        align-items: center; 
-        margin-bottom: 60px; 
-    }
-
-    .intro-image img, .license-image img {
-        width: 80%;
-        max-width: 350px; 
-    }
-
-    .intro-text, .qual-text, .future-text {
-        text-align: center; 
-        max-width: 90%; 
-        padding: 10px; 
-    }
-
-    .pricing-table {
-        width: 100%;
-        max-width: 90%;
-    }
-
-    .pricing-table th, .pricing-table td {
-        font-size: 1rem;
-        padding: 10px;
-    }
-
-    .fine-print {
-        font-size: 0.8rem;
-    }
-
-    .contact-form {
-        padding: 160px 5% 40px;
-    }
-
-    .contact-form form{
-        max-width: 90%;
-    }
-
-    .form-group input, .form-group textarea {
-        font-size: 1rem;
-    }
-
-    .schedule {
-        padding: 80px 5%;
-    }
-
-    .calendar-container {
-        max-width: 100%;
-    }
-
-    .calendar-header {
-        flex-direction: column;
-        gap: 10px;
-    }
-
-    .calendar-header button {
-        padding: 8px;
-        font-size: 1rem;
-    }
-
-    .calendar-header h2 {
-        font-size: 1.3rem;
-    }
-
-    .calendar-days {
-        grid-template-columns: repeat(7, 1fr);
-        font-size: 0.9rem;
-    }
-
-    #calendar-dates {
-        grid-template-columns: repeat(7, 1fr);
-        gap: 5px;
-    }
-
-    .calendar-container {
-        overflow-x: auto;
-    }
-
-    .date, .empty {
-        padding: 15px;
-        font-size: 1rem;
-    }
-
-    .event {
-        font-size: 0.7rem;
-        padding: 2px;
-    }
-}
 /* Contact Us Form Styles */
 .contact-us-form {
     text-align: center;
@@ -1201,251 +980,6 @@ button[type="submit"]:hover {
     transform: scale(1.05);
 }
 
-@media (max-width: 768px) {
-    .hero {
-        justify-content: center;
-        text-align: center;
-        padding-left: 0;
-        padding-top: 120px;
-        padding-bottom: 60px;
-        height: auto;
-    }
-
-    .hero-content {
-        max-width: 80%;
-    }
-    .hero-content h1 {
-        font-size: 3rem;
-    }
-    .hero-content h2 {
-        font-size: 1.8rem;
-    }
-    .hero-content p {
-        font-size: 1rem;
-    }
-
-    .nav-links {
-        visibility: hidden;
-        opacity: 0;
-        pointer-events: none;
-        flex-direction: column;
-        background: rgba(0, 0, 0, 0.95);
-        position: fixed;
-        top: 60px;
-        left: 0;
-        width: 100%;
-        text-align: center;
-        padding: 20px 0;
-        transition: opacity 0.3s ease-in-out, visibility 0.3s ease-in-out;
-        z-index: 1002;
-    }
-
-    .nav-links.active {
-        visibility: visible;
-        opacity: 1;
-        pointer-events: auto;
-    }
-
-    .nav-links li {
-        margin: 15px 0;
-    }
-
-    .hamburger {
-        display: block;
-        font-size: 30px;
-        cursor: pointer;
-        color: white;
-        position: absolute;
-        top: 15px;
-        right: 15px;
-        z-index: 1100;
-    }
-    .contact-us-form {
-        padding: 160px 5% 40px;
-    }
-
-    .contact-wrapper {
-        max-width: 90%;
-    }
-
-    .benefits-container {
-        flex-direction: column;
-        align-items: center;
-    }
-
-    .benefit {
-        width: 90%;
-        margin-bottom: 20px;
-    }
-
-    .benefits-left,
-    .benefits-right {
-        width: 90%;
-    }
-
-    .myself-container {
-        flex-direction: column;
-        text-align: center;
-    }
-
-    .myself-image {
-        width: 80%;
-    }
-
-    .signup form {
-        width: 90%;
-    }
-
-    .footer-container {
-        flex-direction: column;
-        text-align: center;
-    }
-
-    .footer-logo img {
-        margin-bottom: 20px;
-    }
-
-    .footer-links ul, .footer-contact ul {
-        padding: 0;
-    }
-
-    .training-intro {
-        padding: 80px 5% 40px;
-    }
-
-    .training-intro-content {
-        max-width: 100%;
-    }
-
-    .training-intro h1{
-        font-size: 2rem;
-    }
-
-    .training-intro h2 {
-        font-size: 1.5rem;
-    }
-
-    .training-intro p{
-        font-size: 1rem;
-    }
-
-    .phase {
-        flex-direction:column;
-        text-align: center;
-    }
-
-    .phase-image img {
-        width: 80%;
-    }
-
-    .about-container, .qualifications-container {
-        flex-direction: column;
-        align-items: center; 
-        margin-bottom: 60px; 
-    }
-
-    .intro-image img, .license-image img {
-        width: 80%;
-        max-width: 350px; 
-    }
-
-    .intro-text, .qual-text, .future-text {
-        text-align: center; 
-        max-width: 90%; 
-        padding: 10px; 
-    }
-
-    .pricing-table {
-        width: 100%;
-        max-width: 90%;
-    }
-
-    .pricing-table th, .pricing-table td {
-        font-size: 1rem;
-        padding: 10px;
-    }
-
-    .fine-print {
-        font-size: 0.8rem;
-    }
-
-    .contact-form {
-        padding: 160px 5% 40px;
-    }
-
-    .contact-form form{
-        max-width: 90%;
-    }
-
-    .form-group input, .form-group textarea {
-        font-size: 1rem;
-    }
-
-    .schedule {
-        padding: 80px 5%;
-    }
-
-    .calendar-container {
-        max-width: 100%;
-    }
-
-    .calendar-header {
-        flex-direction: column;
-        gap: 10px;
-    }
-
-    .calendar-header button {
-        padding: 8px;
-        font-size: 1rem;
-    }
-
-    .calendar-header h2 {
-        font-size: 1.3rem;
-    }
-
-    .calendar-days {
-        grid-template-columns: repeat(6, 1fr);
-        font-size: 0.9rem;
-    }
-
-    #calendar-dates {
-        grid-template-columns: repeat(6, 1fr);
-        gap: 5px;
-    }
-
-    .date, .empty {
-        padding: 15px;
-        font-size: 1rem;
-    }
-
-    .event {
-        font-size: 0.7rem;
-        padding: 2px;
-    }
-
-    .home-pricing-section {
-        flex-direction: column;
-        text-align: center;
-    }
-
-    .home-pricing-left, .home-pricing-right {
-        flex: 1 1 100%;
-        max-width: 100%;
-    }
-
-    .home-pricing-left .pricing-table th,
-    .home-pricing-left .pricing-table td {
-        font-size: 0.9rem;
-    }
-
-    .unique-section h2 {
-        font-size: 2rem;
-    }
-
-    .unique-section p {
-        font-size: 1rem;
-    }
-}
 .referral-section {
     background: #222;
     color: white;
@@ -1557,4 +1091,280 @@ button[type="submit"]:hover {
     color: #bbb;
     margin-top: 10px;
     font-style: italic;
+}
+/* Player Gallery Section Styles */
+.gallery-section {
+    background: #222;
+    padding: 40px 10% 80px;
+    color: white;
+    text-align: center;
+}
+
+.gallery-section h2 {
+    font-size: 3rem;
+    margin-bottom: 40px;
+    color: white;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    margin-top: 100px;
+    text-align: center;
+    padding-top: 40px;
+}
+
+.alt-section {
+    background: #222;
+}
+
+/* Gallery Grid Styles */
+.gallery-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 20px;
+    max-width: 1200px;
+    margin: auto;
+    justify-content: center;
+    padding: 20px 0;
+}
+
+.gallery-grid img {
+    width: 100%;
+    height: auto;
+    border-radius: 10px;
+    transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5);
+}
+
+.gallery-grid img:hover {
+    transform: scale(1.05);
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.6);
+}
+
+
+/* --------------------------------------------- */
+/* All @media (max-width: 768px) queries grouped */
+/* --------------------------------------------- */
+
+@media (max-width: 768px) {
+    .hero {
+        justify-content: center;
+        text-align: center;
+        padding-left: 0;
+        padding-top: 120px;
+        padding-bottom: 60px;
+        height: auto;
+    }
+    .hero-content {
+        max-width: 80%;
+    }
+    .hero-content h1 {
+        font-size: 3rem;
+    }
+    .hero-content h2 {
+        font-size: 1.8rem;
+    }
+    .hero-content p {
+        font-size: 1rem;
+    }
+    .nav-links {
+        visibility: hidden;
+        opacity: 0;
+        pointer-events: none;
+        flex-direction: column;
+        background: rgba(0, 0, 0, 0.95);
+        position: fixed;
+        top: 60px;
+        left: 0;
+        width: 100%;
+        text-align: center;
+        padding: 20px 0;
+        transition: opacity 0.3s ease-in-out, visibility 0.3s ease-in-out;
+        z-index: 1002;
+    }
+    .nav-links.active {
+        visibility: visible;
+        opacity: 1;
+        pointer-events: auto;
+    }
+    .nav-links li {
+        margin: 15px 0;
+    }
+    .hamburger {
+        display: block;
+        font-size: 30px;
+        cursor: pointer;
+        color: white;
+        position: absolute;
+        top: 15px;
+        right: 15px;
+        z-index: 1100;
+    }
+    .contact-us-form {
+        padding: 160px 5% 40px;
+    }
+    .contact-wrapper {
+        max-width: 90%;
+    }
+    .benefits-container {
+        flex-direction: column;
+        align-items: center;
+    }
+    .benefit {
+        width: 90%;
+        margin-bottom: 20px;
+    }
+    .benefits-left,
+    .benefits-right {
+        width: 90%;
+    }
+    .myself-container {
+        flex-direction: column;
+        text-align: center;
+    }
+    .myself-image {
+        width: 80%;
+    }
+    .signup form {
+        width: 90%;
+    }
+    .footer-container {
+        flex-direction: column;
+        text-align: center;
+    }
+    .footer-logo img {
+        margin-bottom: 20px;
+    }
+    .footer-links ul, .footer-contact ul {
+        padding: 0;
+    }
+    .training-intro {
+        padding: 80px 5% 40px;
+    }
+    .training-intro-content {
+        max-width: 100%;
+    }
+    .training-intro h1{
+        font-size: 2rem;
+    }
+    .training-intro h2 {
+        font-size: 1.5rem;
+    }
+    .training-intro p{
+        font-size: 1rem;
+    }
+    .phase {
+        flex-direction:column;
+        text-align: center;
+    }
+    .phase-image img {
+        width: 80%;
+    }
+    .about-container, .qualifications-container {
+        flex-direction: column;
+        align-items: center; 
+        margin-bottom: 60px; 
+    }
+    .intro-image img, .license-image img {
+        width: 80%;
+        max-width: 350px; 
+    }
+    .intro-text, .qual-text, .future-text {
+        text-align: center; 
+        max-width: 90%; 
+        padding: 10px; 
+    }
+    .pricing-table {
+        width: 100%;
+        max-width: 90%;
+    }
+    .pricing-table th, .pricing-table td {
+        font-size: 1rem;
+        padding: 10px;
+    }
+    .fine-print {
+        font-size: 0.8rem;
+    }
+    .contact-form {
+        padding: 160px 5% 40px;
+    }
+    .contact-form form{
+        max-width: 90%;
+    }
+    .form-group input, .form-group textarea {
+        font-size: 1rem;
+    }
+    .schedule {
+        padding: 80px 5%;
+    }
+    .calendar-container {
+        max-width: 100%;
+        overflow-x: auto;
+    }
+    .calendar-header {
+        flex-direction: column;
+        gap: 10px;
+    }
+    .calendar-header button {
+        padding: 8px;
+        font-size: 1rem;
+    }
+    .calendar-header h2 {
+        font-size: 1.3rem;
+    }
+    .calendar-days {
+        grid-template-columns: repeat(7, 1fr);
+        font-size: 0.9rem;
+    }
+    #calendar-dates {
+        grid-template-columns: repeat(7, 1fr);
+        gap: 5px;
+    }
+    .date, .empty {
+        padding: 15px;
+        font-size: 1rem;
+    }
+    .event {
+        font-size: 0.7rem;
+        padding: 2px;
+    }
+    .home-pricing-section {
+        flex-direction: column;
+        text-align: center;
+    }
+    .home-pricing-left, .home-pricing-right {
+        flex: 1 1 100%;
+        max-width: 100%;
+    }
+    .home-pricing-left .pricing-table th,
+    .home-pricing-left .pricing-table td {
+        font-size: 0.9rem;
+    }
+    .unique-section h2 {
+        font-size: 2rem;
+    }
+    .unique-section p {
+        font-size: 1rem;
+    }
+    .gallery-section {
+        padding: 40px 5%;
+    }
+    .gallery-section h2 {
+        font-size: 2rem;
+    }
+}
+
+/* Gallery grid h3 styles for picture text */
+.gallery-grid h3 {
+    padding: 10px 0 30px;
+    color: white;
+    text-align: center;
+    font-size: 1.2rem;
+}
+
+/* About the Coach Heading Styles */
+.about-coach-heading {
+    font-size: 2.8rem;
+    text-align: center;
+    margin-bottom: 30px;
+    padding-top: 20px;
+    color: white;
 }

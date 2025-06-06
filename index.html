@@ -3,12 +3,18 @@
     <head>
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>Foundry Soccer Academy</title>
+        <meta name="description" content="Foundry Soccer Academy offers elite youth soccer training in Noblesville. Improve technical skills, discipline, and leadership through certified coaching and personalized development.">
+        <meta property="og:title" content="Foundry Soccer Academy">
+        <meta property="og:description" content="Train with purpose. Foundry Soccer Academy focuses on skill, mindset, and leadership.">
+        <meta property="og:image" content="images/logo.png">
+        <meta property="og:url" content="https://foundrysocceracademy.com">
+        <meta name="twitter:card" content="summary_large_image">
+        <title>Elite Youth Soccer Training | Foundry Soccer Academy Noblesville</title>
         <link rel="stylesheet" href="soccer.css">
         <script defer src="script.js/menu.js"></script>
     </head>
 <body>
-    <nav>
+    <nav role="navigation" aria-label="Main navigation">
         <div class="logo">
             <a href="index.html">
             <img src="images/logo.png" alt="Foundry Soccer Academy Logo">
@@ -26,10 +32,13 @@
             <li><a href="contactus.html">Contact Us</a></li>
         </ul>
     </nav>
+    <main>
     <section class="hero">
         <div class="hero-content">
-            <h1>Foundry Soccer Academy</h1>
-            <h2 class="slogan">Where Players Are Forged</h2>
+            <div class="hero-text-wrapper">
+                <h1>Foundry Soccer Academy</h1>
+                <h2 class="slogan">Where Players Are Forged</h2>
+            </div>
             <p>Our program focuses on building technically strong, mentally resilient, and hard-working players. At Foundry Soccer Academy, we don’t just develop athletes—we develop leaders, teammates, and individuals prepared for challenges on and off the field.</p>
             <div class="hero-buttons">
                 <a href="https://www.facebook.com/profile.php?id=61574597385375" class="learn-more" target="_blank" rel="noopener noreferrer">Our Facebook</a>
@@ -49,13 +58,13 @@
         </div>
         <div class="player-spotlight-right">
             <h2>Player Spotlight</h2>
-            <img src="images/player.jpg" alt="Player Spotlight">
+            <img src="images/player.jpg" alt="Kenan - Player Spotlight">
             <p><strong>Kenan</strong> – A tenacious midfielder who’s shown outstanding work ethic and leadership during sessions this month.</p>
         </div>
     </section>
 
     <section class="train">
-        <h1>Improve Vital Skills </h1>
+        <h2>Improve Vital Skills</h2>
         <div class="train-container">
             
             <div class="skill-container">
@@ -92,7 +101,7 @@
     </section>
 
     <section class="benefits">
-        <h1> Benefits of Group Soccer Training</h1>
+        <h2>Benefits of Group Soccer Training</h2>
         <div class="benefits-container">
             
             <div class="benefits-left">
@@ -121,28 +130,50 @@
         </div>
     </section>
 
-    <section class="myself">
-        <div class="myself-container">
-            <div class="myself-image">
-                <img src="images/coachbryan.jpg" alt="Coach Bryan">
-            </div>
+    <section class="player-gallery gallery-section">
+      <div class="player-gallery-container">
+        <h2>Gallery</h2>
+        <div class="gallery-grid">
+          <div class="gallery-item">
+            <img src="images/GroupWarm1.png" alt="Youth players in group dribbling circuit">
+            <h3>Group Dribbling Circuit</h3>
+          </div>
+          <div class="gallery-item">
+            <img src="images/AdnanDrill1.png" alt="Player performing gate dribbles in training">
+            <h3>Gate Dribbles</h3>
+          </div>
+          <div class="gallery-item">
+            <img src="images/KenanDrill1.png" alt="Kenan practicing juggling fundamentals">
+            <h3>Juggling Fundamentals</h3>
+          </div>
+        </div>
+      </div>
+    </section>
 
-            <div class="myself-text">
-                <h1>Coach Bryan</h1>
-                <p>I am passionate about developing youth players and watching them reach their 
-                    potential through my program. I played soccer for many years before I became a coach and through my experiences
-                    as a player I aim to coach the new generation properly and avoid the mistakes I made.
-                    I have been a head coach for many teams over the past 2 years and have had several additional training sessions 
-                    with NUSC's Rec+ training program. I am certified through US and Indiana Soccer along with 
-                    being grassroots licensed. 
-                </p>
+    <section class="myself-section">
+        <div class="myself-container">
+            <h2 class="myself-title">About the Coach</h2>
+            <div class="myself-content">
+                <div class="myself-image">
+                    <img src="images/coachbryan.jpg" alt="Coach Bryan - Foundry Soccer Academy">
+                </div>
+                <div class="myself-text">
+                    <h2>Coach Bryan</h2>
+                    <p>I am passionate about developing youth players and watching them reach their 
+                        potential through my program. I played soccer for many years before I became a coach and through my experiences
+                        as a player I aim to coach the new generation properly and avoid the mistakes I made.
+                        I have been a head coach for many teams over the past 2 years and have had several additional training sessions 
+                        with NUSC's Rec+ training program. I am certified through US and Indiana Soccer along with 
+                        being grassroots licensed. 
+                    </p>
+                </div>
             </div>
         </div>
     </section>
 
     <section class="unique-section">
         <div class="unique-section-container">
-            <h1>What Makes Foundry Soccer Academy Unique?</h1>
+            <h2>What Makes Foundry Soccer Academy Unique?</h2>
             <p>At Foundry Soccer Academy, we go beyond the standard training. Our mission is to forge well-rounded athletes by emphasizing core values such as discipline, leadership, and personal growth. With a curriculum backed by certified coaching, small group attention, and individualized progress tracking, each player receives the support they need to thrive.</p>
             <p>We invest in your child’s development both on and off the field—focusing not just on technical skills, but on building confidence, responsibility, and a winning mindset. Choosing Foundry means choosing a program that values every player's long-term success.</p>
         </div>
@@ -150,7 +181,7 @@
 
     <section class="home-pricing-section">
       <div class="home-pricing-left">
-          <h1>Program Pricing</h1>
+          <h2>Program Pricing</h2>
           <table class="pricing-table">
               <tr>
                   <th>Plan</th>
@@ -177,7 +208,7 @@
     </section>
 
     <section class="home-referral-section">
-        <h1>Referral Program</h1>
+        <h2>Referral Program</h2>
         <p>Looking to save on your training and help other players achieve their goals in soccer? Refer a friend and enjoy the benefits of our referral program!</p>
         <table class="pricing-table">
             <tr>
@@ -201,8 +232,8 @@
     </section>
 
     <section class="signup">
-        <h1>Sign Up Now!</h1>
-        <form action="https://formspree.io/f/mbldnnwk" method="POST">
+        <h2>Sign Up Now!</h2>
+        <form id="signup-form" action="https://formspree.io/f/mbldnnwk" method="POST">
             <div class="form-group">
                 <label for="first-name">First Name</label>
                 <input type="text" id="first-name" name="first-name" required>
@@ -262,7 +293,7 @@
                 </select>
             </div>
             
-            <div class="form-group" id="referral-name-group" style="display: none;">
+            <div class="form-group hidden" id="referral-name-group">
                 <label for="referral-name">Who referred you?</label>
                 <input type="text" id="referral-name" name="referral-name">
             </div>
@@ -275,23 +306,52 @@
             <button type="submit">Sign Up</button>
             <p class="disclaimer"><strong>Disclaimer:</strong> Submitting this form does not guarantee enrollment in the program. After submission, you will be contacted to schedule a one-on-one meeting where we will determine if the program is the right fit for you and your player.</p>
         </form>
+        <div id="form-message" class="hidden" style="color: lightgreen; margin-top: 10px;">
+          Thank you for signing up! We'll be in touch soon to schedule your meeting.
+        </div>
     </section>
+    </main>
     <script>
         document.addEventListener("DOMContentLoaded", function () {
             const heardFrom = document.getElementById("heard-from");
             const referralGroup = document.getElementById("referral-name-group");
-        
-            heardFrom.addEventListener("change", function () {
-                if (this.value === "Referral") {
-                    referralGroup.style.display = "block";
+            // Use CSS class for hiding
+            function showReferralGroup(show) {
+                if (show) {
+                    referralGroup.classList.remove("hidden");
                     document.getElementById("referral-name").required = true;
                 } else {
-                    referralGroup.style.display = "none";
+                    referralGroup.classList.add("hidden");
                     document.getElementById("referral-name").required = false;
                 }
+            }
+            heardFrom.addEventListener("change", function () {
+                showReferralGroup(this.value === "Referral");
+            });
+            // Form confirmation logic
+            const form = document.getElementById('signup-form');
+            const message = document.getElementById('form-message');
+            form.addEventListener('submit', function (e) {
+              e.preventDefault();
+              const formData = new FormData(form);
+              fetch(form.action, {
+                method: form.method,
+                body: formData,
+                headers: { 'Accept': 'application/json' }
+              }).then(response => {
+                if (response.ok) {
+                  form.reset();
+                  message.classList.remove('hidden');
+                  message.style.color = 'lightgreen';
+                }
+              }).catch(error => {
+                message.textContent = "Oops! Something went wrong.";
+                message.classList.remove('hidden');
+                message.style.color = 'red';
+              });
             });
         });
-        </script>
+    </script>
 
 <footer>
     <div class="footer-container">
@@ -308,6 +368,7 @@
                 <li><a href="dates.html">Schedule</a></li>
                 <li><a href="booknow.html">Sign Up Now</a></li>
                 <li><a href="contactus.html">Contact Us</a></li>
+                <li><a href="privacypolicy.html">Privacy Policy</a></li>
             </ul>
         </div>
 
@@ -321,5 +382,4 @@
     </div>
 </footer>
 </body>
-<script defer src="script.js/flashcards.js"></script>
 </html>
