@@ -1299,6 +1299,7 @@ button[type="submit"]:hover {
     .calendar-container {
         max-width: 100%;
         overflow-x: auto;
+        -webkit-overflow-scrolling: touch;
     }
     .calendar-header {
         flex-direction: column;
@@ -1318,6 +1319,7 @@ button[type="submit"]:hover {
     #calendar-dates {
         grid-template-columns: repeat(7, 1fr);
         gap: 5px;
+        min-width: 600px;
     }
     .date, .empty {
         padding: 15px;
@@ -1326,6 +1328,9 @@ button[type="submit"]:hover {
     .event {
         font-size: 0.7rem;
         padding: 2px;
+        word-wrap: break-word;
+        white-space: normal;
+        max-width: 100%;
     }
     .home-pricing-section {
         flex-direction: column;
