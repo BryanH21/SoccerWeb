@@ -1,4 +1,5 @@
 document.addEventListener("DOMContentLoaded", function () {
+    // Placeholder for future initialization of Firebase Auth, Stripe, or other dynamic features
     const currentMonthYear = document.getElementById("current-month-year");
     const calendarDates = document.getElementById("calendar-dates");
     const prevMonthBtn = document.getElementById("prev-month");
@@ -123,4 +124,9 @@ document.addEventListener("DOMContentLoaded", function () {
     }
 
     generateCalendar(currentMonth, currentYear);
+
+    // Future initialization for Firebase Auth, Stripe, etc.
+    // Example:
+    // initializeFirebaseAuth();
+    // setupStripeCheckout();
 });

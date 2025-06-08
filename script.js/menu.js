@@ -10,3 +10,8 @@ document.addEventListener("DOMContentLoaded", function () {
       console.error("Hamburger or nav menu not found.");
   }
 });
+
+// Future initialization for Firebase Auth, Stripe, etc.
+// Example:
+// initializeFirebaseAuth();
+// setupStripeCheckout();

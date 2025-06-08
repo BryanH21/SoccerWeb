@@ -14,8 +14,10 @@
                 margin-top: 0;
             }
         </style>
+        <!-- Future scripts for Firebase Auth, Stripe, or Analytics can be added below -->
     </head>
 <body>
+    <!-- COMPONENT: Navigation -->
     <nav>
         <div class="logo">
             <a href="index.html">
@@ -33,6 +35,7 @@
             <li><a href="booknow.html">Sign Up Now</a></li>
             <li><a href="contactus.html">Contact Us</a></li>
         </ul>
+    <!-- END COMPONENT: Navigation -->
     </nav>
     <main>
     <section class="pricing">
@@ -166,6 +169,7 @@
         <p class="disclaimer"><strong>Disclaimer:</strong> Submitting this form does not guarantee enrollment in the program. After submission, you will be contacted to schedule a one-on-one meeting where we will determine if the program is the right fit for you and your player.</p>
     </section>
     </main>
+    <!-- COMPONENT: Footer -->
     <footer>
         <div class="footer-container">
             <div class="footer-logo">
@@ -184,6 +188,7 @@
             </div>
         </div>
     </footer>
+    <!-- END COMPONENT: Footer -->
     <script>
         document.addEventListener("DOMContentLoaded", function () {
             const heardFrom = document.getElementById("heard-from");
@@ -200,5 +205,6 @@
             });
         });
         </script>
+    <div id="auth-hooks" style="display: none;"></div>
 </body>
 </html>

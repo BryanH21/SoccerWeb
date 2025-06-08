@@ -12,8 +12,10 @@
         <title>Elite Youth Soccer Training | Foundry Soccer Academy Noblesville</title>
         <link rel="stylesheet" href="soccer.css">
         <script defer src="script.js/menu.js"></script>
+    <!-- Future scripts for Firebase Auth, Stripe, or Analytics can be added below -->
     </head>
 <body>
+    <!-- COMPONENT: Navigation -->
     <nav role="navigation" aria-label="Main navigation">
         <div class="logo">
             <a href="index.html">
@@ -31,9 +33,10 @@
             <li><a href="booknow.html">Sign Up Now</a></li>
             <li><a href="contactus.html">Contact Us</a></li>
         </ul>
+        <!-- END COMPONENT: Navigation -->
     </nav>
     <main>
-    <section class="hero" id="hero" style="scroll-margin-top: 70px;">
+    <section class="hero scroll-margin-top" id="hero">
         <div class="hero-content">
             <div class="hero-text-wrapper">
                 <h1>Foundry Soccer Academy</h1>
@@ -350,6 +353,7 @@
         });
     </script>
 
+<!-- COMPONENT: Footer -->
 <footer>
     <div class="footer-container">
         <div class="footer-logo">
@@ -378,5 +382,7 @@
         </div>
     </div>
 </footer>
+<!-- END COMPONENT: Footer -->
 </body>
+<div id="auth-hooks" style="display: none;"></div>
 </html>

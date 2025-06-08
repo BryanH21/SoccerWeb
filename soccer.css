@@ -1141,7 +1141,7 @@ button[type="submit"]:hover {
 
 
 /* --------------------------------------------- */
-/* All @media (max-width: 768px) queries grouped */
+/* Responsive Styles (Media Queries) - 768px Max */
 /* --------------------------------------------- */
 
 @media (max-width: 768px) {
@@ -1212,10 +1212,6 @@ button[type="submit"]:hover {
     .benefit {
         width: 90%;
         margin-bottom: 20px;
-    }
-    .benefits-left,
-    .benefits-right {
-        width: 90%;
     }
     .myself-container {
         flex-direction: column;
@@ -1374,4 +1370,8 @@ button[type="submit"]:hover {
     padding-top: 20px;
     padding-bottom: 20px;
     color: white;
+}
+/* Utility class for scroll margin on anchor links */
+.scroll-margin-top {
+    scroll-margin-top: 70px;
 }
