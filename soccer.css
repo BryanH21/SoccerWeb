@@ -741,6 +741,7 @@ button[type="submit"]:hover {
 }
 
 /* Modern dark UI calendar styles */
+/* Modern dark UI calendar styles */
 .calendar-container {
     max-width: 1000px;
     margin: auto;
@@ -1363,4 +1364,31 @@ button[type="submit"]:hover {
 
 .hidden {
     display: none;
+}
+
+/* Calendar section button styles - consistent with site's dark theme */
+.calendar-container {
+    padding: 40px 0;
+    text-align: center;
+    color: white;
+    background: transparent;
+    box-shadow: none;
+    border-radius: 0;
+}
+
+.calendar-container a {
+    display: inline-block;
+    padding: 15px 30px;
+    background: #d4af37;
+    color: white;
+    font-size: 1.2rem;
+    text-decoration: none;
+    border-radius: 5px;
+    transition: background 0.3s ease-in-out, transform 0.2s ease-in-out;
+    box-shadow: none;
+}
+
+.calendar-container a:hover {
+    background: #b98d1a;
+    transform: scale(1.05);
 }
