@@ -185,25 +185,24 @@
     <section class="home-pricing-section">
       <div class="home-pricing-left">
           <h2>Program Pricing</h2>
+          <h3 style="font-size: 2rem; color: #d4af37; margin-bottom: 10px;">$200 / Month</h3>
+          <p>Flexible training options available:</p>
           <table class="pricing-table">
               <tr>
-                  <th>Plan</th>
-                  <th>Price</th>
+                  <th>Plan Duration</th>
               </tr>
               <tr>
-                  <td>Monthly Access</td>
-                  <td>$200</td>
+                  <td>3 Months</td>
               </tr>
               <tr>
-                  <td>Season Pass (April–October)</td>
-                  <td>$1200<br><span class="fine-print">Includes 1 FREE Month</span></td>
+                  <td>6 Months</td>
               </tr>
               <tr>
-                  <td>Winter Pass (November–March)</td>
-                  <td>$800<br><span class="fine-print">Includes 1 FREE Month</span></td>
+                  <td>12 Months</td>
               </tr>
           </table>
-          <p class="session-info">Outdoor sessions include <strong>2 sessions per week</strong>, while indoor (winter) includes <strong>1 session per week</strong>.</p>
+          <p class="session-info">Outdoor sessions (April–October) include <strong>2 sessions per week</strong>. Indoor sessions (November–March) include <strong>1 session per week</strong> due to limited indoor field availability during the winter season.</p>
+          <p style="margin-top: 15px; color: #ccc;"><strong>Note:</strong> We discuss additional payment structures such as upfront options during the required 1-on-1 call.</p>
       </div>
       <div class="home-pricing-right">
           <a href="booknow.html" class="book-now">View Full Details & Sign Up</a>
@@ -228,14 +227,14 @@
             </tr>
             <tr>
                 <td>3+ Referrals</td>
-                <td>Earn back the full Season Pass!</td>
+                <td>Earn back a full year of training FREE!</td>
             </tr>
         </table>
-        <p class="session-info"><strong>Note:</strong> For a referral to count, the referred player must sign up for a pass.</p>
+        <p class="session-info"><strong>Note:</strong> For a referral to count, the referred player must sign up for a training plan.</p>
     </section>
 
     <section class="signup">
-        <h2>Sign Up Now!</h2>
+        <h2>Book 1-on-1 Call Now!</h2>
         <form id="signup-form" action="https://formspree.io/f/mbldnnwk" method="POST">
             <div class="form-group">
                 <label for="first-name">First Name</label>
@@ -273,15 +272,6 @@
                 </select>
             </div>
 
-            <div class="form-group">
-                <label for="pass-selected">What pass have you selected?</label>
-                <select id="pass-selected" name="pass-selected" required>
-                    <option value="">Select a Pass</option>
-                    <option value="1 Month Access">1 Month Access</option>
-                    <option value="Season Pass (April–October)">Season Pass (April–October)</option>
-                    <option value="Winter Pass (November–March)">Winter Pass (November–March)</option>
-                </select>
-            </div>
 
             <div class="form-group">
                 <label for="heard-from">Where did you hear about us?</label>
@@ -292,6 +282,7 @@
                     <option value="Murphy's">Murphy's</option>
                     <option value="Instagram">Instagram</option>
                     <option value="NextDoor">NextDoor</option>
+                    <option value="NUSC">NUSC</option>
                     <option value="Referral">Referral</option>
                 </select>
             </div>
@@ -312,45 +303,49 @@
     </section>
     </main>
     <script>
-        document.addEventListener("DOMContentLoaded", function () {
-            const heardFrom = document.getElementById("heard-from");
-            const referralGroup = document.getElementById("referral-name-group");
-            // Use CSS class for hiding
-            function showReferralGroup(show) {
-                if (show) {
-                    referralGroup.classList.remove("hidden");
-                    document.getElementById("referral-name").required = true;
-                } else {
-                    referralGroup.classList.add("hidden");
-                    document.getElementById("referral-name").required = false;
-                }
-            }
-            heardFrom.addEventListener("change", function () {
-                showReferralGroup(this.value === "Referral");
-            });
-            // Form confirmation logic
-            const form = document.getElementById('signup-form');
-            const message = document.getElementById('form-message');
-            form.addEventListener('submit', function (e) {
-              e.preventDefault();
-              const formData = new FormData(form);
-              fetch(form.action, {
-                method: form.method,
-                body: formData,
-                headers: { 'Accept': 'application/json' }
-              }).then(response => {
-                if (response.ok) {
-                  form.reset();
-                  message.classList.remove('hidden');
-                  message.style.color = 'lightgreen';
-                }
-              }).catch(error => {
-                message.textContent = "Oops! Something went wrong.";
+document.addEventListener("DOMContentLoaded", function () {
+    const heardFrom = document.getElementById("heard-from");
+    const referralGroup = document.getElementById("referral-name-group");
+    const referralInput = document.getElementById("referral-name");
+
+    function toggleReferralField() {
+        if (heardFrom.value === "Referral") {
+            referralGroup.classList.remove("hidden");
+            referralInput.required = true;
+        } else {
+            referralGroup.classList.add("hidden");
+            referralInput.required = false;
+        }
+    }
+
+    // Initialize field state on page load
+    toggleReferralField();
+
+    heardFrom.addEventListener("change", toggleReferralField);
+
+    // Form confirmation logic remains unchanged
+    const form = document.getElementById('signup-form');
+    const message = document.getElementById('form-message');
+    form.addEventListener('submit', function (e) {
+        e.preventDefault();
+        const formData = new FormData(form);
+        fetch(form.action, {
+            method: form.method,
+            body: formData,
+            headers: { 'Accept': 'application/json' }
+        }).then(response => {
+            if (response.ok) {
+                form.reset();
                 message.classList.remove('hidden');
-                message.style.color = 'red';
-              });
-            });
+                message.style.color = 'lightgreen';
+            }
+        }).catch(error => {
+            message.textContent = "Oops! Something went wrong.";
+            message.classList.remove('hidden');
+            message.style.color = 'red';
         });
+    });
+});
     </script>
 
 <!-- COMPONENT: Footer -->
@@ -377,7 +372,7 @@
             <h2>Additional Contacts</h2>
             <ul>
                 <li><a href="https://www.facebook.com/profile.php?id=61574597385375" target="_blank" rel="noopener noreferrer">Facebook</a></li>
-                <li><a href="mailto:officialfutbolmentality@gmail.com">Email: officialfutbolmentality@gmail.com</a></li>
+                <li><a href="mailto:info@foundrysocceracademy.com">Email: info@foundrysocceracademy.com</a></li>
             </ul>
         </div>
     </div>

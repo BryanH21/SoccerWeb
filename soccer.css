@@ -662,25 +662,6 @@ footer {
     font-style: italic;
 }
 
-.info-section {
-    background: #111; 
-    padding: 60px 10%;
-    color: white;
-    text-align: center;
-}
-
-.info-section h2 {
-    color: #d4af37;
-    font-size: 2rem;
-    margin-bottom: 20px;
-}
-
-.info-section .formula {
-    margin-top: 10px;
-    font-weight: bold;
-    font-size: 1.2rem;
-    color: #ddd;
-}
 
 .contact-form {
     text-align: center;
@@ -947,6 +928,9 @@ button[type="submit"]:hover {
     font-size: 1rem;
     padding: 8px;
     border-bottom: 1px solid #ddd;
+    text-align: center;
+    vertical-align: middle;
+    white-space: nowrap;
 }
 
 .home-pricing-left .session-info {
@@ -979,6 +963,7 @@ button[type="submit"]:hover {
     background: #b98d1a;
     transform: scale(1.05);
 }
+
 
 .referral-section {
     background: #222;
@@ -1374,4 +1359,8 @@ button[type="submit"]:hover {
 /* Utility class for scroll margin on anchor links */
 .scroll-margin-top {
     scroll-margin-top: 70px;
+}
+
+.hidden {
+    display: none;
 }
