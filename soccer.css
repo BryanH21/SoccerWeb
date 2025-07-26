@@ -203,82 +203,6 @@ header, nav, .logo img {
     color: #ccc;
 }
 
-.train {
-    background-color: #222;
-    padding: 40px 0;
-    text-align: center;
-}
-
-.train h2 {
-    font-size: 2.5em;
-    margin-bottom: 30px;
-    color: white;
-}
-
-.train-container {
-    display: flex;
-    justify-content: center;
-    gap: 20px;
-    flex-wrap: wrap;
-    max-width: 90%;
-    margin: 0 auto;
-}
-
-.skill {
-    flex: 1;
-    min-width: 300px;
-    max-width: 350px;
-    height: 350px;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    position: relative;
-    background-size: cover;
-    background-position: center;
-    border-radius: 10px;
-    overflow: hidden;
-    padding: 20px;
-}
-
-.skill::before {
-    content: "";
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: rgba(0, 0, 0, 0.5);
-}
-
-.skill h2, .skill p {
-    position: relative;
-    color: white;
-    z-index: 10;
-    text-align: center;
-}
-
-.skill h2 {
-    font-size: 1.8em;
-    margin-bottom: 10px;
-}
-
-.skill p {
-    font-size: 1em;
-    width: 80%;
-}
-
-.skill.ball-control {
-    background-image: url("images/ballcontrol.jpeg");
-}
-
-.skill.shooting {
-    background-image: url("images/shooting.jpg");
-}
-
-.skill.defending {
-    background-image: url("images/defend.jpg");
-}
 
 .benefits {
     background: #111; 
@@ -1389,6 +1313,126 @@ button[type="submit"]:hover {
 }
 
 .calendar-container a:hover {
+    background: #b98d1a;
+    transform: scale(1.05);
+}
+/* Expected Results Section Styles */
+.expected-results {
+    background-color: #222;
+    color: white;
+    padding: 60px 10%;
+    text-align: center;
+}
+
+.expected-results h2 {
+    font-size: 2.5rem;
+    margin-bottom: 30px;
+    color: #d4af37;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+}
+
+/* Updated Expected Results Section Styles */
+.expected-results {
+    background-color: #222;
+    color: white;
+    padding: 60px 10%;
+    text-align: center;
+}
+
+.expected-results h2 {
+    font-size: 2.5rem;
+    margin-bottom: 30px;
+    color: #d4af37;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+}
+
+.results-intro p {
+    font-size: 1.2rem;
+    line-height: 1.7;
+    max-width: 900px;
+    margin: 0 auto 40px;
+    color: #ccc;
+}
+
+.results-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 30px;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.result-item {
+    background: #1a1a1a;
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.5);
+    transition: transform 0.3s ease-in-out;
+    text-align: left;
+}
+
+.result-item:hover {
+    transform: scale(1.03);
+}
+
+.result-item img {
+    width: 100%;
+    height: 200px;
+    object-fit: cover;
+}
+
+.result-item h3 {
+    font-size: 1.5rem;
+    color: #d4af37;
+    margin: 15px;
+}
+
+.result-item p {
+    font-size: 1rem;
+    color: #ddd;
+    line-height: 1.5;
+    margin: 0 15px 20px;
+}
+.results-buttons {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    flex-wrap: wrap;
+    margin-top: 40px;
+}
+
+.results-buttons .book-now {
+    display: inline-block;
+    padding: 12px 24px;
+    font-size: 1.1rem;
+    text-decoration: none;
+    background: #d4af37;
+    color: white;
+    font-weight: bold;
+    border-radius: 5px;
+    transition: background 0.3s ease-in-out, transform 0.2s ease-in-out;
+}
+
+.results-buttons .book-now:hover {
+    background: #b98d1a;
+    transform: scale(1.05);
+}
+.unique-section a.book-now {
+    display: inline-block;
+    margin-top: 20px;
+    padding: 12px 24px;
+    font-size: 1.1rem;
+    background: #d4af37;
+    color: white;
+    font-weight: bold;
+    text-decoration: none;
+    border-radius: 5px;
+    transition: background 0.3s ease-in-out, transform 0.2s ease-in-out;
+}
+
+.unique-section a.book-now:hover {
     background: #b98d1a;
     transform: scale(1.05);
 }
