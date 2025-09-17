@@ -1,17 +1,17 @@
 <!DOCTYPE html>
 <html lang="en">
-    <head>
-        <meta charset="utf-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>Private Soccer Training Program | Foundry Soccer Academy Noblesville</title>
-        <meta name="description" content="Explore our private and group soccer training program in Noblesville, Indiana. Learn key skills, transitions, and technical development with Foundry Soccer Academy.">
-        <link rel="stylesheet" href="soccer.css">
-        <script defer src="script.js/menu.js"></script>
-        <!-- Future scripts for Firebase Auth, Stripe, or Analytics can be added below -->
-    </head>
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Training Options - Foundry Soccer Academy</title>
+    <link rel="stylesheet" href="./soccer.css?v=20250916a">
+    <style>html[data-css-loaded="true"] body{outline-offset:-9999px}</style>
+    <script defer src="./script.js/menu.js"></script>
+</head>
 <body>
+<main>
     <!-- COMPONENT: Navigation -->
-    <nav>
+    <nav role="navigation" aria-label="Main navigation">
         <div class="logo">
             <a href="index.html">
             <img src="images/logo.png" alt="Foundry Soccer Academy Logo">
@@ -28,76 +28,137 @@
             <li><a href="booknow.html">Sign Up Now</a></li>
             <li><a href="contactus.html">Contact Us</a></li>
         </ul>
+        <!-- END COMPONENT: Navigation -->
     </nav>
-    <!-- END COMPONENT: Navigation -->
 
-    <main>
-        <section class="training-intro">
-            <div class="training-intro-content">
-                <h1>Why Private Soccer Training is Important for Youth in Noblesville</h1>
-                <p>Foundry Soccer Academy provides elite private soccer training for youth players in Noblesville and Hamilton County. Our training program emphasizes both technical skill development and tactical intelligence.</p>
-                <p>Many people who have never played soccer watch the sport and believe it's simple. I often hear, "Soccer is so easy, it's just kicking a ball into a net." While the fundamentals of soccer are indeed basic, becoming truly great at the sport requires mastering key skills and concepts. Through my training program, players will improve both their technical abilities on the ball and their understanding of play off the ball. In fact, some of the most important lessons in soccer come from actions taken without the ball.
-                </p>
+<section id="training-strips" class="container">
+  <header class="strips-header">
+    <h2>Training Options at Foundry</h2>
+    <p>Choose the path that fits your player. Every option delivers high energy sessions, clear coaching points, and visible progress.</p>
+  </header>
 
-                <h2>Maximizing Your Training</h2>
-                <p>To get the most out of this program, I strongly emphasize consistency. Players who are inconsistent in their training won’t develop as quickly, regardless of their natural talent. Attending as many sessions as possible is important, but it's just as crucial to train at home—especially when it comes to fundamental skills like juggling. By following this advice and integrating training into your daily routine, you’ll see rapid and noticeable improvement.
-                </p>
-            </div>
-        </section>
+  <!-- 1) FLAGSHIP -->
+  <article class="strip">
+    <div class="strip-media">
+      <img src="images/NewHero.jpg" alt="Players training in Foundry Flagship Program">
+    </div>
+    <div class="strip-body">
+      <span class="badge">Flagship Program</span>
+      <h3>Foundry Player Development Program</h3>
+      <p>Our premium, consistency first track for serious growth. Players build strong fundamentals, game IQ, and the mindset to compete on and off the field.</p>
+      <ul class="strip-points">
+        <li>2x/week (Apr–Oct outdoor) • 1x/week winter</li>
+        <li>Technical • Tactical • Mentality • Athleticism</li>
+        <li>Structured assessments and clear goals</li>
+      </ul>
+    </div>
+    <div class="strip-ctas">
+      <a class="btn-gold" href="booknow.html">See Program Plans</a>
+      <a class="btn-ghost" href="booknow.html#intro-meeting">Book Intro Meeting</a>
+    </div>
+  </article>
 
-        <section class="drill-section">
-            <h1 class="drill-title">Attacking and Defensive Transition Drill</h1>
-        
-            <div class="phase">
-                <div class="phase-image">
-                    <img src="images/drill1a.png" alt="Phase One">
-                </div>
-                <div class="phase-text">
-                    <h2>Phase One</h2>
-                    <p>In this drill, we have several areas of focus depending on the position being played.
-                        It's a great drill that gives players the opportunity to explore their roles and learn through experience.
-                        This drill starts with the midfielder having the ball, along with a front three composed of two wingers and a striker.
-                        The goal of the offense is to break down the defense by being fluid, making runs, dragging defenders out of position,
-                        and knowing when to ask for the ball.
-                        
-                            On the defensive side, their focus is on maintaining positional discipline, knowing when to press, how to man-mark, who to track, and how to stay composed when outnumbered.
-                    </p>
-                </div>
-            </div>
-        
-            <div class="phase">
-                <div class="phase-image">
-                    <img src="images/drill1b.png" alt="Phase Two">
-                </div>
-                <div class="phase-text">
-                    <h2>Phase Two</h2>
-                    <p>Second phase of play is the beginning of the drill, where the midfielder passes into the striker 
-                       (as shown by the black arrow) who will then pass back to the midfielder (as shown by the red arrow), 
-                       beginning the drill.
-                    </p>
-                </div>
-            </div>
-        
-            <div class="phase">
-                <div class="phase-image">
-                    <img src="images/drill1c.png" alt="Phase Three">
-                </div>
-                <div class="phase-text">
-                    <h2>Phase Three</h2>
-                    <p>The final phase of play is the drill in action. Notice that the midfielder has dribbled into space, looking for passing options.
+  <!-- 2) FOOT SKILLS -->
+  <article class="strip">
+    <div class="strip-media">
+      <img src="images/MainFootSkills.jpg" alt="Players training during Friday Night Foot Skills">
+    </div>
+    <div class="strip-body">
+      <span class="badge">Weekly Skills</span>
+      <h3>Friday Night Foot Skills</h3>
+      <p>High tempo ball mastery focusing on first touch, creativity, and 1v1 confidence. A perfect add on for any player.</p>
+      <ul class="strip-points">
+        <li>Fridays • Ages 8–14</li>
+        <li>Creativity, rhythm, 1v1 moves</li>
+        <li>Pairs well with the Flagship Program</li>
+      </ul>
+    </div>
+    <div class="strip-ctas">
+      <a class="btn-outline" href="footskills.html">Register for Foot Skills</a>
+    </div>
+  </article>
 
-                        On the left, a winger is ready to make a run behind the fullback, which would be a great through-ball option for the midfielder.
-                    In the middle, the striker is creating space by pushing up against the center-back, allowing him to either receive a through ball
-                    for a goal-scoring opportunity or create time for the winger to take a shot on goal.
-                    
-                        Finally, on the right, the right winger is dropping deeper to ask for the ball as an option for the midfielder.
-                    This drill focuses on a fluid attacking style that provides multiple options while also training defenders on
-                    their defensive principles in a game-like scenario.
-                    </p>
-                </div>
-            </div>
-        </section>
-    </main>
-    <div id="auth-hooks" style="display: none;"></div>
+  <!-- 3) FREE CLINICS -->
+  <article class="strip">
+    <div class="strip-media">
+      <img src="images/FirstClinic.jpg" alt="Players participating in a Foundry free clinic session">
+    </div>
+    <div class="strip-body">
+      <span class="badge">Try Foundry</span>
+      <h3>Free Clinics</h3>
+      <p>Experience our coaching style, meet Coach Bryan, and see if Foundry is a fit. Low pressure, high fun, and always free.</p>
+      <ul class="strip-points">
+        <li>Seasonal availability</li>
+        <li>Intro to our training environment</li>
+        <li>Great first step for new families</li>
+      </ul>
+    </div>
+    <div class="strip-ctas">
+      <a class="btn-outline" href="freeclinic.html">Join Next Clinic</a>
+    </div>
+  </article>
+
+  <!-- 4) CAMPS -->
+  <article class="strip">
+    <div class="strip-media">
+      <img src="images/FirstCamp.jpg" alt="Players training during Foundry seasonal camp">
+    </div>
+    <div class="strip-body">
+      <span class="badge">Seasonal</span>
+      <h3>Camps</h3>
+      <p>Focused blocks that blend technical reps, tactical games, and competitive play. Great for momentum during school breaks.</p>
+      <ul class="strip-points">
+        <li>Summer & school break sessions</li>
+        <li>Age based groups • Theme days</li>
+        <li>Mix of skills, IQ, and competition</li>
+      </ul>
+    </div>
+    <div class="strip-ctas">
+      <a class="btn-outline" href="camps.html">View Upcoming Camps</a>
+    </div>
+  </article>
+
+  <!-- 5) PRIVATE 1-ON-1 -->
+  <article class="strip">
+    <div class="strip-media">
+      <img src="images/MainPrivateCoach.jpg" alt="Players training during Private 1-on-1 Coaching">
+    </div>
+    <div class="strip-body">
+      <span class="badge">Personalized</span>
+      <h3>Private 1 on 1 Coaching</h3>
+      <p>Customized sessions targeting specific needs position work, weak foot, finishing, speed mechanics, and more.</p>
+      <ul class="strip-points">
+        <li>By appointment • Flexible scheduling</li>
+        <li>Individual focus and feedback</li>
+        <li>Pairs well with team or Flagship training</li>
+      </ul>
+    </div>
+    <div class="strip-ctas">
+      <a class="btn-outline" href="private.html">Book a Private Session</a>
+    </div>
+  </article>
+</section>
+</main>
+<!-- COMPONENT: Footer -->
+<footer>
+    <div class="footer-container">
+        <div class="footer-logo">
+            <img src="images/logo.png" alt="Foundry Soccer Academy Logo">
+        </div>
+        <div class="footer-links">
+            <h2>Quick Links</h2>
+            <ul>
+                <li><a href="index.html">Home</a></li>
+                <li><a href="trainings.html">Training</a></li>
+                <li><a href="aboutcoach.html">About Coach</a></li>
+                <li><a href="dates.html">Schedule</a></li>
+                <li><a href="booknow.html">Sign Up Now</a></li>
+                <li><a href="contactus.html">Contact Us</a></li>
+            </ul>
+        </div>
+    </div>
+</footer>
+<!-- END COMPONENT: Footer -->
+<script>document.documentElement.setAttribute('data-css-loaded','true');</script>
 </body>
 </html>
