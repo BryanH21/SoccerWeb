@@ -4,9 +4,12 @@ import { hashPassword } from './_crypto';
 export default async function handler(req, res) {
   if (req.method !== 'POST') return res.status(405).end('Method Not Allowed');
 
-  const { username, password, firstName, lastInitial } = req.body || {};
+  const { username, password, passwordConfirm, firstName, lastInitial } = req.body || {};
   if (!username || !password || !firstName || !lastInitial)
     return res.status(400).json({ error: 'Missing fields' });
+  if (passwordConfirm !== undefined && password !== passwordConfirm) {
+    return res.status(400).json({ error: 'Passwords do not match' });
+  }
 
   const client = await pool.connect();
   try {
