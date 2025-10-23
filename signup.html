@@ -26,12 +26,18 @@
       </label>
 
       <label>Password
-        <input id="sp" type="password" minlength="8" required />
+        <input id="sp" type="password" minlength="8" required
+               pattern="(?=.*[A-Z])(?=.*[a-z])(?=.*[0-9])(?=.*[!@#$%^&*]).{8,}"
+               title="Password must be at least 8 characters and include one uppercase letter, one lowercase letter, one number, and one special symbol." />
       </label>
       
       <label>Confirm password
         <input id="sp2" type="password" minlength="8" required />
       </label>
+      
+      <small style="color:#bbb;display:block;margin-top:-.5rem;margin-bottom:1rem;">
+        Must be at least 8 characters and include 1 uppercase letter, 1 lowercase letter, 1 number, and 1 special symbol.
+      </small>
       
       <label style="display:flex;align-items:center;gap:.5rem;font-size:.9rem">
         <input id="showpw" type="checkbox" />
@@ -65,6 +71,19 @@
   </main>
 
   <script>
+    // Password show/hide toggle (runs on load)
+(function(){
+  const show = document.getElementById('showpw');
+  const p1 = document.getElementById('sp');
+  const p2 = document.getElementById('sp2');
+  if (show && p1 && p2) {
+    show.addEventListener('change', () => {
+      const t = show.checked ? 'text' : 'password';
+      p1.type = t;
+      p2.type = t;
+    });
+  }
+})();
   const form = document.getElementById('signupForm');
   const serr = document.getElementById('serr');
   form.addEventListener('submit', async (e) => {

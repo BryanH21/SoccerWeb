@@ -11,6 +11,17 @@ export default async function handler(req, res) {
     return res.status(400).json({ error: 'Passwords do not match' });
   }
 
+  const strongPassword =
+    /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[!@#$%^&*]).{8,}$/;
+  if (!strongPassword.test(password)) {
+    return res
+      .status(400)
+      .json({
+        error:
+          'Password must be at least 8 characters and include one uppercase, one lowercase, one number, and one special symbol.'
+      });
+  }
+
   const client = await pool.connect();
   try {
     const existing = await client.sql`SELECT 1 FROM users WHERE username=${username} LIMIT 1`;
