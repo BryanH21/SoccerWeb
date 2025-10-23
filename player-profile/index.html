@@ -1,0 +1,67 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="robots" content="noindex,nofollow" />
+  <title>Player Profile & Roadmap</title>
+  <link rel="stylesheet" href="/styles.css" />
+  <style>
+    .container{max-width:980px;margin:40px auto;padding:0 16px}
+    .card{background:#111;color:#fff;padding:1.25rem;border-radius:16px;margin:1rem 0;border:1px solid #282828}
+    .grid{display:grid;gap:1rem;grid-template-columns:repeat(auto-fit,minmax(260px,1fr))}
+    .muted{opacity:.8}
+    .nav a{margin-right:1rem}
+  </style>
+</head>
+<body>
+  <header class="site-header">
+    <nav class="nav">
+      <a href="/">Home</a>
+      <a href="/player-profile" class="active">Player Profile</a>
+      <a href="/api/logout">Logout</a>
+    </nav>
+  </header>
+
+  <main class="container">
+    <h1>Player Profile & Roadmap</h1>
+    <p class="muted">Private player dashboard.</p>
+
+    <div id="card" class="card">Loading…</div>
+
+    <section class="grid">
+      <div class="card">
+        <h3>Goals</h3>
+        <pre id="goals">Loading…</pre>
+      </div>
+      <div class="card">
+        <h3>Milestones</h3>
+        <pre id="milestones">Loading…</pre>
+      </div>
+    </section>
+  </main>
+
+  <script>
+  (async function(){
+    try {
+      const r = await fetch('/api/me', { cache: 'no-store' });
+      if (!r.ok) { location.href = '/login.html'; return; }
+      const { user, profile } = await r.json();
+      const card = document.getElementById('card');
+      card.innerHTML = `
+        <h2>${user.first_name} ${user.last_initial}. <span class="muted">(@${user.username})</span></h2>
+        <p><strong>Plan:</strong> ${profile?.plan ?? '—'}
+        &nbsp;|&nbsp; <strong>Sessions:</strong> ${profile?.session_count ?? 0}
+        &nbsp;|&nbsp; <strong>Last assessment:</strong> ${profile?.last_assessment_date ?? '—'}</p>
+      `;
+      document.getElementById('goals').textContent =
+        JSON.stringify(profile?.goals || [], null, 2);
+      document.getElementById('milestones').textContent =
+        JSON.stringify(profile?.milestones || [], null, 2);
+    } catch (e) {
+      document.getElementById('card').textContent = 'Error loading profile.';
+    }
+  })();
+  </script>
+</body>
+</html>

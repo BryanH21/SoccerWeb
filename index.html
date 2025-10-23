@@ -465,6 +465,24 @@ document.addEventListener("DOMContentLoaded", function () {
     </div>
 </footer>
 <!-- END COMPONENT: Footer -->
+<script>
+    (async function(){
+      try {
+        const res = await fetch('/api/session', { cache: 'no-store' });
+        const data = await res.json();
+        if (data.authenticated) {
+          const nav = document.querySelector('.nav');
+          if (nav && !nav.querySelector('[data-portal-link]')) {
+            const a = document.createElement('a');
+            a.href = '/player-profile';
+            a.textContent = 'Player Profile';
+            a.setAttribute('data-portal-link','1');
+            nav.appendChild(a);
+          }
+        }
+      } catch {}
+    })();
+    </script>
 </body>
 <div id="auth-hooks" style="display: none;"></div>
 </html>

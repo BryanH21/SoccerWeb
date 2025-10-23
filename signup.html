@@ -1,0 +1,84 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="robots" content="noindex,nofollow" />
+  <title>Create Player Account</title>
+  <link rel="stylesheet" href="/styles.css" />
+  <style>
+    .auth-card{max-width:440px;margin:10vh auto;padding:1.75rem;border-radius:16px;background:#111;color:#fff}
+    .auth-card form{display:grid;gap:1rem}
+    .auth-card input[type="text"],.auth-card input[type="password"]{width:100%;padding:.75rem;border-radius:10px;border:1px solid #333;background:#0b0b0b;color:#fff}
+    .auth-card button{padding:.85rem 1rem;border:0;border-radius:12px;cursor:pointer}
+    .error{display:none;color:#ff6b6b;font-size:.9rem}
+    label.consent{display:flex;gap:.5rem;align-items:flex-start;font-size:.9rem}
+  </style>
+</head>
+<body>
+  <main class="auth-card">
+    <h1>Create account</h1>
+    <p>Players sign in with username + password. No email/phone required.</p>
+
+    <form id="signupForm">
+      <label>Username
+        <input id="su" type="text" minlength="3" maxlength="24" pattern="[A-Za-z0-9_]+" required />
+      </label>
+
+      <label>Password
+        <input id="sp" type="password" minlength="8" required />
+      </label>
+
+      <label>First name
+        <input id="sf" type="text" maxlength="30" required />
+      </label>
+
+      <label>Last initial
+        <input id="sl" type="text" maxlength="1" required />
+      </label>
+
+      <label class="consent">
+        <input id="consent" type="checkbox" required />
+        <span>Parent/guardian confirms account creation for a minor and agrees to program terms.</span>
+      </label>
+
+      <button type="submit">Create Account</button>
+      <div id="serr" class="error"></div>
+    </form>
+
+    <p style="margin-top:.75rem;">Already have an account? <a href="/login.html">Sign in</a></p>
+  </main>
+
+  <script>
+  const form = document.getElementById('signupForm');
+  const serr = document.getElementById('serr');
+  form.addEventListener('submit', async (e) => {
+    e.preventDefault();
+    serr.style.display = 'none';
+    if (!document.getElementById('consent').checked) {
+      serr.textContent = 'Consent required';
+      serr.style.display = 'block';
+      return;
+    }
+    const payload = {
+      username: document.getElementById('su').value.trim(),
+      password: document.getElementById('sp').value,
+      firstName: document.getElementById('sf').value.trim(),
+      lastInitial: document.getElementById('sl').value.trim()
+    };
+    const r = await fetch('/api/signup', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(payload)
+    });
+    if (r.ok) {
+      window.location.href = '/login.html';
+    } else {
+      const j = await r.json().catch(()=>({error:'Error'}));
+      serr.textContent = j.error || 'Error';
+      serr.style.display = 'block';
+    }
+  });
+  </script>
+</body>
+</html>
