@@ -1,7 +1,7 @@
 {
   "type": "module",
   "dependencies": {
-      "@vercel/postgres": "latest",
-      "bcryptjs": "latest"
-    }
+    "@vercel/postgres": "latest",
+    "bcryptjs": "latest"
   }
+}

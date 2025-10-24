@@ -1,3 +1,4 @@
+export const config = { runtime: 'nodejs' };
 import { pool } from './_db';
 import { readSessionCookie, clearSessionCookie } from './_session';
 

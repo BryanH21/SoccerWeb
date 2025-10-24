@@ -1,3 +1,4 @@
+export const config = { runtime: 'nodejs' };
 import { pool } from './_db';
 import { verifyPassword, newSessionToken } from './_crypto';
 import { setSessionCookie } from './_session';

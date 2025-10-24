@@ -1,4 +1,5 @@
 // /api/db-check.js  (delete after testing)
+export const config = { runtime: 'nodejs' };
 import { pool } from './_db';
 
 export default async function handler(req, res) {
