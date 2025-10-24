@@ -1,21 +1,34 @@
 export const config = { runtime: 'nodejs' };
-import { pool } from './_db';
-import { readSessionCookie } from './_session';
+
+import { pool } from './_db.js';
+import { readSessionCookie } from './_session.js';
 
 export default async function handler(req, res) {
-  const token = readSessionCookie(req);
-  if (!token) return res.status(401).json({ error: 'Not signed in' });
-
-  const client = await pool.connect();
   try {
-    const s = await client.sql`SELECT user_id FROM sessions WHERE token=${token} AND expires_at > now() LIMIT 1`;
-    if (s.rowCount === 0) return res.status(401).json({ error: 'Session expired' });
+    const token = readSessionCookie(req);
+    if (!token) return res.status(401).json({ error: 'Not authenticated' });
 
-    const id = s.rows[0].user_id;
-    const u = await client.sql`SELECT username, first_name, last_initial FROM users WHERE id=${id}`;
-    const p = await client.sql`SELECT plan, last_assessment_date, session_count, goals, milestones FROM player_profiles WHERE user_id=${id}`;
-    res.json({ user: u.rows[0], profile: p.rows[0] || null });
-  } finally {
-    client.release();
+    const result = await pool.sql`
+      SELECT u.id, u.username, u.first_name, u.last_initial
+      FROM users u
+      JOIN sessions s ON s.user_id = u.id
+      WHERE s.token = ${token} 
+      AND s.expires_at > now()
+      LIMIT 1
+    `;
+
+    if (result.rowCount === 0) {
+      return res.status(401).json({ error: 'Session expired' });
+    }
+
+    const user = result.rows[0];
+    res.json({
+      id: user.id,
+      username: user.username,
+      name: `${user.first_name} ${user.last_initial}.`
+    });
+  } catch (e) {
+    console.error('ME ERROR:', e);
+    res.status(500).json({ error: 'Server error' });
   }
 }
