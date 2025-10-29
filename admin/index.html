@@ -1,0 +1,229 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8"/>
+  <meta name="robots" content="noindex,nofollow"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <title>Admin • Player Profiles</title>
+  <link rel="stylesheet" href="/soccer.css">
+  <style>
+    :root{
+      --bg:#0e0f12; --card:#15161a; --soft:#1d1f24;
+      --text:#f5f7fb; --dim:#aeb4c2;
+      --accent:#f5c542; --line:#20232a; --ring:#1e2127;
+    }
+    body{ background:var(--bg); color:var(--text); }
+    .wrap{ max-width:1200px; margin:0 auto; padding:2rem 1rem; }
+    h1{ margin:0 0 .5rem; font-size:1.6rem; }
+    .sub{ color:var(--dim); margin:0 0 1.25rem; }
+
+    .toolbar{
+      display:flex; flex-wrap:wrap; gap:.75rem; align-items:center; margin-bottom:1rem;
+    }
+    .input, .select{
+      background:#0f1014; color:var(--text); border:1px solid #2a2f39;
+      border-radius:12px; padding:.6rem .75rem; outline:none; min-width:220px;
+    }
+    .btn{
+      background:var(--accent); color:#111; border:0; padding:.6rem .9rem;
+      border-radius:12px; font-weight:700; cursor:pointer;
+    }
+    .muted{ color:var(--dim); font-size:.9rem; }
+
+    .grid{
+      display:grid; gap:1rem;
+      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    }
+    .card{
+      background:linear-gradient(180deg,var(--card),var(--soft));
+      border:1px solid var(--ring); border-radius:18px; padding:1rem;
+      box-shadow:0 8px 24px rgba(0,0,0,.35), inset 0 0 0 1px rgba(255,255,255,.02);
+      display:flex; flex-direction:column; gap:.8rem;
+    }
+    .head{ display:flex; align-items:center; justify-content:space-between; gap:.5rem; }
+    .name{ font-weight:700; }
+    .chip{
+      display:inline-flex; align-items:center; gap:.35rem;
+      font-size:.7rem; padding:.2rem .55rem; border-radius:999px;
+      border:1px solid rgba(245,197,66,.35); color:var(--accent);
+      background:rgba(245,197,66,.12); text-transform:uppercase; letter-spacing:.06em;
+    }
+    .row{ display:grid; grid-template-columns:1fr; gap:.5rem; }
+    .row3{ display:grid; grid-template-columns:1fr; gap:.6rem; }
+    @media (min-width:520px){ .row3{ grid-template-columns: repeat(3, 1fr); } }
+
+    label{ font-size:.8rem; color:var(--dim); display:block; margin-bottom:.15rem; }
+    input[type="date"], select{
+      width:100%; background:#0f1014; color:var(--text);
+      border:1px solid #2a2f39; border-radius:10px; padding:.45rem .5rem;
+    }
+    .savebar{
+      display:flex; align-items:center; justify-content:space-between; gap:.5rem; margin-top:.25rem;
+    }
+    .tiny{ font-size:.8rem; color:var(--dim); }
+    .ok{ color:#9BE28B; }
+    .err{ color:#ff6b6b; }
+    .hidden{ display:none !important; }
+
+    /* toast */
+    .toast{
+      position:fixed; right:1rem; bottom:1rem; background:#15161a; color:var(--text);
+      border:1px solid #2a2f39; border-radius:12px; padding:.6rem .8rem; box-shadow:0 10px 30px rgba(0,0,0,.45);
+      opacity:0; transform:translateY(8px); transition:all .25s ease;
+    }
+    .toast.show{ opacity:1; transform:translateY(0); }
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <h1>Admin • Player Profiles</h1>
+    <p class="sub">Manage plans, next payments, and renewal dates for all players.</p>
+
+    <div class="toolbar">
+      <input id="q" class="input" type="text" placeholder="Search by name or username…">
+      <select id="planFilter" class="select">
+        <option value="">All plans</option>
+        <option value="3-month">3 months</option>
+        <option value="6-month">6 months</option>
+        <option value="12-month">12 months</option>
+        <option value="none">Not assigned</option>
+      </select>
+      <span class="muted">Only visible to admins</span>
+      <a class="btn" href="/logout">Logout</a>
+    </div>
+
+    <div id="grid" class="grid"><div class="muted">Loading…</div></div>
+  </div>
+
+  <div id="toast" class="toast">Saved</div>
+
+<script>
+(async function(){
+  // 1) Ensure admin
+  try {
+    const me = await fetch('/api/me').then(r=>r.ok?r.json():null);
+    if (!me || me.role !== 'admin') { location.href = '/login.html'; return; }
+  } catch { location.href = '/login.html'; return; }
+
+  // 2) Fetch all players
+  const grid = document.getElementById('grid');
+  const toast = document.getElementById('toast');
+  const showToast = (msg, ok=true)=>{
+    toast.textContent = msg;
+    toast.classList.add('show');
+    toast.style.borderColor = ok ? '#2a3d2a' : '#4a2626';
+    setTimeout(()=>toast.classList.remove('show'), 1500);
+  };
+
+  let players = [];
+  try{
+    const data = await fetch('/api/admin/profiles').then(r=>r.json());
+    players = data.players || [];
+  }catch(e){
+    grid.innerHTML = '<div class="err">Failed to load players.</div>';
+    return;
+  }
+
+  // 3) Render cards
+  const render = ()=>{
+    const q = document.getElementById('q').value.trim().toLowerCase();
+    const pf = document.getElementById('planFilter').value;
+
+    grid.innerHTML = '';
+    const fmt = d => d ? new Date(d).toISOString().slice(0,10) : '';
+
+    const list = players.filter(p=>{
+      const matchesText = !q || ( (p.first_name||'').toLowerCase().includes(q)
+        || (p.last_initial||'').toLowerCase().includes(q)
+        || (p.username||'').toLowerCase().includes(q) );
+      const planVal = p.plan || '';
+      const matchesPlan = !pf || (pf==='none' ? !planVal : planVal===pf);
+      return matchesText && matchesPlan;
+    });
+
+    if (list.length===0) {
+      grid.innerHTML = '<div class="muted">No players match your filters.</div>';
+      return;
+    }
+
+    for (const p of list) {
+      const name = `${p.first_name ?? ''} ${p.last_initial ?? ''}.`.trim();
+      const plan = p.plan || '';
+
+      const card = document.createElement('div');
+      card.className = 'card';
+      card.innerHTML = `
+        <div class="head">
+          <div>
+            <div class="name">${name || '(No name)'}</div>
+            <div class="tiny">@${p.username}</div>
+          </div>
+          <span class="chip">${(p.role||'player')}</span>
+        </div>
+
+        <div class="row3">
+          <div>
+            <label>Plan</label>
+            <select data-k="plan">
+              <option value="">Not Assigned</option>
+              <option value="3-month"${plan==='3-month'?' selected':''}>3 months</option>
+              <option value="6-month"${plan==='6-month'?' selected':''}>6 months</option>
+              <option value="12-month"${plan==='12-month'?' selected':''}>12 months</option>
+            </select>
+          </div>
+          <div>
+            <label>Next Payment</label>
+            <input type="date" data-k="next_payment_date" value="${fmt(p.next_payment_date)}">
+          </div>
+          <div>
+            <label>Renews On</label>
+            <input type="date" data-k="renewal_date" value="${fmt(p.renewal_date)}">
+          </div>
+        </div>
+
+        <div class="savebar">
+          <span class="tiny">Last updated: <span class="muted">—</span></span>
+          <button class="btn">Save</button>
+        </div>
+      `;
+
+      const btn = card.querySelector('button.btn');
+      btn.addEventListener('click', async ()=>{
+        btn.disabled = true;
+
+        const sel = card.querySelector('select[data-k="plan"]');
+        const iNext = card.querySelector('input[data-k="next_payment_date"]');
+        const iRenew = card.querySelector('input[data-k="renewal_date"]');
+
+        const body = {
+          userId: p.id,
+          plan: sel.value || null,
+          next_payment_date: iNext.value || null,
+          renewal_date: iRenew.value || null
+        };
+
+        try{
+          const r = await fetch('/api/admin/profiles', {
+            method:'POST', headers:{'Content-Type':'application/json'},
+            body: JSON.stringify(body)
+          });
+          if(!r.ok) throw new Error('Save failed');
+          showToast('Saved ✓', true);
+        }catch(e){
+          showToast('Save failed', false);
+        }finally{
+          btn.disabled = false;
+        }
+      });
+
+      grid.appendChild(card);
+    }
+  };
+
+  document.getElementById('q').addEventListener('input', render);
+  document.getElementById('planFilter').addEventListener('change', render);
+  render();
+})();
+</script>
+</body>
+</html>
