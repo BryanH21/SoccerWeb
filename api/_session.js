@@ -28,7 +28,16 @@ function signCookie(value) {
 }
 function verifyCookie(signed) {
   const [value, sig] = (signed || '').split('.');
-  if (!value || !sig) return null;
-  const h = crypto.createHmac('sha256', secret).update(value).digest('base64url');
-  return crypto.timingSafeEqual(Buffer.from(sig), Buffer.from(h)) ? value : null;
+  if (!value || !sig || !secret) return null;
+
+  const expected = crypto.createHmac('sha256', secret).update(value).digest('base64url');
+  const a = Buffer.from(sig);
+  const b = Buffer.from(expected);
+
+  if (a.length !== b.length) return null; // prevent throw on unequal lengths
+  try {
+    return crypto.timingSafeEqual(a, b) ? value : null;
+  } catch {
+    return null;
+  }
 }

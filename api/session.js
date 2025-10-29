@@ -8,12 +8,13 @@ export default async function handler(req, res) {
   if (!token) return res.json({ authenticated: false });
 
   const { rows } = await pool.sql`
-    SELECT user_id, expires_at 
-    FROM sessions 
-    WHERE token = ${token} 
+    SELECT user_id, expires_at
+    FROM sessions
+    WHERE token = ${token}
     LIMIT 1
   `;
-  
-  const authed = rows.length && new Date(rows[0].expires_at) > new Date();
-  res.json({ authenticated: authed });
+  const authenticated =
+    rows.length && new Date(rows[0].expires_at) > new Date();
+
+  res.json({ authenticated });
 }

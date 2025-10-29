@@ -58,17 +58,11 @@ export default async function handler(req, res) {
       RETURNING id
     `;
 
-    await pool.sql`
-      INSERT INTO player_profiles (user_id, plan, last_assessment_date, session_count, goals, milestones)
-      SELECT id, 'Not Assigned', null, 0, '[]'::jsonb, '[]'::jsonb
-      FROM users
-      WHERE username = ${u}
-    `;
 
-    // Initialize empty profile (safe if table has ON CONFLICT DO NOTHING)
+    // Initialize empty profile with explicit NULL defaults
     await pool.sql`
-      INSERT INTO player_profiles (user_id)
-      VALUES (${inserted.rows[0].id})
+      INSERT INTO player_profiles (user_id, plan, next_payment_date, renewal_date, session_count, goals, milestones)
+      VALUES (${inserted.rows[0].id}, NULL, NULL, NULL, 0, '[]'::jsonb, '[]'::jsonb)
       ON CONFLICT (user_id) DO NOTHING
     `;
 
