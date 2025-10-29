@@ -22,17 +22,17 @@
 
     <form id="signupForm">
       <label>Username
-        <input id="su" type="text" minlength="3" maxlength="24" pattern="[A-Za-z0-9_]+" required />
+        <input id="su" name="username" type="text" minlength="3" maxlength="24" pattern="[A-Za-z0-9_]+" required />
       </label>
 
       <label>Password
-        <input id="sp" type="password" minlength="8" required
+        <input id="sp" name="password" type="password" minlength="8" required
                pattern="(?=.*[A-Z])(?=.*[a-z])(?=.*[0-9])(?=.*[!@#$%^&*]).{8,}"
                title="Password must be at least 8 characters and include one uppercase letter, one lowercase letter, one number, and one special symbol." />
       </label>
       
       <label>Confirm password
-        <input id="sp2" type="password" minlength="8" required />
+        <input id="sp2" name="passwordConfirm" type="password" minlength="8" required />
       </label>
       
       <small style="color:#bbb;display:block;margin-top:-.5rem;margin-bottom:1rem;">
@@ -45,96 +45,97 @@
       </label>
 
       <label>First name
-        <input id="sf" type="text" maxlength="30" required
+        <input id="sf" name="firstName" type="text" maxlength="30" required
                pattern="[A-Za-z ]+"
                oninput="this.value=this.value.replace(/[^A-Za-z ]/g,'')"
         />
       </label>
 
       <label>Last initial
-        <input id="sl" type="text" maxlength="1" required
+        <input id="sl" name="lastInitial" type="text" maxlength="1" required
                pattern="[A-Za-z]"
                oninput="this.value = this.value.replace(/[^A-Za-z]/g,'').toUpperCase().slice(0,1)"
         />
       </label>
 
       <label class="consent">
-        <input id="consent" type="checkbox" required />
+        <input id="consent" name="consent" type="checkbox" required />
         <span>Parent/guardian confirms account creation for a minor and agrees to program terms.</span>
       </label>
 
       <button type="submit">Create Account</button>
-      <div id="serr" class="error"></div>
+      <div id="serr" class="error" role="alert" aria-live="polite"></div>
     </form>
 
     <p style="margin-top:.75rem;">Already have an account? <a href="/login.html">Sign in</a></p>
   </main>
 
   <script>
-    // Password show/hide toggle (runs on load)
-(function(){
-  const show = document.getElementById('showpw');
-  const p1 = document.getElementById('sp');
-  const p2 = document.getElementById('sp2');
-  if (show && p1 && p2) {
-    show.addEventListener('change', () => {
-      const t = show.checked ? 'text' : 'password';
-      p1.type = t;
-      p2.type = t;
-    });
-  }
-})();
-  const form = document.getElementById('signupForm');
-  const serr = document.getElementById('serr');
-  form.addEventListener('submit', async (e) => {
-    e.preventDefault();
-    serr.style.display = 'none';
-    // show/hide password toggle
-(function(){
-  const show = document.getElementById('showpw');
-  const p1 = document.getElementById('sp');
-  const p2 = document.getElementById('sp2');
-  if (show && p1 && p2 && !show._wired) {
-    show.addEventListener('change', () => {
-      const t = show.checked ? 'text' : 'password';
-      p1.type = t; p2.type = t;
-    });
-    show._wired = true;
-  }
-})();
+  document.addEventListener('DOMContentLoaded', () => {
+    const form = document.getElementById('signupForm');
+    const serr = document.getElementById('serr');
+    const show = document.getElementById('showpw');
+    const p1 = document.getElementById('sp');
+    const p2 = document.getElementById('sp2');
 
-// verify passwords match before sending
-const p1val = document.getElementById('sp').value;
-const p2val = document.getElementById('sp2').value;
-if (p1val !== p2val) {
-  serr.textContent = 'Passwords do not match';
-  serr.style.display = 'block';
-  return;
-}
-    if (!document.getElementById('consent').checked) {
-      serr.textContent = 'Consent required';
-      serr.style.display = 'block';
-      return;
+    // wire show/hide once
+    if (show && p1 && p2) {
+      show.addEventListener('change', () => {
+        const t = show.checked ? 'text' : 'password';
+        p1.type = t; p2.type = t;
+      });
     }
-    const payload = {
-  username: document.getElementById('su').value.trim(),
-  password: document.getElementById('sp').value,
-  passwordConfirm: document.getElementById('sp2').value,
-  firstName: document.getElementById('sf').value.trim(),
-  lastInitial: document.getElementById('sl').value.trim()
-};
-    const r = await fetch('/api/signup', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify(payload)
+
+    if (!form) return;
+
+    form.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      serr.style.display = 'none';
+      serr.textContent = '';
+
+      // basic client checks
+      const username = document.getElementById('su').value.trim();
+      const password = p1.value;
+      const passwordConfirm = p2.value;
+      const firstName = document.getElementById('sf').value.trim();
+      const lastInitial = document.getElementById('sl').value.trim();
+      const consent = document.getElementById('consent').checked;
+
+      if (!consent) {
+        serr.textContent = 'Consent required';
+        serr.style.display = 'block';
+        return;
+      }
+      if (password !== passwordConfirm) {
+        serr.textContent = 'Passwords do not match';
+        serr.style.display = 'block';
+        return;
+      }
+
+      const btn = form.querySelector('button[type="submit"]');
+      btn && (btn.disabled = true);
+
+      try {
+        const r = await fetch('/api/signup', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ username, password, passwordConfirm, firstName, lastInitial })
+        });
+
+        const data = await r.json().catch(() => ({}));
+        if (!r.ok || !data.ok) {
+          throw new Error(data.error || 'Signup failed');
+        }
+
+        // success -> go to login
+        window.location.href = '/login.html';
+      } catch (err) {
+        serr.textContent = err.message || 'Error';
+        serr.style.display = 'block';
+      } finally {
+        btn && (btn.disabled = false);
+      }
     });
-    if (r.ok) {
-      window.location.href = '/login.html';
-    } else {
-      const j = await r.json().catch(()=>({error:'Error'}));
-      serr.textContent = j.error || 'Error';
-      serr.style.display = 'block';
-    }
   });
   </script>
 </body>
