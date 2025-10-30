@@ -68,6 +68,7 @@
   .node.done { stroke:#9BE28B; }
   .player { fill:#f5c542; stroke:#111; stroke-width:2.5; }
   .finish-flag { fill: rgba(245,197,66,.35); stroke: rgba(245,197,66,1); }
+  .flaggrp { cursor: pointer; }
   </style>
 </head>
 <body>
@@ -190,22 +191,6 @@
         const n = ms.length;
         const doneCount = ms.filter(m => m && m.done).length;
 
-        // Create (or reuse) tooltip node
-        let tip = mapEl.querySelector('.pp-tip');
-        if (!tip) {
-          tip = document.createElement('div');
-          tip.className = 'pp-tip';
-          tip.style.display = 'none';
-          mapEl.appendChild(tip);
-        }
-        const showTip = (xPx, title, timeframe) => {
-          tip.innerHTML = `<div class="head">${title || '(untitled)'}</div>${timeframe ? `<div class="time">${timeframe}</div>` : ''}`;
-          tip.style.left = `${xPx}px`;
-          tip.style.top = `12px`;
-          tip.style.display = 'block';
-        };
-        const hideTip = () => { tip.style.display = 'none'; };
-
         if (n === 0) {
           mapEl.innerHTML = '<div class="pp-value" style="padding:.5rem;">No milestones yet.</div>';
         } else {
@@ -282,14 +267,33 @@
 
           mapEl.innerHTML = svg;
 
-          // Wire up flag clicks to show tooltip
-          const containerRect = mapEl.getBoundingClientRect();
+          // Create (or reuse) tooltip node AFTER innerHTML (so it isn't wiped)
+          let tip = mapEl.querySelector('.pp-tip');
+          if (!tip) {
+            tip = document.createElement('div');
+            tip.className = 'pp-tip';
+            tip.style.display = 'none';
+            mapEl.appendChild(tip);
+          }
+          const showTip = (xPx, title, timeframe) => {
+            tip.innerHTML = `<div class="head">${title || '(untitled)'}</div>${timeframe ? `<div class="time">${timeframe}</div>` : ''}`;
+            tip.style.left = `${xPx}px`;
+            tip.style.top = `12px`;
+            tip.style.display = 'block';
+          };
+          const hideTip = () => { tip.style.display = 'none'; };
+
           mapEl.querySelectorAll('.flaggrp').forEach(g => {
+            // Ensure the invisible rect catches events on all browsers
+            const hit = g.querySelector('rect[data-hit]');
+            if (hit) hit.setAttribute('pointer-events','all');
+
             g.addEventListener('click', e => {
               const xSvg = Number(g.getAttribute('data-x'));
-              // Convert svg x to container px
-              const xPct = (xSvg) / 1200;
-              const xPx = Math.max(16, Math.min(containerRect.width - 16, xPct * containerRect.width));
+              // Convert svg x to container px relative to current width
+              const rect = mapEl.getBoundingClientRect();
+              const xPct = xSvg / 1200;
+              const xPx = Math.max(16, Math.min(rect.width - 16, xPct * rect.width));
               const title = g.getAttribute('data-title') || '';
               const time  = g.getAttribute('data-time') || '';
               showTip(xPx, title, time);
