@@ -1,7 +1,14 @@
 export const config = { runtime: 'nodejs' };
 
-import { pool } from './_db.js';
-import { hashPassword } from './_crypto.js';
+import { randomBytes, scryptSync } from 'node:crypto';
+import { sql } from './_db.js';
+
+// helper to hash passwords using scrypt (same as login)
+function hashPassword(password) {
+  const salt = randomBytes(16);
+  const hash = scryptSync(password, salt, 64); // 64 bytes
+  return `scrypt:${salt.toString('hex')}:${hash.toString('hex')}`;
+}
 
 export default async function handler(req, res) {
   if (req.method !== 'POST') return res.status(405).end('Method Not Allowed');
@@ -45,30 +52,29 @@ export default async function handler(req, res) {
     }
 
     // Uniqueness
-    const existing = await pool.sql`SELECT 1 FROM users WHERE username=${u} LIMIT 1`;
-    if (existing.rowCount > 0) {
+    const existing = await sql/*sql*/`SELECT 1 FROM users WHERE username=${u} LIMIT 1`;
+    if (existing.length > 0) {
       return res.status(409).json({ error: 'Username taken' });
     }
 
     // Create
-    const hash = await hashPassword(p);
-    const inserted = await pool.sql`
+    const hash = hashPassword(p);
+    const inserted = await sql/*sql*/`
       INSERT INTO users (username, password_hash, first_name, last_initial)
       VALUES (${u}, ${hash}, ${f}, ${l})
       RETURNING id
     `;
 
-
-    // Initialize empty profile with explicit NULL defaults
-    await pool.sql`
+    // Initialize empty profile
+    await sql/*sql*/`
       INSERT INTO player_profiles (user_id, plan, next_payment_date, renewal_date, session_count, goals, milestones)
-      VALUES (${inserted.rows[0].id}, NULL, NULL, NULL, 0, '[]'::jsonb, '[]'::jsonb)
+      VALUES (${inserted[0].id}, NULL, NULL, NULL, 0, '[]'::jsonb, '[]'::jsonb)
       ON CONFLICT (user_id) DO NOTHING
     `;
 
     return res.status(201).json({ ok: true });
   } catch (e) {
     console.error('SIGNUP ERROR:', e);
-    return res.status(500).json({ error: 'Server error' });
+    return res.status(500).json({ error: 'Server error', detail: String(e) });
   }
 }

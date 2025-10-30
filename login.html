@@ -7,15 +7,35 @@
   <title>Player Portal Login</title>
   <link rel="stylesheet" href="/styles.css" />
   <style>
-    .auth-card{max-width:440px;margin:10vh auto;padding:1.75rem;border-radius:16px;background:#111;color:#fff}
-    .auth-card form{display:grid;gap:1rem}
-    .auth-card input[type="text"],.auth-card input[type="password"]{width:100%;padding:.75rem;border-radius:10px;border:1px solid #333;background:#0b0b0b;color:#fff}
-    .auth-card button{padding:.85rem 1rem;border:0;border-radius:12px;cursor:pointer}
-    .error{display:none;color:#ff6b6b;font-size:.9rem}
-    .muted{opacity:.8}
+    .auth-card {
+      max-width: 440px;
+      margin: 10vh auto;
+      padding: 1.75rem;
+      border-radius: 16px;
+      background: #111;
+      color: #fff;
+    }
+    .auth-card form { display: grid; gap: 1rem; }
+    .auth-card input[type="text"],
+    .auth-card input[type="password"] {
+      width: 100%;
+      padding: 0.75rem;
+      border-radius: 10px;
+      border: 1px solid #333;
+      background: #0b0b0b;
+      color: #fff;
+    }
+    .auth-card button {
+      padding: 0.85rem 1rem;
+      border: 0;
+      border-radius: 12px;
+      cursor: pointer;
+    }
+    .error { display: none; color: #ff6b6b; font-size: 0.9rem; }
+    .muted { opacity: 0.8; }
   </style>
 </head>
-<body> 
+<body>
   <main class="auth-card">
     <h1>Player Portal</h1>
     <p class="muted">Sign in with your username and password.</p>
@@ -33,39 +53,58 @@
       <div id="lerr" class="error">Invalid username or password</div>
     </form>
 
-    <p style="margin-top:.75rem;">No account? <a href="/signup.html">Create one</a></p>
+    <p style="margin-top: .75rem;">No account? <a href="/signup.html">Create one</a></p>
   </main>
 
   <script>
-  const lf = document.getElementById('loginForm');
-  const lerr = document.getElementById('lerr');
-  lf.addEventListener('submit', async (e) => {
-    e.preventDefault();
-    lerr.style.display = 'none';
-    const r = await fetch('/api/login', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({
-        username: document.getElementById('lu').value.trim(),
-        password: document.getElementById('lp').value
-      })
+    const lf = document.getElementById('loginForm');
+    const lerr = document.getElementById('lerr');
+
+    // Add a show/hide password toggle
+    const passInput = document.getElementById('lp');
+    const passToggle = document.createElement('button');
+    passToggle.type = 'button';
+    passToggle.textContent = 'Show';
+    passToggle.style.marginLeft = '0.5rem';
+    passToggle.style.background = 'none';
+    passToggle.style.border = 'none';
+    passToggle.style.color = '#ccc';
+    passToggle.style.cursor = 'pointer';
+    passToggle.addEventListener('click', () => {
+      const showing = passInput.type === 'text';
+      passInput.type = showing ? 'password' : 'text';
+      passToggle.textContent = showing ? 'Show' : 'Hide';
     });
-    if (r.ok) {
-      // Check user role and redirect accordingly
-      try {
-        const me = await fetch('/api/me').then(r => r.json());
-        if (me.role === 'admin') {
-          window.location.href = '/admin/';
-        } else {
+    passInput.parentElement.appendChild(passToggle);
+
+    lf.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      lerr.style.display = 'none';
+
+      const res = await fetch('/api/login', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          username: document.getElementById('lu').value.trim(),
+          password: passInput.value
+        })
+      });
+
+      if (res.ok) {
+        try {
+          const data = await res.json();
+          if (data.role === 'admin') {
+            window.location.href = '/admin/';
+          } else {
+            window.location.href = '/player-profile/';
+          }
+        } catch {
           window.location.href = '/player-profile/';
         }
-      } catch {
-        window.location.href = '/player-profile/';
+      } else {
+        lerr.style.display = 'block';
       }
-    } else {
-      lerr.style.display = 'block';
-    }
-  });
+    });
   </script>
 </body>
 </html>
