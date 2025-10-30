@@ -1,7 +1,7 @@
+// /api/_db.js
 export const config = { runtime: 'nodejs' };
 
-import { createPool } from '@vercel/postgres';
+import { neon } from '@neondatabase/serverless';
 
-export const pool = createPool({
-  connectionString: process.env.DATABASE_URL
-});
+// Connect to your Neon database
+export const sql = neon(process.env.DATABASE_URL);
