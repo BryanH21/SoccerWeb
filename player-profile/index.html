@@ -94,11 +94,14 @@
 
   <script>
   (async function(){
-    // Load current user profile
+    // Load current user profile and guard by role
     let me;
     try {
       const r = await fetch('/api/me');
-      if(!r.ok) throw 0; me = await r.json();
+      if(!r.ok) throw 0;
+      me = await r.json();
+      // If an admin lands here, send them to the Admin dashboard
+      if (me.role === 'admin') { location.href = '/admin/'; return; }
     } catch {
       location.href = '/login.html'; return;
     }

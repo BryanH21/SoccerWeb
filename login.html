@@ -51,7 +51,17 @@
       })
     });
     if (r.ok) {
-      window.location.href = '/player-profile';
+      // Check user role and redirect accordingly
+      try {
+        const me = await fetch('/api/me').then(r => r.json());
+        if (me.role === 'admin') {
+          window.location.href = '/admin/';
+        } else {
+          window.location.href = '/player-profile/';
+        }
+      } catch {
+        window.location.href = '/player-profile/';
+      }
     } else {
       lerr.style.display = 'block';
     }
