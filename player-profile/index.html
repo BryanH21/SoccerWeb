@@ -47,17 +47,27 @@
 
     /* button */
     .btn{ background:var(--foundry-accent); color:#111; border:0; padding:.55rem .85rem; border-radius:12px; font-weight:700; cursor:pointer; }
-  .pp-map { margin-top: 1rem; background:#121318; border:1px solid #20232a; border-radius:14px; padding:.75rem; }
+  /* Bigger roadmap + tooltip */
+  .pp-map { position:relative; margin-top: 1rem; background:#121318; border:1px solid #20232a; border-radius:14px; padding:1rem; }
   .pp-map svg { width:100%; height:auto; display:block; }
-  .flag { fill: rgba(245,197,66,.22); stroke: rgba(245,197,66,.55); }
-  .flag.done { fill: rgba(139, 214, 125, .22); stroke: rgba(139, 214, 125, .7); }
-  .track { stroke:#2a2f39; stroke-width:6; }
-  .track-progress { stroke:#f5c542; stroke-width:6; }
-  .node { fill:#0f1014; stroke:#2a2f39; stroke-width:2; }
+  .pp-tip {
+    position:absolute; left:0; top:0; transform:translate(-50%,-110%);
+    background:#0f1014; border:1px solid #3a3f4b; color:#f5f7fb;
+    padding:.65rem .8rem; border-radius:10px; font-size:.95rem; line-height:1.2;
+    box-shadow:0 10px 28px rgba(0,0,0,.45); pointer-events:none; white-space:nowrap;
+  }
+  .pp-tip .head{ font-weight:700; margin-bottom:.2rem; }
+  .pp-tip .time{ color:#aeb4c2; font-size:.85rem; }
+
+  /* visuals */
+  .flag { fill: rgba(245,197,66,.22); stroke: rgba(245,197,66,.65); }
+  .flag.done { fill: rgba(139, 214, 125, .22); stroke: rgba(139, 214, 125, .8); }
+  .track { stroke:#2a2f39; stroke-width:8; }
+  .track-progress { stroke:#f5c542; stroke-width:8; }
+  .node { fill:#0f1014; stroke:#2a2f39; stroke-width:2.5; }
   .node.done { stroke:#9BE28B; }
-  .player { fill:#f5c542; stroke:#111; stroke-width:2; }
-  .goal { fill:#0f1014; stroke:#2a2f39; stroke-width:2; }
-  .net { stroke:#394150; stroke-width:1; opacity:.7 }
+  .player { fill:#f5c542; stroke:#111; stroke-width:2.5; }
+  .finish-flag { fill: rgba(245,197,66,.35); stroke: rgba(245,197,66,1); }
   </style>
 </head>
 <body>
@@ -173,72 +183,122 @@
       // ---- Visual Roadmap Map (SVG) ----
       const mapEl = document.getElementById('pp-map');
       if (mapEl) {
-        // Normalize milestones to objects with {title, done}
+        // Normalize milestones to objects with {title, timeframe, done}
         const ms = (Array.isArray(milestones) ? milestones : []).map(m =>
-          typeof m === 'string' ? ({ title: m, done: false }) : (m || {})
+          typeof m === 'string' ? ({ title: m, timeframe: '', done: false }) : ({ timeframe: '', ...m })
         );
         const n = ms.length;
         const doneCount = ms.filter(m => m && m.done).length;
 
+        // Create (or reuse) tooltip node
+        let tip = mapEl.querySelector('.pp-tip');
+        if (!tip) {
+          tip = document.createElement('div');
+          tip.className = 'pp-tip';
+          tip.style.display = 'none';
+          mapEl.appendChild(tip);
+        }
+        const showTip = (xPx, title, timeframe) => {
+          tip.innerHTML = `<div class="head">${title || '(untitled)'}</div>${timeframe ? `<div class="time">${timeframe}</div>` : ''}`;
+          tip.style.left = `${xPx}px`;
+          tip.style.top = `12px`;
+          tip.style.display = 'block';
+        };
+        const hideTip = () => { tip.style.display = 'none'; };
+
         if (n === 0) {
           mapEl.innerHTML = '<div class="pp-value" style="padding:.5rem;">No milestones yet.</div>';
         } else {
-          const W = 820, H = 140, PADX = 40, PADY = 26;
+          // Larger canvas
+          const W = 1200, H = 260, PADX = 60;
           const usable = W - PADX*2;
-          const step = usable / (n + 1); // +1 for goal at end
-          const y = H/2;
+          const step = usable / (n + 1);  // +1 for finish
+          const y = Math.round(H * 0.62); // track height
 
           const idx = Math.min(doneCount, n);
           const playerX = PADX + step * idx;
 
-          const flags = [];
+          // Build flags (clickable)
+          const flagGroups = [];
           for (let i = 0; i < n; i++) {
             const x = PADX + step * (i + 1) - step * 0.5;
             const isDone = !!ms[i].done;
-            const flagW = 12, flagH = 16;
-            const poleH = 22;
-            const pole = `<line x1="${x}" y1="${y - poleH}" x2="${x}" y2="${y}" stroke="${isDone ? 'rgba(139,214,125,.8)' : '#394150'}" stroke-width="2"/>`;
-            const tri = `<path class="flag ${isDone ? 'done':''}" d="M ${x} ${y - poleH} L ${x + flagW} ${y - poleH + flagH/2} L ${x} ${y - poleH + flagH} Z"/>`;
-            flags.push(pole + tri);
+            const title = ms[i].title || '';
+            const timeframe = ms[i].timeframe || '';
+
+            // Bigger flag
+            const flagW = 18, flagH = 26, poleH = 34;
+            const pole = `<line x1="${x}" y1="${y - poleH}" x2="${x}" y2="${y}" stroke="${isDone ? 'rgba(139,214,125,.9)' : '#4b5563'}" stroke-width="3"/>`;
+            const tri  = `<path class="flag ${isDone ? 'done':''}" d="M ${x} ${y - poleH} L ${x + flagW} ${y - poleH + flagH/2} L ${x} ${y - poleH + flagH} Z"/>`;
+
+            // large invisible hit-rect for easy taps
+            const hit = `<rect x="${x - 20}" y="${y - poleH - 8}" width="${flagW + 48}" height="${poleH + 24}" fill="transparent" data-hit="1" />`;
+
+            flagGroups.push(`
+              <g class="flaggrp" data-i="${i}" data-title="${(title||'').replace(/"/g,'&quot;')}" data-time="${(timeframe||'').replace(/"/g,'&quot;')}" data-x="${x}">
+                ${pole}${tri}${hit}
+              </g>
+            `);
           }
 
+          // Finish: large flag instead of net
           const goalX = PADX + step * (n + 1);
-          const goal = `
-            <rect class="goal" x="${goalX - 18}" y="${y - 22}" width="34" height="44" rx="4"></rect>
-            <path class="net" d="M ${goalX - 16} ${y - 20} H ${goalX + 14} M ${goalX - 16} ${y - 10} H ${goalX + 14} M ${goalX - 16} ${y} H ${goalX + 14} M ${goalX - 16} ${y + 10} H ${goalX + 14}
-                                 M ${goalX - 8} ${y - 20} V ${y + 22} M ${goalX} ${y - 20} V ${y + 22} M ${goalX + 8} ${y - 20} V ${y + 22}" />
+          const finishW = 28, finishH = 42, finishPole = 52;
+          const finishFlag = `
+            <g class="finish">
+              <line x1="${goalX}" y1="${y - finishPole}" x2="${goalX}" y2="${y}" stroke="rgba(245,197,66,1)" stroke-width="4"/>
+              <path class="finish-flag" d="M ${goalX} ${y - finishPole} L ${goalX + finishW} ${y - finishPole + finishH/2} L ${goalX} ${y - finishPole + finishH} Z"/>
+              <text x="${goalX + finishW + 8}" y="${y - finishPole + finishH/2 + 4}" fill="#f5f7fb" font-weight="700" font-size="14">Finish</text>
+            </g>
           `;
 
+          // Track + progress
           const trackStart = PADX, trackEnd = goalX;
           const progressEnd = playerX;
 
+          // Nodes (start..finish)
           const nodes = [];
           for (let i = 0; i <= n; i++) {
-            const x = PADX + step * i;
+            const nx = PADX + step * i;
             const completed = i <= doneCount;
-            nodes.push(`<circle class="node ${completed ? 'done':''}" cx="${x}" cy="${y}" r="7"></circle>`);
+            nodes.push(`<circle class="node ${completed ? 'done':''}" cx="${nx}" cy="${y}" r="9"></circle>`);
           }
 
-          const player = `<circle class="player" cx="${playerX}" cy="${y}" r="9"></circle>`;
-
-          const labelIdx = Math.min(idx, n - 1);
-          const currentTitle = ms[labelIdx]?.title || '';
-          const labelTxt = currentTitle ? `<text x="${Math.min(playerX + 4, W - 8)}" y="${y - 16}" fill="#aeb4c2" font-size="11">${currentTitle.length>32? (currentTitle.slice(0,32)+'…') : currentTitle}</text>` : '';
+          // Player marker
+          const player = `<circle class="player" cx="${playerX}" cy="${y}" r="12"></circle>`;
 
           const svg = `
             <svg viewBox="0 0 ${W} ${H}" role="img" aria-label="Roadmap timeline">
               <line class="track" x1="${trackStart}" y1="${y}" x2="${trackEnd}" y2="${y}"></line>
               <line class="track-progress" x1="${trackStart}" y1="${y}" x2="${progressEnd}" y2="${y}"></line>
+
               ${nodes.join('')}
-              ${flags.join('')}
-              ${goal}
+              ${flagGroups.join('')}
+              ${finishFlag}
               ${player}
-              ${labelTxt}
             </svg>
-            <div class="tiny" style="margin-top:.4rem;color:#aeb4c2;">Progress: ${doneCount}/${n} milestones complete</div>
+            <div class="tiny" style="margin-top:.6rem;color:#aeb4c2;">Progress: ${doneCount}/${n} milestones complete</div>
           `;
 
           mapEl.innerHTML = svg;
+
+          // Wire up flag clicks to show tooltip
+          const containerRect = mapEl.getBoundingClientRect();
+          mapEl.querySelectorAll('.flaggrp').forEach(g => {
+            g.addEventListener('click', e => {
+              const xSvg = Number(g.getAttribute('data-x'));
+              // Convert svg x to container px
+              const xPct = (xSvg) / 1200;
+              const xPx = Math.max(16, Math.min(containerRect.width - 16, xPct * containerRect.width));
+              const title = g.getAttribute('data-title') || '';
+              const time  = g.getAttribute('data-time') || '';
+              showTip(xPx, title, time);
+              e.stopPropagation();
+            });
+          });
+
+          // Clicking empty space hides tooltip
+          mapEl.addEventListener('click', () => hideTip());
         }
       }
 
