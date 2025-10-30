@@ -47,6 +47,20 @@
     .tip{ position:fixed; inset:auto auto 1rem 1rem; background:#15161a; color:#f5f7fb; border:1px solid #2a2f39; border-radius:12px; padding:.6rem .8rem; box-shadow:0 10px 30px rgba(0,0,0,.45); display:none; max-width:min(90vw,360px); }
     .tip .t{ font-weight:800; }
     .tip .s{ color:var(--dim); font-size:.9rem; margin-top:.2rem; }
+    #logoutFab {
+      position: fixed;
+      top: 16px;
+      right: 16px;
+      z-index: 2147483647; /* ensure on top */
+      background: #d9534f;
+      color: #fff;
+      border: 0;
+      padding: 0.5rem 0.9rem;
+      border-radius: 8px;
+      cursor: pointer;
+      display: inline-block;
+      box-shadow: 0 6px 18px rgba(0,0,0,.35);
+    }
   </style>
 </head>
 <body>
@@ -55,14 +69,18 @@
       Log Out
     </button>
   </header>
+  <button id="logoutFab" aria-label="Log out">Log Out</button>
 
   <script>
-  document.getElementById('logoutBtn').addEventListener('click', async () => {
-    try {
-      await fetch('/api/session', { method: 'DELETE' });
-    } catch {}
-    window.location.href = '/login.html';
-  });
+  function wireLogout(el) {
+    if (!el) return;
+    el.addEventListener('click', async () => {
+      try { await fetch('/api/session', { method: 'DELETE' }); } catch {}
+      window.location.href = '/login.html';
+    });
+  }
+  wireLogout(document.getElementById('logoutBtn'));
+  wireLogout(document.getElementById('logoutFab'));
   </script>
   <div class="wrap">
     <h1>Player Profile & Roadmap</h1>
