@@ -4,11 +4,15 @@ export const config = { runtime: 'nodejs' };
 import { sql } from '../_db.js';
 import { getSession } from '../_session.js';
 
+// --- helpers ---
 function normalizeGoals(input) {
   if (!Array.isArray(input)) return [];
   return input.map(g => {
     if (typeof g === 'string') return { title: g, timeframe: '' };
-    return { title: (g?.title || '').toString(), timeframe: (g?.timeframe || '').toString() };
+    return {
+      title: (g?.title || '').toString(),
+      timeframe: (g?.timeframe || '').toString()
+    };
   });
 }
 function normalizeMilestones(input) {
@@ -51,12 +55,12 @@ export default async function handler(req, res) {
     if (req.method === 'POST') {
       const {
         userId,
-        plan = null,
-        next_payment_date = null,
-        renewal_date = null,
-        session_count = null,
-        goals = null,
-        milestones = null,
+        plan = undefined,
+        next_payment_date = undefined,
+        renewal_date = undefined,
+        session_count = undefined,
+        goals = undefined,
+        milestones = undefined,
         increment_session = false
       } = req.body || {};
 
@@ -82,30 +86,24 @@ export default async function handler(req, res) {
         return;
       }
 
-      // Build dynamic update based on provided fields
-      const updates = [];
-      const params = [];
+      // Prepare values; if undefined, pass null so COALESCE keeps existing
+      const plan_v = plan ?? null;
+      const next_v = next_payment_date ?? null;
+      const renew_v = renewal_date ?? null;
+      const session_v = (session_count ?? null);
+      const goals_v = (goals === undefined ? null : JSON.stringify(normalizeGoals(goals)));
+      const milestones_v = (milestones === undefined ? null : JSON.stringify(normalizeMilestones(milestones)));
 
-      if (plan !== undefined) { updates.push(sql`plan = ${plan}`); }
-      if (next_payment_date !== undefined) { updates.push(sql`next_payment_date = ${next_payment_date}`); }
-      if (renewal_date !== undefined) { updates.push(sql`renewal_date = ${renewal_date}`); }
-      if (session_count !== undefined && session_count !== null) {
-        updates.push(sql`session_count = ${Number(session_count)}`);
-      }
-      if (goals !== undefined && goals !== null) {
-        updates.push(sql`goals = ${JSON.stringify(normalizeGoals(goals))}::jsonb`);
-      }
-      if (milestones !== undefined && milestones !== null) {
-        updates.push(sql`milestones = ${JSON.stringify(normalizeMilestones(milestones))}::jsonb`);
-      }
-
-      if (updates.length) {
-        await sql/*sql*/`
-          UPDATE player_profiles
-          SET ${sql.join(updates, sql`, `)}
-          WHERE user_id = ${userId};
-        `;
-      }
+      await sql/*sql*/`
+        UPDATE player_profiles SET
+          plan = COALESCE(${plan_v}, plan),
+          next_payment_date = COALESCE(${next_v}::date, next_payment_date),
+          renewal_date = COALESCE(${renew_v}::date, renewal_date),
+          session_count = COALESCE(${session_v}::int, session_count),
+          goals = COALESCE(${goals_v}::jsonb, goals),
+          milestones = COALESCE(${milestones_v}::jsonb, milestones)
+        WHERE user_id = ${userId};
+      `;
 
       res.status(200).json({ ok: true });
       return;
