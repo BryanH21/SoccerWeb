@@ -10,30 +10,24 @@
     :root{
       --bg:#0e0f12; --card:#15161a; --soft:#1d1f24;
       --text:#f5f7fb; --dim:#aeb4c2;
-      --accent:#f5c542; --line:#20232a; --ring:#1e2127;
+      --accent:#f5c542; --ring:#1e2127; --ok:#9BE28B; --err:#ff6b6b;
     }
     body{ background:var(--bg); color:var(--text); }
     .wrap{ max-width:1200px; margin:0 auto; padding:2rem 1rem; }
     h1{ margin:0 0 .5rem; font-size:1.6rem; }
     .sub{ color:var(--dim); margin:0 0 1.25rem; }
 
-    .toolbar{
-      display:flex; flex-wrap:wrap; gap:.75rem; align-items:center; margin-bottom:1rem;
-    }
+    .toolbar{ display:flex; flex-wrap:wrap; gap:.75rem; align-items:center; margin-bottom:1rem; }
     .input, .select{
       background:#0f1014; color:var(--text); border:1px solid #2a2f39;
       border-radius:12px; padding:.6rem .75rem; outline:none; min-width:220px;
     }
-    .btn{
-      background:var(--accent); color:#111; border:0; padding:.6rem .9rem;
-      border-radius:12px; font-weight:700; cursor:pointer;
-    }
+    .btn{ background:var(--accent); color:#111; border:0; padding:.6rem .9rem; border-radius:12px; font-weight:700; cursor:pointer; }
+    .btn.secondary{ background:#23262f; color:#f5f7fb; }
     .muted{ color:var(--dim); font-size:.9rem; }
 
-    .grid{
-      display:grid; gap:1rem;
-      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-    }
+    .grid{ display:grid; gap:1rem; grid-template-columns: repeat(auto-fill, minmax(340px, 1fr)); }
+
     .card{
       background:linear-gradient(180deg,var(--card),var(--soft));
       border:1px solid var(--ring); border-radius:18px; padding:1rem;
@@ -42,42 +36,39 @@
     }
     .head{ display:flex; align-items:center; justify-content:space-between; gap:.5rem; }
     .name{ font-weight:700; }
-    .chip{
-      display:inline-flex; align-items:center; gap:.35rem;
-      font-size:.7rem; padding:.2rem .55rem; border-radius:999px;
-      border:1px solid rgba(245,197,66,.35); color:var(--accent);
-      background:rgba(245,197,66,.12); text-transform:uppercase; letter-spacing:.06em;
-    }
-    .row{ display:grid; grid-template-columns:1fr; gap:.5rem; }
-    .row3{ display:grid; grid-template-columns:1fr; gap:.6rem; }
-    @media (min-width:520px){ .row3{ grid-template-columns: repeat(3, 1fr); } }
+    .chip{ display:inline-flex; align-items:center; gap:.35rem; font-size:.7rem; padding:.2rem .55rem; border-radius:999px; border:1px solid rgba(245,197,66,.35); color:var(--accent); background:rgba(245,197,66,.12); text-transform:uppercase; letter-spacing:.06em; }
 
     label{ font-size:.8rem; color:var(--dim); display:block; margin-bottom:.15rem; }
-    input[type="date"], select{
-      width:100%; background:#0f1014; color:var(--text);
-      border:1px solid #2a2f39; border-radius:10px; padding:.45rem .5rem;
+    input[type="date"], select, input[type="text"], input[type="number"]{
+      width:100%; background:#0f1014; color:var(--text); border:1px solid #2a2f39; border-radius:10px; padding:.45rem .5rem;
     }
-    .savebar{
-      display:flex; align-items:center; justify-content:space-between; gap:.5rem; margin-top:.25rem;
-    }
+    .row3{ display:grid; grid-template-columns:1fr; gap:.6rem; }
+    @media (min-width:560px){ .row3{ grid-template-columns: repeat(3, 1fr); } }
+
+    .section{ border-top:1px solid #23262f; padding-top:.75rem; margin-top:.5rem; }
+    .list{ display:flex; flex-direction:column; gap:.4rem; }
+    .item{ display:grid; grid-template-columns: 20px 1fr auto; align-items:center; gap:.5rem; background:#0f1014; border:1px solid #20232a; border-radius:10px; padding:.35rem .5rem; }
+    .item input[type="checkbox"]{ transform:translateY(1px); }
+    .item .title{ font-weight:600; }
+    .item .time{ color:#aeb4c2; font-size:.85rem; }
+    .item .del{ cursor:pointer; padding:.2rem .4rem; border-radius:8px; border:1px solid #2a2f39; }
+    .item .del:hover{ background:#191c23; }
+
+    .row2{ display:grid; grid-template-columns:1fr; gap:.5rem; }
+    @media (min-width:560px){ .row2{ grid-template-columns: 1.2fr .8fr auto; } }
+
+    .savebar{ display:flex; align-items:center; justify-content:space-between; gap:.5rem; margin-top:.25rem; }
     .tiny{ font-size:.8rem; color:var(--dim); }
-    .ok{ color:#9BE28B; }
-    .err{ color:#ff6b6b; }
-    .hidden{ display:none !important; }
 
     /* toast */
-    .toast{
-      position:fixed; right:1rem; bottom:1rem; background:#15161a; color:var(--text);
-      border:1px solid #2a2f39; border-radius:12px; padding:.6rem .8rem; box-shadow:0 10px 30px rgba(0,0,0,.45);
-      opacity:0; transform:translateY(8px); transition:all .25s ease;
-    }
+    .toast{ position:fixed; right:1rem; bottom:1rem; background:#15161a; color:var(--text); border:1px solid #2a2f39; border-radius:12px; padding:.6rem .8rem; box-shadow:0 10px 30px rgba(0,0,0,.45); opacity:0; transform:translateY(8px); transition:all .25s ease; }
     .toast.show{ opacity:1; transform:translateY(0); }
   </style>
 </head>
 <body>
   <div class="wrap">
     <h1>Admin • Player Profiles</h1>
-    <p class="sub">Manage plans, next payments, and renewal dates for all players.</p>
+    <p class="sub">Manage plans, payments, renewals, goals, milestones, and sessions.</p>
 
     <div class="toolbar">
       <input id="q" class="input" type="text" placeholder="Search by name or username…">
@@ -108,29 +99,22 @@
   // 2) Fetch all players
   const grid = document.getElementById('grid');
   const toast = document.getElementById('toast');
-  const showToast = (msg, ok=true)=>{
-    toast.textContent = msg;
-    toast.classList.add('show');
-    toast.style.borderColor = ok ? '#2a3d2a' : '#4a2626';
-    setTimeout(()=>toast.classList.remove('show'), 1500);
-  };
+  const showToast = (msg)=>{ toast.textContent = msg; toast.classList.add('show'); setTimeout(()=>toast.classList.remove('show'), 1400); };
 
   let players = [];
   try{
     const data = await fetch('/api/admin/profiles').then(r=>r.json());
     players = data.players || [];
-  }catch(e){
-    grid.innerHTML = '<div class="err">Failed to load players.</div>';
-    return;
-  }
+  }catch(e){ grid.innerHTML = '<div class="err">Failed to load players.</div>'; return; }
 
-  // 3) Render cards
+  const fmt = d => d ? new Date(d).toISOString().slice(0,10) : '';
+  const esc = s => String(s||'').replace(/[&<>"']/g, c=>({ '&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;' }[c]));
+
   const render = ()=>{
     const q = document.getElementById('q').value.trim().toLowerCase();
     const pf = document.getElementById('planFilter').value;
 
     grid.innerHTML = '';
-    const fmt = d => d ? new Date(d).toISOString().slice(0,10) : '';
 
     const list = players.filter(p=>{
       const matchesText = !q || ( (p.first_name||'').toLowerCase().includes(q)
@@ -141,12 +125,14 @@
       return matchesText && matchesPlan;
     });
 
-    if (list.length===0) {
-      grid.innerHTML = '<div class="muted">No players match your filters.</div>';
-      return;
-    }
+    if (list.length===0) { grid.innerHTML = '<div class="muted">No players match your filters.</div>'; return; }
 
     for (const p of list) {
+      // local editable copies (do not mutate original until save)
+      p._goals = Array.isArray(p.goals) ? JSON.parse(JSON.stringify(p.goals)) : [];
+      p._milestones = Array.isArray(p.milestones) ? JSON.parse(JSON.stringify(p.milestones)) : [];
+      p._session_count = Number(p.session_count || 0);
+
       const name = `${p.first_name ?? ''} ${p.last_initial ?? ''}.`.trim();
       const plan = p.plan || '';
 
@@ -156,7 +142,9 @@
         <div class="head">
           <div>
             <div class="name">${name || '(No name)'}</div>
-            <div class="tiny">@${p.username}</div>
+            <div class="tiny">@${p.username} • Sessions: <span data-sess>${p._session_count}</span>
+              <button class="btn secondary" data-addsess style="margin-left:.5rem;">+1</button>
+            </div>
           </div>
           <span class="chip">${(p.role||'player')}</span>
         </div>
@@ -181,39 +169,155 @@
           </div>
         </div>
 
+        <div class="section">
+          <label style="display:flex; align-items:center; justify-content:space-between;">
+            <span>Goals</span>
+            <span class="tiny">Title + timeframe</span>
+          </label>
+          <div class="list" data-goals></div>
+          <div class="row2" style="margin-top:.4rem;">
+            <input type="text" placeholder="Goal title…" data-newgoal-title />
+            <input type="text" placeholder="Timeframe (e.g., 3 months)" data-newgoal-time />
+            <button class="btn" data-addgoal>Add Goal</button>
+          </div>
+        </div>
+
+        <div class="section">
+          <label style="display:flex; align-items:center; justify-content:space-between;">
+            <span>Milestones</span>
+            <span class="tiny">Title + timeframe (with completion)</span>
+          </label>
+          <div class="list" data-milestones></div>
+          <div class="row2" style="margin-top:.4rem;">
+            <input type="text" placeholder="Milestone title…" data-newms-title />
+            <input type="text" placeholder="Timeframe (e.g., 4 weeks)" data-newms-time />
+            <button class="btn" data-addms>Add Milestone</button>
+          </div>
+        </div>
+
         <div class="savebar">
-          <span class="tiny">Last updated: <span class="muted">—</span></span>
-          <button class="btn">Save</button>
+          <span class="tiny">Changes persist after save.</span>
+          <div>
+            <button class="btn secondary" data-saveroadmap>Save Roadmap</button>
+            <button class="btn" data-saveall style="margin-left:.5rem;">Save All</button>
+          </div>
         </div>
       `;
 
-      const btn = card.querySelector('button.btn');
-      btn.addEventListener('click', async ()=>{
-        btn.disabled = true;
+      const goalsEl = card.querySelector('[data-goals]');
+      const msEl = card.querySelector('[data-milestones]');
 
+      const renderGoals = ()=>{
+        goalsEl.innerHTML = '';
+        if (!p._goals.length) { const empty = document.createElement('div'); empty.className='tiny'; empty.textContent='No goals yet.'; goalsEl.appendChild(empty); return; }
+        p._goals.forEach((g, idx)=>{
+          const title = typeof g === 'string' ? g : (g?.title||'(untitled)');
+          const timeframe = typeof g === 'string' ? '' : (g?.timeframe||'');
+          const row = document.createElement('div');
+          row.className='item';
+          row.innerHTML = `
+            <div></div>
+            <div>
+              <div class="title">${esc(title)}</div>
+              <div class="time">${esc(timeframe)}</div>
+            </div>
+            <button class="del" title="Delete">×</button>
+          `;
+          row.querySelector('.del').addEventListener('click', ()=>{ p._goals.splice(idx,1); renderGoals(); });
+          goalsEl.appendChild(row);
+        });
+      };
+
+      const renderMilestones = ()=>{
+        msEl.innerHTML = '';
+        if (!p._milestones.length) { const empty = document.createElement('div'); empty.className='tiny'; empty.textContent='No milestones yet.'; msEl.appendChild(empty); return; }
+        p._milestones.forEach((m, idx)=>{
+          const title = m?.title ?? '(untitled)';
+          const timeframe = m?.timeframe ?? '';
+          const done = !!m?.done;
+          const row = document.createElement('div');
+          row.className='item';
+          row.innerHTML = `
+            <input type="checkbox" ${done?'checked':''} />
+            <div>
+              <div class="title">${esc(title)}</div>
+              <div class="time">${esc(timeframe)}</div>
+            </div>
+            <button class="del" title="Delete">×</button>
+          `;
+          row.querySelector('input[type="checkbox"]').addEventListener('change', (ev)=>{ p._milestones[idx] = { ...p._milestones[idx], done: !!ev.target.checked }; });
+          row.querySelector('.del').addEventListener('click', ()=>{ p._milestones.splice(idx,1); renderMilestones(); });
+          msEl.appendChild(row);
+        });
+      };
+
+      // Initial render
+      renderGoals();
+      renderMilestones();
+
+      // Add goal
+      card.querySelector('[data-addgoal]').addEventListener('click', ()=>{
+        const t = card.querySelector('[data-newgoal-title]');
+        const tm = card.querySelector('[data-newgoal-time]');
+        const title = (t.value||'').trim();
+        const timeframe = (tm.value||'').trim();
+        if (!title) return;
+        p._goals.push({ title, timeframe });
+        t.value = ''; tm.value='';
+        renderGoals();
+      });
+
+      // Add milestone
+      card.querySelector('[data-addms]').addEventListener('click', ()=>{
+        const t = card.querySelector('[data-newms-title]');
+        const tm = card.querySelector('[data-newms-time]');
+        const title = (t.value||'').trim();
+        const timeframe = (tm.value||'').trim();
+        if (!title) return;
+        p._milestones.push({ title, timeframe, done:false });
+        t.value = ''; tm.value='';
+        renderMilestones();
+      });
+
+      // +1 session
+      card.querySelector('[data-addsess]').addEventListener('click', async ()=>{
+        try{
+          const r = await fetch('/api/admin/profiles', { method:'POST', headers:{'Content-Type':'application/json'}, body: JSON.stringify({ userId: p.id, increment_session: true }) });
+          if(!r.ok) throw new Error();
+          p._session_count += 1;
+          card.querySelector('[data-sess]').textContent = p._session_count;
+          showToast('Session +1 ✓');
+        }catch{ showToast('Failed to increment session'); }
+      });
+
+      // Save Roadmap only
+      card.querySelector('[data-saveroadmap]').addEventListener('click', async ()=>{
+        try{
+          const r = await fetch('/api/admin/profiles', { method:'POST', headers:{'Content-Type':'application/json'}, body: JSON.stringify({ userId: p.id, goals: p._goals, milestones: p._milestones }) });
+          if(!r.ok) throw new Error();
+          showToast('Roadmap saved ✓');
+        }catch{ showToast('Save failed'); }
+      });
+
+      // Save All (plan/dates + roadmap + sessions)
+      card.querySelector('[data-saveall]').addEventListener('click', async ()=>{
         const sel = card.querySelector('select[data-k="plan"]');
         const iNext = card.querySelector('input[data-k="next_payment_date"]');
         const iRenew = card.querySelector('input[data-k="renewal_date"]');
-
         const body = {
           userId: p.id,
           plan: sel.value || null,
           next_payment_date: iNext.value || null,
-          renewal_date: iRenew.value || null
+          renewal_date: iRenew.value || null,
+          goals: p._goals,
+          milestones: p._milestones,
+          session_count: p._session_count
         };
-
         try{
-          const r = await fetch('/api/admin/profiles', {
-            method:'POST', headers:{'Content-Type':'application/json'},
-            body: JSON.stringify(body)
-          });
-          if(!r.ok) throw new Error('Save failed');
-          showToast('Saved ✓', true);
-        }catch(e){
-          showToast('Save failed', false);
-        }finally{
-          btn.disabled = false;
-        }
+          const r = await fetch('/api/admin/profiles', { method:'POST', headers:{'Content-Type':'application/json'}, body: JSON.stringify(body) });
+          if(!r.ok) throw new Error();
+          showToast('Saved ✓');
+        }catch{ showToast('Save failed'); }
       });
 
       grid.appendChild(card);

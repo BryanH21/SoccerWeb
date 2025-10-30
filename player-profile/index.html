@@ -42,6 +42,8 @@
     .mapwrap{ margin-top:1rem; background:#0f1014; border:1px solid #20232a; border-radius:14px; padding:1rem; }
     .map{ width:100%; height:180px; }
     .flag { cursor:pointer; }
+    .flag.goal { opacity: .95; }
+    .flag.milestone { opacity: 1; }
     .tip{ position:fixed; inset:auto auto 1rem 1rem; background:#15161a; color:#f5f7fb; border:1px solid #2a2f39; border-radius:12px; padding:.6rem .8rem; box-shadow:0 10px 30px rgba(0,0,0,.45); display:none; max-width:min(90vw,360px); }
     .tip .t{ font-weight:800; }
     .tip .s{ color:var(--dim); font-size:.9rem; margin-top:.2rem; }
@@ -100,7 +102,6 @@
       const r = await fetch('/api/me');
       if(!r.ok) throw 0;
       me = await r.json();
-      // If an admin lands here, send them to the Admin dashboard
       if (me.role === 'admin') { location.href = '/admin/'; return; }
     } catch {
       location.href = '/login.html'; return;
@@ -112,74 +113,112 @@
     document.getElementById('k-next').textContent  = fmt(me.next_payment_date);
     document.getElementById('k-renew').textContent = fmt(me.renewal_date);
 
-    // Render goals
+    // Helpers
+    const esc = (s)=> String(s||'').replace(/[&<>"']/g, c=>({ '&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;' }[c]));
+
+    // Normalize data
+    const goals = Array.isArray(me.goals) ? me.goals.map(g=>
+      (typeof g === 'string') ? { title:g, timeframe:'' } : { title:g?.title||'', timeframe:g?.timeframe||'' }
+    ) : [];
+    const miles = Array.isArray(me.milestones) ? me.milestones.map(m=>({
+      title: m?.title||'', timeframe: m?.timeframe||'', done: !!m?.done
+    })) : [];
+
+    // Render goals list
     const goalsEl = document.getElementById('goals');
-    const goals = Array.isArray(me.goals) ? me.goals : [];
     goalsEl.innerHTML = '';
     if(!goals.length){ goalsEl.innerHTML = '<div class="item">No goals yet.</div>'; }
     else goals.forEach(g=>{
       const row = document.createElement('div');
       row.className = 'item';
-      row.textContent = String(g);
+      row.innerHTML = `
+        <div style="width:10px;height:10px;border-radius:2px;background:#f5c542"></div>
+        <div>
+          <div class="title">${esc(g.title||'(untitled)')}</div>
+          <div class="time">${esc(g.timeframe||'')}</div>
+        </div>`;
       goalsEl.appendChild(row);
     });
 
-    // Render milestones
+    // Render milestones list
     const milesEl = document.getElementById('miles');
-    const miles = Array.isArray(me.milestones) ? me.milestones : [];
     milesEl.innerHTML = '';
     if(!miles.length){ milesEl.innerHTML = '<div class="item">No milestones yet.</div>'; }
     else miles.forEach(m=>{
       const row = document.createElement('div');
       row.className = 'item' + (m.done?' done':'');
-      row.innerHTML = `<div style="width:10px;height:10px;border-radius:2px;background:${m.done?'var(--ok)':'#39414f'}"></div>
-                       <div>
-                         <div class="title">${escapeHtml(m.title||'(untitled)')}</div>
-                         <div class="time">${escapeHtml(m.timeframe||'')}</div>
-                       </div>`;
+      row.innerHTML = `
+        <div style="width:10px;height:10px;border-radius:2px;background:${m.done?'var(--ok)':'#39414f'}"></div>
+        <div>
+          <div class="title">${esc(m.title||'(untitled)')}</div>
+          <div class="time">${esc(m.timeframe||'')}</div>
+        </div>`;
       milesEl.appendChild(row);
     });
 
-    // Roadmap flags (click to show tooltip)
+    // Roadmap flags (Goals = small flags, Milestones = big flags)
     const svg = document.getElementById('roadmap');
     const tip = document.getElementById('tip');
+
+    const clearFlags = ()=>{ [...svg.querySelectorAll('.flag')].forEach(n=>n.remove()); };
+
+    const totalFlags = goals.length + miles.length || 1;
+    const xAt = (index)=> 40 + (index/(totalFlags-1||1))*920; // evenly spaced along the bar
+
+    const addFlag = ({ x, title, timeframe, big=false, done=false, kind })=>{
+      const g = document.createElementNS('http://www.w3.org/2000/svg','g');
+      g.setAttribute('class', `flag ${kind||''}`.trim());
+      g.setAttribute('data-title', title||'');
+      g.setAttribute('data-time', timeframe||'');
+      g.setAttribute('transform', `translate(${x}, ${big?58:70})`);
+
+      const pole = document.createElementNS('http://www.w3.org/2000/svg','rect');
+      pole.setAttribute('x','0'); pole.setAttribute('y','0'); pole.setAttribute('width','3'); pole.setAttribute('height', big?'60':'36'); pole.setAttribute('fill','#2a2f39');
+
+      const path = document.createElementNS('http://www.w3.org/2000/svg','path');
+      if (big) {
+        path.setAttribute('d','M0 50 L0 0 L46 10 L0 20 Z');
+      } else {
+        path.setAttribute('d','M3 4 L28 10 L3 16 Z');
+      }
+      path.setAttribute('fill', done ? 'var(--ok)' : '#f5c542');
+      path.setAttribute('opacity', done?'.9':'1');
+
+      g.appendChild(pole); g.appendChild(path); svg.appendChild(g);
+      return g;
+    };
+
     const placeFlags = ()=>{
-      // Clear previous
-      [...svg.querySelectorAll('.flag')].forEach(n=>n.remove());
-      const total = Math.max(miles.length, 1);
-      miles.forEach((m, i)=>{
-        const x = 40 + (i/(total-1||1))*920;
-        const g = document.createElementNS('http://www.w3.org/2000/svg','g');
-        g.setAttribute('class','flag');
-        g.setAttribute('data-title', m.title||'Milestone');
-        g.setAttribute('data-time',  m.timeframe||'');
-        g.setAttribute('transform', `translate(${x}, 70)`);
-        const pole = document.createElementNS('http://www.w3.org/2000/svg','rect');
-        pole.setAttribute('x','0'); pole.setAttribute('y','0'); pole.setAttribute('width','3'); pole.setAttribute('height','36'); pole.setAttribute('fill','#2a2f39');
-        const flag = document.createElementNS('http://www.w3.org/2000/svg','path');
-        flag.setAttribute('d','M3 4 L50 14 L3 22 Z');
-        flag.setAttribute('fill', m.done ? 'var(--ok)' : '#f5c542');
-        flag.setAttribute('opacity', m.done?'.85':'1');
-        g.appendChild(pole); g.appendChild(flag); svg.appendChild(g);
+      clearFlags();
+      let idx = 0;
+      // Goals first (small flags)
+      goals.forEach(g=>{
+        addFlag({ x:xAt(idx++), title:g.title, timeframe:g.timeframe, big:false, done:false, kind:'goal' });
       });
-      // Finish flag (larger)
+      // Milestones next (big flags)
+      miles.forEach(m=>{
+        addFlag({ x:xAt(idx++), title:m.title, timeframe:m.timeframe, big:true, done:!!m.done, kind:'milestone' });
+      });
+      // Finish marker (big)
       const end = document.createElementNS('http://www.w3.org/2000/svg','g');
-      end.setAttribute('class','flag');
+      end.setAttribute('class','flag milestone');
       end.setAttribute('data-title','Finish'); end.setAttribute('data-time','');
       end.setAttribute('transform','translate(960, 58)');
       const goal = document.createElementNS('http://www.w3.org/2000/svg','path');
-      goal.setAttribute('d','M0 50 L0 0 L40 10 L0 20 Z');
+      goal.setAttribute('d','M0 50 L0 0 L46 10 L0 20 Z');
       goal.setAttribute('fill','#f5c542');
       const post = document.createElementNS('http://www.w3.org/2000/svg','rect');
       post.setAttribute('x','-3'); post.setAttribute('y','0'); post.setAttribute('width','3'); post.setAttribute('height','60'); post.setAttribute('fill','#2a2f39');
       end.appendChild(post); end.appendChild(goal); svg.appendChild(end);
     };
+
     placeFlags();
 
+    // Tooltip wiring
     const wireFlag = (g)=>{
       const t = g.getAttribute('data-title')||'';
       const s = g.getAttribute('data-time')||'';
-      const show = (ev)=>{
+      const show = ()=>{
         tip.querySelector('.t').textContent = t;
         tip.querySelector('.s').textContent = s;
         tip.style.display='block';
@@ -192,8 +231,6 @@
       window.addEventListener('resize', hide, {passive:true});
     };
     svg.querySelectorAll('.flag').forEach(wireFlag);
-
-    function escapeHtml(s){ return String(s).replace(/[&<>"']/g, c=>({ '&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;' }[c])); }
   })();
   </script>
 </body>
