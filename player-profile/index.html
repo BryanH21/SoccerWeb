@@ -47,6 +47,17 @@
 
     /* button */
     .btn{ background:var(--foundry-accent); color:#111; border:0; padding:.55rem .85rem; border-radius:12px; font-weight:700; cursor:pointer; }
+  .pp-map { margin-top: 1rem; background:#121318; border:1px solid #20232a; border-radius:14px; padding:.75rem; }
+  .pp-map svg { width:100%; height:auto; display:block; }
+  .flag { fill: rgba(245,197,66,.22); stroke: rgba(245,197,66,.55); }
+  .flag.done { fill: rgba(139, 214, 125, .22); stroke: rgba(139, 214, 125, .7); }
+  .track { stroke:#2a2f39; stroke-width:6; }
+  .track-progress { stroke:#f5c542; stroke-width:6; }
+  .node { fill:#0f1014; stroke:#2a2f39; stroke-width:2; }
+  .node.done { stroke:#9BE28B; }
+  .player { fill:#f5c542; stroke:#111; stroke-width:2; }
+  .goal { fill:#0f1014; stroke:#2a2f39; stroke-width:2; }
+  .net { stroke:#394150; stroke-width:1; opacity:.7 }
   </style>
 </head>
 <body>
@@ -96,6 +107,7 @@
             <ul id="pp-milestones" class="pp-value" style="list-style:disc;margin-left:1rem;"></ul>
           </div>
         </div>
+        <div id="pp-map" class="pp-map" aria-label="Roadmap progress"></div>
       </article>
 
       <!-- space for future cards: Goals, Milestones, etc. -->
@@ -157,6 +169,78 @@
 
       if (goalsEl) renderList(goalsEl, goals);
       if (msEl) renderList(msEl, milestones);
+
+      // ---- Visual Roadmap Map (SVG) ----
+      const mapEl = document.getElementById('pp-map');
+      if (mapEl) {
+        // Normalize milestones to objects with {title, done}
+        const ms = (Array.isArray(milestones) ? milestones : []).map(m =>
+          typeof m === 'string' ? ({ title: m, done: false }) : (m || {})
+        );
+        const n = ms.length;
+        const doneCount = ms.filter(m => m && m.done).length;
+
+        if (n === 0) {
+          mapEl.innerHTML = '<div class="pp-value" style="padding:.5rem;">No milestones yet.</div>';
+        } else {
+          const W = 820, H = 140, PADX = 40, PADY = 26;
+          const usable = W - PADX*2;
+          const step = usable / (n + 1); // +1 for goal at end
+          const y = H/2;
+
+          const idx = Math.min(doneCount, n);
+          const playerX = PADX + step * idx;
+
+          const flags = [];
+          for (let i = 0; i < n; i++) {
+            const x = PADX + step * (i + 1) - step * 0.5;
+            const isDone = !!ms[i].done;
+            const flagW = 12, flagH = 16;
+            const poleH = 22;
+            const pole = `<line x1="${x}" y1="${y - poleH}" x2="${x}" y2="${y}" stroke="${isDone ? 'rgba(139,214,125,.8)' : '#394150'}" stroke-width="2"/>`;
+            const tri = `<path class="flag ${isDone ? 'done':''}" d="M ${x} ${y - poleH} L ${x + flagW} ${y - poleH + flagH/2} L ${x} ${y - poleH + flagH} Z"/>`;
+            flags.push(pole + tri);
+          }
+
+          const goalX = PADX + step * (n + 1);
+          const goal = `
+            <rect class="goal" x="${goalX - 18}" y="${y - 22}" width="34" height="44" rx="4"></rect>
+            <path class="net" d="M ${goalX - 16} ${y - 20} H ${goalX + 14} M ${goalX - 16} ${y - 10} H ${goalX + 14} M ${goalX - 16} ${y} H ${goalX + 14} M ${goalX - 16} ${y + 10} H ${goalX + 14}
+                                 M ${goalX - 8} ${y - 20} V ${y + 22} M ${goalX} ${y - 20} V ${y + 22} M ${goalX + 8} ${y - 20} V ${y + 22}" />
+          `;
+
+          const trackStart = PADX, trackEnd = goalX;
+          const progressEnd = playerX;
+
+          const nodes = [];
+          for (let i = 0; i <= n; i++) {
+            const x = PADX + step * i;
+            const completed = i <= doneCount;
+            nodes.push(`<circle class="node ${completed ? 'done':''}" cx="${x}" cy="${y}" r="7"></circle>`);
+          }
+
+          const player = `<circle class="player" cx="${playerX}" cy="${y}" r="9"></circle>`;
+
+          const labelIdx = Math.min(idx, n - 1);
+          const currentTitle = ms[labelIdx]?.title || '';
+          const labelTxt = currentTitle ? `<text x="${Math.min(playerX + 4, W - 8)}" y="${y - 16}" fill="#aeb4c2" font-size="11">${currentTitle.length>32? (currentTitle.slice(0,32)+'…') : currentTitle}</text>` : '';
+
+          const svg = `
+            <svg viewBox="0 0 ${W} ${H}" role="img" aria-label="Roadmap timeline">
+              <line class="track" x1="${trackStart}" y1="${y}" x2="${trackEnd}" y2="${y}"></line>
+              <line class="track-progress" x1="${trackStart}" y1="${y}" x2="${progressEnd}" y2="${y}"></line>
+              ${nodes.join('')}
+              ${flags.join('')}
+              ${goal}
+              ${player}
+              ${labelTxt}
+            </svg>
+            <div class="tiny" style="margin-top:.4rem;color:#aeb4c2;">Progress: ${doneCount}/${n} milestones complete</div>
+          `;
+
+          mapEl.innerHTML = svg;
+        }
+      }
 
       planEl.classList.remove('plan-3','plan-6','plan-12');
       if (plan.startsWith('3')) planEl.classList.add('plan-3');
