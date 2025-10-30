@@ -1,0 +1,10 @@
+{
+  "redirects": [
+    {
+      "source": "/(.*)",
+      "has": [{ "type": "host", "value": "foundrysocceracademy.com" }],
+      "destination": "https://www.foundrysocceracademy.com/:1",
+      "permanent": true
+    }
+  ]
+}

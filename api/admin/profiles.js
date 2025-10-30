@@ -56,6 +56,7 @@ function normalizeMilestones(input) {
 
 export default async function handler(req, res) {
   try {
+    res.setHeader('Cache-Control', 'no-store');
     // --- Auth (admin only) ---
     const me = await getUserFromSession(req);
     if (!me) return res.status(401).json({ error: 'Not authenticated' });

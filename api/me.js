@@ -6,6 +6,7 @@ import { getSession } from './_session.js';
 
 export default async function handler(req, res) {
   try {
+    res.setHeader('Cache-Control', 'no-store');
     const me = await getSession(req);
     if (!me) return res.status(401).json({ error: 'Not authenticated' });
 
@@ -26,7 +27,7 @@ export default async function handler(req, res) {
       milestones: []
     };
 
-    return res.json({
+    return res.status(200).json({
       id: me.id,
       username: me.username,
       role: me.role,
