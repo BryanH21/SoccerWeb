@@ -50,6 +50,20 @@
   </style>
 </head>
 <body>
+  <header style="display:flex; justify-content:flex-end; padding:1rem;">
+    <button id="logoutBtn" style="background:#d9534f; color:white; border:none; padding:0.5rem 1rem; border-radius:6px; cursor:pointer;">
+      Log Out
+    </button>
+  </header>
+
+  <script>
+  document.getElementById('logoutBtn').addEventListener('click', async () => {
+    try {
+      await fetch('/api/session', { method: 'DELETE' });
+    } catch {}
+    window.location.href = '/login.html';
+  });
+  </script>
   <div class="wrap">
     <h1>Player Profile & Roadmap</h1>
     <p class="sub">Private player dashboard.</p>

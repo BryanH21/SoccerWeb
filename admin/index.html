@@ -80,7 +80,7 @@
         <option value="none">Not assigned</option>
       </select>
       <span class="muted">Only visible to admins</span>
-      <a class="btn" href="/api/logout">Logout</a>
+      <button id="logoutBtn" class="btn">Log Out</button>
     </div>
 
     <div id="grid" class="grid"><div class="muted">Loading…</div></div>
@@ -90,6 +90,14 @@
 
 <script>
 (async function(){
+  // logout button
+  const logoutBtn = document.getElementById('logoutBtn');
+  if (logoutBtn) {
+    logoutBtn.addEventListener('click', async () => {
+      try { await fetch('/api/session', { method: 'DELETE' }); } catch {}
+      window.location.href = '/login.html';
+    });
+  }
   // 1) Ensure admin
   try {
     const me = await fetch('/api/me').then(r=>r.ok?r.json():null);
