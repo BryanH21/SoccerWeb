@@ -1,7 +1,6 @@
 {
   "type": "module",
   "dependencies": {
-    "@vercel/postgres": "latest",
-    "bcryptjs": "latest"
+    "@neondatabase/serverless": "latest"
   }
 }

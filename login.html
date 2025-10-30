@@ -42,7 +42,7 @@
 
     <form id="loginForm">
       <label>Username
-        <input id="lu" type="text" autocomplete="username" required />
+        <input id="lu" type="text" autocomplete="username" required autofocus />
       </label>
 
       <label>Password
@@ -60,49 +60,72 @@
     const lf = document.getElementById('loginForm');
     const lerr = document.getElementById('lerr');
 
-    // Add a show/hide password toggle
+    // Add a show/hide password toggle (guard against duplicates)
     const passInput = document.getElementById('lp');
-    const passToggle = document.createElement('button');
-    passToggle.type = 'button';
-    passToggle.textContent = 'Show';
-    passToggle.style.marginLeft = '0.5rem';
-    passToggle.style.background = 'none';
-    passToggle.style.border = 'none';
-    passToggle.style.color = '#ccc';
-    passToggle.style.cursor = 'pointer';
-    passToggle.addEventListener('click', () => {
-      const showing = passInput.type === 'text';
-      passInput.type = showing ? 'password' : 'text';
-      passToggle.textContent = showing ? 'Show' : 'Hide';
-    });
-    passInput.parentElement.appendChild(passToggle);
+    let passToggle = document.getElementById('passToggle');
+    if (!passToggle) {
+      passToggle = document.createElement('button');
+      passToggle.id = 'passToggle';
+      passToggle.type = 'button';
+      passToggle.textContent = 'Show';
+      passToggle.style.marginLeft = '0.5rem';
+      passToggle.style.background = 'none';
+      passToggle.style.border = 'none';
+      passToggle.style.color = '#ccc';
+      passToggle.style.cursor = 'pointer';
+      passToggle.addEventListener('click', () => {
+        const showing = passInput.type === 'text';
+        passInput.type = showing ? 'password' : 'text';
+        passToggle.textContent = showing ? 'Show' : 'Hide';
+      });
+      passInput.parentElement.appendChild(passToggle);
+    }
 
     lf.addEventListener('submit', async (e) => {
       e.preventDefault();
       lerr.style.display = 'none';
+      const submitBtn = lf.querySelector('button[type="submit"]');
 
-      const res = await fetch('/api/login', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          username: document.getElementById('lu').value.trim(),
-          password: passInput.value
-        })
-      });
+      // prevent double submits
+      submitBtn.disabled = true;
+      const oldText = submitBtn.textContent;
+      submitBtn.textContent = 'Signing in…';
 
-      if (res.ok) {
-        try {
-          const data = await res.json();
-          if (data.role === 'admin') {
+      try {
+        const res = await fetch('/api/login', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            username: document.getElementById('lu').value.trim(),
+            password: passInput.value
+          })
+        });
+
+        if (res.ok) {
+          let data = null;
+          try { data = await res.json(); } catch {}
+          if (data && data.role === 'admin') {
             window.location.href = '/admin/';
           } else {
             window.location.href = '/player-profile/';
           }
-        } catch {
-          window.location.href = '/player-profile/';
+          return;
         }
-      } else {
+
+        // Try to show server-provided message
+        let msg = 'Invalid username or password';
+        try {
+          const err = await res.json();
+          if (err && err.error) msg = err.error;
+        } catch {}
+        lerr.textContent = msg;
         lerr.style.display = 'block';
+      } catch (err) {
+        lerr.textContent = 'Network error. Please try again.';
+        lerr.style.display = 'block';
+      } finally {
+        submitBtn.disabled = false;
+        submitBtn.textContent = oldText;
       }
     });
   </script>

@@ -25,8 +25,10 @@ export default async function handler(req, res) {
     if (!rows || rows.length === 0) return res.status(401).json({ error: 'Invalid credentials' });
     const { id, password_hash, role } = rows[0];
 
-    const ok = await verifyPassword(p, password_hash);
-    if (!ok) return res.status(401).json({ error: 'Invalid credentials' });
+    const ok = verifyPassword(p, password_hash);
+    if (!ok) {
+      return res.status(401).json({ error: 'Invalid credentials' });
+    }
 
     const token = newSessionToken();
     const expires = new Date(Date.now() + 12 * 3600 * 1000); // 12h

@@ -103,26 +103,26 @@
       if(!r.ok) throw 0;
       me = await r.json();
       if (me.role === 'admin') { location.href = '/admin/'; return; }
+      if (!me.profile) me.profile = {};
     } catch {
       location.href = '/login.html'; return;
     }
 
-    // Populate membership KPIs
+    // Populate membership KPIs (me.profile.* per /api/me)
     const fmt = (d)=> d ? new Date(d).toLocaleDateString() : '—';
-    document.getElementById('k-plan').textContent  = me.plan || 'Not Assigned';
-    document.getElementById('k-next').textContent  = fmt(me.next_payment_date);
-    document.getElementById('k-renew').textContent = fmt(me.renewal_date);
+    const prof = me.profile || {};
+    document.getElementById('k-plan').textContent  = prof.plan || 'Not Assigned';
+    document.getElementById('k-next').textContent  = fmt(prof.next_payment_date);
+    document.getElementById('k-renew').textContent = fmt(prof.renewal_date);
 
     // Helpers
     const esc = (s)=> String(s||'').replace(/[&<>"']/g, c=>({ '&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;' }[c]));
 
-    // Normalize data
-    const goals = Array.isArray(me.goals) ? me.goals.map(g=>
-      (typeof g === 'string') ? { title:g, timeframe:'' } : { title:g?.title||'', timeframe:g?.timeframe||'' }
-    ) : [];
-    const miles = Array.isArray(me.milestones) ? me.milestones.map(m=>({
-      title: m?.title||'', timeframe: m?.timeframe||'', done: !!m?.done
-    })) : [];
+    // Normalize data from me.profile
+    const goalsSrc = (me.profile && Array.isArray(me.profile.goals)) ? me.profile.goals : [];
+    const milesSrc = (me.profile && Array.isArray(me.profile.milestones)) ? me.profile.milestones : [];
+    const goals = goalsSrc.map(g => (typeof g === 'string') ? { title:g, timeframe:'' } : { title:g?.title||'', timeframe:g?.timeframe||'' });
+    const miles = milesSrc.map(m => ({ title: m?.title||'', timeframe: m?.timeframe||'', done: !!m?.done }));
 
     // Render goals list
     const goalsEl = document.getElementById('goals');

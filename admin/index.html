@@ -80,7 +80,7 @@
         <option value="none">Not assigned</option>
       </select>
       <span class="muted">Only visible to admins</span>
-      <a class="btn" href="/logout">Logout</a>
+      <a class="btn" href="/api/logout">Logout</a>
     </div>
 
     <div id="grid" class="grid"><div class="muted">Loading…</div></div>
@@ -102,10 +102,23 @@
   const showToast = (msg)=>{ toast.textContent = msg; toast.classList.add('show'); setTimeout(()=>toast.classList.remove('show'), 1400); };
 
   let players = [];
-  try{
-    const data = await fetch('/api/admin/profiles').then(r=>r.json());
+  try {
+    const resp = await fetch('/api/admin/profiles');
+    if (resp.status === 401 || resp.status === 403) {
+      location.href = '/login.html';
+      return;
+    }
+    if (!resp.ok) {
+      const txt = await resp.text().catch(()=> '');
+      grid.innerHTML = `<div class="muted">Failed to load players. ${txt ? esc(txt) : ''}</div>`;
+      return;
+    }
+    const data = await resp.json();
     players = data.players || [];
-  }catch(e){ grid.innerHTML = '<div class="err">Failed to load players.</div>'; return; }
+  } catch (e) {
+    grid.innerHTML = '<div class="muted">Failed to load players.</div>';
+    return;
+  }
 
   const fmt = d => d ? new Date(d).toISOString().slice(0,10) : '';
   const esc = s => String(s||'').replace(/[&<>"']/g, c=>({ '&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;' }[c]));

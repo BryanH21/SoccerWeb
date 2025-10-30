@@ -22,17 +22,17 @@
 
     <form id="signupForm">
       <label>Username
-        <input id="su" name="username" type="text" minlength="3" maxlength="24" pattern="[A-Za-z0-9_]+" required />
+        <input id="su" name="username" type="text" minlength="3" maxlength="24" pattern="[A-Za-z0-9_]+" title="3–24 characters: letters, numbers, underscore only" autocomplete="username" required autofocus />
       </label>
 
       <label>Password
-        <input id="sp" name="password" type="password" minlength="8" required
+        <input id="sp" name="password" type="password" minlength="8" autocomplete="new-password" required
                pattern="(?=.*[A-Z])(?=.*[a-z])(?=.*[0-9])(?=.*[!@#$%^&*]).{8,}"
                title="Password must be at least 8 characters and include one uppercase letter, one lowercase letter, one number, and one special symbol." />
       </label>
       
       <label>Confirm password
-        <input id="sp2" name="passwordConfirm" type="password" minlength="8" required />
+        <input id="sp2" name="passwordConfirm" type="password" minlength="8" autocomplete="new-password" title="Re-enter the same password" required />
       </label>
       
       <small style="color:#bbb;display:block;margin-top:-.5rem;margin-bottom:1rem;">
@@ -45,14 +45,14 @@
       </label>
 
       <label>First name
-        <input id="sf" name="firstName" type="text" maxlength="30" required
+        <input id="sf" name="firstName" type="text" maxlength="30" autocomplete="given-name" required
                pattern="[A-Za-z ]+"
                oninput="this.value=this.value.replace(/[^A-Za-z ]/g,'')"
         />
       </label>
 
       <label>Last initial
-        <input id="sl" name="lastInitial" type="text" maxlength="1" required
+        <input id="sl" name="lastInitial" type="text" maxlength="1" title="One letter A–Z" required
                pattern="[A-Za-z]"
                oninput="this.value = this.value.replace(/[^A-Za-z]/g,'').toUpperCase().slice(0,1)"
         />
@@ -92,6 +92,8 @@
       e.preventDefault();
       serr.style.display = 'none';
       serr.textContent = '';
+      serr.setAttribute('role','alert');
+      serr.setAttribute('aria-live','polite');
 
       // basic client checks
       const username = document.getElementById('su').value.trim();
@@ -130,8 +132,14 @@
         // success -> go to login
         window.location.href = '/login.html';
       } catch (err) {
-        serr.textContent = err.message || 'Error';
+        let msg = err && err.message ? err.message : 'Signup failed';
+        try {
+          const resp = await fetch('/api/signup', { method: 'POST' });
+        } catch {}
+        // If the previous fetch threw, we already have msg. But try to surface any server detail from last response if we captured it above
+        serr.textContent = msg;
         serr.style.display = 'block';
+        serr.scrollIntoView({ behavior: 'smooth', block: 'center' });
       } finally {
         btn && (btn.disabled = false);
       }
