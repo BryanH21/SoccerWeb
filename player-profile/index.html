@@ -80,6 +80,23 @@
           </div>
         </div>
       </article>
+      <article class="pp-card">
+        <div class="pp-card-head">
+          <span class="pp-chip">Roadmap</span>
+          <h2>Goals &amp; Milestones</h2>
+        </div>
+
+        <div class="pp-metrics" id="pp-roadmap">
+          <div class="pp-metric" style="grid-column:1/-1;">
+            <label>Goals</label>
+            <ul id="pp-goals" class="pp-value" style="list-style:disc;margin-left:1rem;"></ul>
+          </div>
+          <div class="pp-metric" style="grid-column:1/-1;">
+            <label>Milestones</label>
+            <ul id="pp-milestones" class="pp-value" style="list-style:disc;margin-left:1rem;"></ul>
+          </div>
+        </div>
+      </article>
 
       <!-- space for future cards: Goals, Milestones, etc. -->
     </section>
@@ -106,6 +123,39 @@
       planEl.textContent = label;
       nextEl.textContent = fmt(next);
       renewEl.textContent = fmt(renew);
+
+      // ---- Roadmap render (read-only) ----
+      const goals = Array.isArray(data.profile?.goals) ? data.profile.goals : [];
+      const milestones = Array.isArray(data.profile?.milestones) ? data.profile.milestones : [];
+
+      const goalsEl = document.getElementById('pp-goals');
+      const msEl = document.getElementById('pp-milestones');
+
+      const renderList = (ul, items) => {
+        ul.innerHTML = '';
+        if (!items || items.length === 0) {
+          const li = document.createElement('li');
+          li.textContent = 'No items yet.';
+          ul.appendChild(li);
+          return;
+        }
+        for (const it of items) {
+          const li = document.createElement('li');
+          if (typeof it === 'string') {
+            li.textContent = it; // simple string goal
+          } else if (it && typeof it === 'object') {
+            li.textContent = it.title || '(untitled)';
+            if (it.done) {
+              li.style.opacity = 0.8;
+              li.style.textDecoration = 'line-through';
+            }
+          }
+          ul.appendChild(li);
+        }
+      };
+
+      renderList(goalsEl, goals);
+      renderList(msEl, milestones);
 
       planEl.classList.remove('plan-3','plan-6','plan-12');
       if (plan.startsWith('3')) planEl.classList.add('plan-3');

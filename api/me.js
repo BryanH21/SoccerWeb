@@ -25,7 +25,7 @@ export default async function handler(req, res) {
 
     // Fetch player profile details
     const prof = await pool.sql`
-      SELECT plan, next_payment_date, renewal_date
+      SELECT plan, next_payment_date, renewal_date, session_count, goals, milestones
       FROM player_profiles
       WHERE user_id = ${user.id}
       LIMIT 1
@@ -36,7 +36,14 @@ export default async function handler(req, res) {
       username: user.username,
       role: user.role,
       name: `${user.first_name} ${user.last_initial}.`,
-      profile: prof.rows[0] || { plan: null, next_payment_date: null, renewal_date: null }
+      profile: prof.rows[0] ? {
+        plan: prof.rows[0].plan,
+        next_payment_date: prof.rows[0].next_payment_date,
+        renewal_date: prof.rows[0].renewal_date,
+        session_count: prof.rows[0].session_count ?? 0,
+        goals: prof.rows[0].goals ?? [],
+        milestones: prof.rows[0].milestones ?? []
+      } : { plan: null, next_payment_date: null, renewal_date: null, session_count: 0, goals: [], milestones: [] }
     });
   } catch (e) {
     console.error('ME ERROR:', e);
