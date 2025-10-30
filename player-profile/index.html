@@ -108,6 +108,7 @@
       const r = await fetch('/api/me');
       if (!r.ok) { location.href = '/login.html'; return; }
       const data = await r.json();
+      console.log('ME profile:', data.profile);
 
       const plan = (data.profile?.plan || '').toLowerCase();
       const next = data.profile?.next_payment_date ? new Date(data.profile.next_payment_date) : null;
@@ -154,8 +155,8 @@
         }
       };
 
-      renderList(goalsEl, goals);
-      renderList(msEl, milestones);
+      if (goalsEl) renderList(goalsEl, goals);
+      if (msEl) renderList(msEl, milestones);
 
       planEl.classList.remove('plan-3','plan-6','plan-12');
       if (plan.startsWith('3')) planEl.classList.add('plan-3');
