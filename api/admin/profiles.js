@@ -2,7 +2,7 @@
 import { pool } from '../_db.js';
 import { readSessionCookie } from '../_session.js';
 
-export const config = { runtime: 'edge' };
+export const config = { runtime: 'nodejs' };
 
 export default async function handler(req, res) {
   try {
