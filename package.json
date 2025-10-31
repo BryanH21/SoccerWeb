@@ -1,6 +1,8 @@
 {
   "type": "module",
   "dependencies": {
-    "@neondatabase/serverless": "latest"
+    "@neondatabase/serverless": "latest",
+    "pg": "^8.11.5",
+    "cookie": "^0.6.0"
   }
 }
