@@ -1,14 +1,17 @@
 // /api/_db.js
-// Neon database client for serverless functions on Vercel
+import pg from 'pg';
+const { Pool } = pg;
 
-export const config = { runtime: 'nodejs' };
+const pool = new Pool({
+  connectionString: process.env.DATABASE_URL,
+  ssl: { rejectUnauthorized: false }, // ok for Neon/Vercel
+});
 
-import { neon } from '@neondatabase/serverless';
+// Parameterized query helper: query('SELECT * FROM users WHERE id = $1', [id])
+export async function query(text, params = []) {
+  const res = await pool.query(text, params);
+  return res; // { rows, rowCount, ... }
+}
 
-// Establish a Neon serverless connection
-// Make sure DATABASE_URL is set in your Vercel environment variables
-export const sql = neon(process.env.DATABASE_URL);
-
-// Example usage in any API route:
-// import { sql } from '../_db.js';
-// const rows = await sql`SELECT * FROM users;`
+// Optional: default export if any older files import default
+export default pool;
