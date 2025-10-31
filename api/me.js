@@ -1,45 +1,41 @@
 // /api/me.js
 export const config = { runtime: 'nodejs' };
 
-import { sql } from './_db.js';
+import { query } from './_db.js';
 import { getSession } from './_session.js';
 
 export default async function handler(req, res) {
   try {
     res.setHeader('Cache-Control', 'no-store');
+
     const me = await getSession(req);
-    if (!me) return res.status(401).json({ error: 'Not authenticated' });
+    if (!me) {
+      return res.status(401).json({ error: 'Not authenticated' });
+    }
 
     // Fetch player profile details
-    const profileRows = await sql/*sql*/`
-      SELECT plan, next_payment_date, renewal_date, session_count, goals, milestones
-      FROM player_profiles
-      WHERE user_id = ${me.id}
-      LIMIT 1;
-    `;
+    const { rows } = await query(
+      `SELECT plan, next_payment_date, renewal_date, session_count, goals, milestones
+         FROM player_profiles
+        WHERE user_id = $1
+        LIMIT 1`,
+      [me.user_id]
+    );
 
-    const profile = profileRows[0] || {
+    const profile = rows[0] || {
       plan: null,
       next_payment_date: null,
       renewal_date: null,
       session_count: 0,
       goals: [],
-      milestones: []
+      milestones: [],
     };
 
     return res.status(200).json({
-      id: me.id,
+      user_id: me.user_id,
       username: me.username,
       role: me.role,
-      name: `${me.first_name} ${me.last_initial}.`,
-      profile: {
-        plan: profile.plan,
-        next_payment_date: profile.next_payment_date,
-        renewal_date: profile.renewal_date,
-        session_count: profile.session_count ?? 0,
-        goals: profile.goals ?? [],
-        milestones: profile.milestones ?? []
-      }
+      profile,
     });
   } catch (e) {
     console.error('ME ERROR:', e);

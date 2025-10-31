@@ -1,38 +1,8 @@
 // /api/admin/profiles.js
 export const config = { runtime: 'nodejs' };
 
-import { sql } from '../_db.js';
-
-// === Config ===
-// If your cookie is named something else in _session.js, change this:
-const SESSION_COOKIE_NAME = 'session';
-
-// === Helpers ===
-function parseCookies(req) {
-  const raw = req.headers?.cookie || '';
-  const out = {};
-  raw.split(';').forEach(p => {
-    const idx = p.indexOf('=');
-    if (idx > -1) out[p.slice(0, idx).trim()] = decodeURIComponent(p.slice(idx + 1).trim());
-  });
-  return out;
-}
-
-async function getUserFromSession(req) {
-  const cookies = parseCookies(req);
-  const token = cookies[SESSION_COOKIE_NAME] || cookies['session_token'] || cookies['token'];
-  if (!token) return null;
-
-  // Look up session and join to user; ensure not expired
-  const rows = await sql/*sql*/`
-    SELECT u.id, u.username, u.first_name, u.last_initial, u.role
-    FROM sessions s
-    JOIN users u ON u.id = s.user_id
-    WHERE s.token = ${token} AND s.expires_at > now()
-    LIMIT 1;
-  `;
-  return rows[0] || null;
-}
+import { query } from '../_db.js';
+import { getSession } from '../_session.js';
 
 function normalizeGoals(input) {
   if (!Array.isArray(input)) return [];
@@ -57,24 +27,24 @@ function normalizeMilestones(input) {
 export default async function handler(req, res) {
   try {
     res.setHeader('Cache-Control', 'no-store');
+
     // --- Auth (admin only) ---
-    const me = await getUserFromSession(req);
+    const me = await getSession(req);
     if (!me) return res.status(401).json({ error: 'Not authenticated' });
     if (me.role !== 'admin') return res.status(403).json({ error: 'Admins only' });
 
     if (req.method === 'GET') {
-      // Return all users with joined player profile fields
-      const rows = await sql/*sql*/`
+      const { rows } = await query(`
         SELECT
           u.id, u.username, u.first_name, u.last_initial, u.role,
-          pp.plan, pp.next_payment_date, pp.renewal_date,
-          COALESCE(pp.session_count, 0) AS session_count,
-          COALESCE(pp.goals, '[]'::jsonb) AS goals,
-          COALESCE(pp.milestones, '[]'::jsonb) AS milestones
+          p.plan, p.next_payment_date, p.renewal_date,
+          COALESCE(p.session_count, 0) AS session_count,
+          COALESCE(p.goals, '[]'::jsonb) AS goals,
+          COALESCE(p.milestones, '[]'::jsonb) AS milestones
         FROM users u
-        LEFT JOIN player_profiles pp ON pp.user_id = u.id
+        LEFT JOIN player_profiles p ON p.user_id = u.id
         ORDER BY u.created_at DESC;
-      `;
+      `);
       return res.status(200).json({ players: rows });
     }
 
@@ -94,42 +64,41 @@ export default async function handler(req, res) {
       if (!userId) return res.status(400).json({ error: 'userId required' });
 
       // Ensure the profile row exists
-      await sql/*sql*/`
-        INSERT INTO player_profiles (user_id)
-        VALUES (${userId})
-        ON CONFLICT (user_id) DO NOTHING;
-      `;
+      await query(
+        `INSERT INTO player_profiles (user_id) VALUES ($1)
+         ON CONFLICT (user_id) DO NOTHING;`,
+        [userId]
+      );
 
       if (increment_session) {
-        await sql/*sql*/`
-          UPDATE player_profiles
-          SET session_count = COALESCE(session_count,0) + 1
-          WHERE user_id = ${userId};
-        `;
+        await query(
+          `UPDATE player_profiles
+             SET session_count = COALESCE(session_count,0) + 1
+           WHERE user_id = $1;`,
+          [userId]
+        );
         return res.status(200).json({ ok: true, incremented: true });
       }
 
-      // Prepare values: use COALESCE to keep existing when value is null/undefined
+      // Prepare values
       const plan_v = plan ?? null;
       const next_v = next_payment_date ?? null;
       const renew_v = renewal_date ?? null;
       const sess_v = session_count ?? null;
+      const goals_v = goals === undefined ? null : JSON.stringify(normalizeGoals(goals));
+      const ms_v = milestones === undefined ? null : JSON.stringify(normalizeMilestones(milestones));
 
-      const goals_v =
-        goals === undefined ? null : JSON.stringify(normalizeGoals(goals));
-      const ms_v =
-        milestones === undefined ? null : JSON.stringify(normalizeMilestones(milestones));
-
-      await sql/*sql*/`
-        UPDATE player_profiles SET
-          plan = COALESCE(${plan_v}, plan),
-          next_payment_date = COALESCE(${next_v}::date, next_payment_date),
-          renewal_date = COALESCE(${renew_v}::date, renewal_date),
-          session_count = COALESCE(${sess_v}::int, session_count),
-          goals = COALESCE(${goals_v}::jsonb, goals),
-          milestones = COALESCE(${ms_v}::jsonb, milestones)
-        WHERE user_id = ${userId};
-      `;
+      await query(
+        `UPDATE player_profiles SET
+            plan = COALESCE($2, plan),
+            next_payment_date = COALESCE($3::date, next_payment_date),
+            renewal_date = COALESCE($4::date, renewal_date),
+            session_count = COALESCE($5::int, session_count),
+            goals = COALESCE($6::jsonb, goals),
+            milestones = COALESCE($7::jsonb, milestones)
+          WHERE user_id = $1;`,
+        [userId, plan_v, next_v, renew_v, sess_v, goals_v, ms_v]
+      );
 
       return res.status(200).json({ ok: true });
     }

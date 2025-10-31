@@ -1,7 +1,9 @@
 // /api/session.js
 export const config = { runtime: 'nodejs' };
 
-import { getSession, destroySession } from './_session.js';
+import { parse } from 'cookie';
+import { query } from './_db.js';
+import { getSession, clearSessionCookie } from './_session.js';
 
 export default async function handler(req, res) {
   try {
@@ -13,7 +15,12 @@ export default async function handler(req, res) {
     }
 
     if (req.method === 'DELETE') {
-      await destroySession(req, res);
+      const cookies = parse(req.headers?.cookie || '');
+      const token = cookies.sid;
+      if (token) {
+        await query(`DELETE FROM sessions WHERE token = $1`, [token]);
+      }
+      clearSessionCookie(res);
       return res.status(200).json({ ok: true });
     }
 
@@ -21,6 +28,8 @@ export default async function handler(req, res) {
     return res.status(405).json({ error: 'Method not allowed' });
   } catch (err) {
     console.error('SESSION API ERROR:', err);
-    res.status(500).json({ error: 'Internal server error', detail: String(err) });
+    res
+      .status(500)
+      .json({ error: 'Internal server error', detail: String(err) });
   }
 }
