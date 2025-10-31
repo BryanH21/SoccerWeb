@@ -12,6 +12,7 @@
       --card: #111;
       --accent: #f5c542;
       --text: #fff;
+      --hdr: 64px;
     }
     body {
       margin: 0;
@@ -19,11 +20,33 @@
       background: var(--bg);
       color: var(--text);
       font-family: 'Poppins', sans-serif;
+      min-height: 100%;
+      display: flex;
+      flex-direction: column;
+      align-items: stretch;
+      justify-content: flex-start;
+      padding-top: calc(var(--hdr) + env(safe-area-inset-top));
+    }
+    /* Sticky brand header */
+    .brand-bar {
+      position: fixed;
+      inset: 0 0 auto 0;
+      height: var(--hdr);
       display: flex;
       align-items: center;
-      justify-content: center;
-      height: 100vh;
+      gap: .6rem;
+      padding: calc(env(safe-area-inset-top) + 8px) 14px 8px;
+      background: linear-gradient(180deg, rgba(0,0,0,.75), rgba(0,0,0,.35) 70%, rgba(0,0,0,0));
+      backdrop-filter: saturate(120%) blur(6px);
+      border-bottom: 1px solid #1b1b1b;
+      z-index: 1000;
     }
+    .brand-bar a.brand { display: inline-flex; align-items: center; gap: .55rem; color: #fff; text-decoration: none; font-weight: 700; letter-spacing: .2px; }
+    .brand-bar img { height: 34px; width: auto; display: block; }
+    .brand-bar .brand span { color: #fff; font-size: 1rem; }
+
+    /* Content wrapper under header */
+    .page-wrap { width: 100%; flex: 1 0 auto; display: flex; align-items: center; justify-content: center; }
     .auth-card {
       width: 90%;
       max-width: 400px;
@@ -32,6 +55,7 @@
       border-radius: 16px;
       box-shadow: 0 4px 20px rgba(0,0,0,0.4);
       text-align: center;
+      margin: 1.25rem auto 3rem;
     }
     h1 {
       color: var(--accent);
@@ -88,8 +112,10 @@
     }
     @media (max-width: 480px) {
       .auth-card {
-        padding: 1.5rem;
+        padding: 1.25rem;
+        margin: .75rem auto 2rem;
       }
+      .brand-bar { height: 56px; }
       h1 {
         font-size: 1.4rem;
       }
@@ -100,29 +126,38 @@
   </style>
 </head>
 <body>
-  <main class="auth-card">
-    <h1>Player Portal</h1>
-    <p class="muted">Sign in with your username and password.</p>
+  <header class="brand-bar">
+    <a class="brand" href="/" aria-label="Foundry Soccer Academy home">
+      <img src="/images/logo.png" alt="Foundry logo" />
+      <span>Foundry Soccer Academy</span>
+    </a>
+  </header>
 
-    <form id="loginForm">
-      <label>Username
-        <input id="lu" type="text" autocomplete="username" required autofocus />
-      </label>
+  <div class="page-wrap">
+    <main class="auth-card">
+      <h1>Player Portal</h1>
+      <p class="muted">Sign in with your username and password.</p>
 
-      <label>Password
-        <input id="lp" type="password" autocomplete="current-password" required />
-      </label>
+      <form id="loginForm">
+        <label>Username
+          <input id="lu" type="text" autocomplete="username" required autofocus />
+        </label>
 
-      <button type="submit">Sign In</button>
-      <div id="lerr" class="error">Invalid username or password</div>
-    </form>
+        <label>Password
+          <input id="lp" type="password" autocomplete="current-password" required />
+        </label>
 
-    <p style="margin-top: 1rem; text-align:center;">
-      <a href="/reset.html" style="color: #f5c542; text-decoration:none;">Forgot Password?</a>
-    </p>
+        <button type="submit">Sign In</button>
+        <div id="lerr" class="error">Invalid username or password</div>
+      </form>
 
-    <p style="margin-top: .75rem;">No account? <a href="/signup.html">Create one</a></p>
-  </main>
+      <p style="margin-top: 1rem; text-align:center;">
+        <a href="/reset.html" style="color: #f5c542; text-decoration:none;">Forgot Password?</a>
+      </p>
+
+      <p style="margin-top: .75rem;">No account? <a href="/signup.html">Create one</a></p>
+    </main>
+  </div>
 
   <script>
     const lf = document.getElementById('loginForm');

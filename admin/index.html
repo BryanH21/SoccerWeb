@@ -3,17 +3,34 @@
 <head>
   <meta charset="utf-8"/>
   <meta name="robots" content="noindex,nofollow"/>
-  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover"/>
   <title>Admin • Player Profiles</title>
   <link rel="stylesheet" href="/soccer.css">
   <style>
     :root{
       --bg:#0e0f12; --card:#15161a; --soft:#1d1f24;
       --text:#f5f7fb; --dim:#aeb4c2;
-      --accent:#f5c542; --ring:#1e2127; --ok:#9BE28B; --err:#ff6b6b;
+      --accent:#f5c542; --ring:#1e2127; --ok:#9BE28B; --err:#ff6b6b; --hdr:64px;
     }
-    body{ background:var(--bg); color:var(--text); }
-    .wrap{ max-width:1200px; margin:0 auto; padding:2rem 1rem; }
+    body{
+      margin:0; background:var(--bg); color:var(--text);
+      min-height:100%; font-family: 'Poppins', sans-serif;
+      padding-top: calc(var(--hdr) + env(safe-area-inset-top));
+    }
+    .wrap{ max-width:1200px; margin:0 auto; padding:1.25rem 1rem 2rem; }
+    /* Sticky brand header */
+    .brand-bar{
+      position:fixed; inset:0 0 auto 0; height:var(--hdr);
+      display:flex; align-items:center; gap:.6rem;
+      padding: calc(env(safe-area-inset-top) + 8px) 14px 8px;
+      background:linear-gradient(180deg, rgba(0,0,0,.75), rgba(0,0,0,.35) 70%, rgba(0,0,0,0));
+      backdrop-filter:saturate(120%) blur(6px);
+      border-bottom:1px solid #1b1b1b;
+      z-index:1000;
+    }
+    .brand-bar a.brand{ display:inline-flex; align-items:center; gap:.55rem; color:#fff; text-decoration:none; font-weight:700; letter-spacing:.2px; }
+    .brand-bar img{ height:34px; width:auto; display:block; }
+    .brand-bar .brand span{ color:#fff; font-size:1rem; }
     h1{ margin:0 0 .5rem; font-size:1.6rem; }
     .sub{ color:var(--dim); margin:0 0 1.25rem; }
 
@@ -63,9 +80,20 @@
     /* toast */
     .toast{ position:fixed; right:1rem; bottom:1rem; background:#15161a; color:var(--text); border:1px solid #2a2f39; border-radius:12px; padding:.6rem .8rem; box-shadow:0 10px 30px rgba(0,0,0,.45); opacity:0; transform:translateY(8px); transition:all .25s ease; }
     .toast.show{ opacity:1; transform:translateY(0); }
+
+    @media (max-width: 560px){
+      .brand-bar{ height:56px; }
+      .grid{ grid-template-columns: 1fr; }
+    }
   </style>
 </head>
 <body>
+  <header class="brand-bar">
+    <a class="brand" href="/" aria-label="Foundry Soccer Academy home">
+      <img src="/images/logo.png" alt="Foundry logo" />
+      <span>Foundry Soccer Academy</span>
+    </a>
+  </header>
   <div class="wrap">
     <h1>Admin • Player Profiles</h1>
     <p class="sub">Manage plans, payments, renewals, goals, milestones, and sessions.</p>

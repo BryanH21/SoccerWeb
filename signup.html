@@ -8,18 +8,40 @@
   <link rel="stylesheet" href="/styles.css" />
   <style>
     :root{
-      --bg:#0b0b0b; --card:#111; --soft:#1a1a1a; --accent:#f5c542; --text:#fff; --muted:#aeb4c2;
+      --bg:#0b0b0b; --card:#111; --soft:#1a1a1a; --accent:#f5c542; --text:#fff; --muted:#aeb4c2; --hdr:64px;
     }
     html,body{height:100%}
     body{
       margin:0; padding:0; background:var(--bg); color:var(--text);
       font-family:'Poppins',system-ui,-apple-system,Segoe UI,Roboto,Ubuntu,'Helvetica Neue',Arial,sans-serif;
-      display:flex; align-items:center; justify-content:center;
+      min-height:100%;
+      display:flex; flex-direction:column; align-items:stretch; justify-content:flex-start;
+      /* Safe-area + brand header offset so nothing hides behind the notch */
+      padding-top: calc(var(--hdr) + env(safe-area-inset-top));
     }
+
+    /* Sticky brand header */
+    .brand-bar{
+      position:fixed; inset:0 0 auto 0; height:var(--hdr);
+      display:flex; align-items:center; gap:.6rem;
+      padding: calc(env(safe-area-inset-top) + 8px) 14px 8px;
+      background:linear-gradient(180deg, rgba(0,0,0,.75), rgba(0,0,0,.35) 70%, rgba(0,0,0,0));
+      backdrop-filter:saturate(120%) blur(6px);
+      border-bottom:1px solid #1b1b1b;
+      z-index:1000;
+    }
+    .brand-bar a.brand{ display:inline-flex; align-items:center; gap:.55rem; color:#fff; text-decoration:none; font-weight:700; letter-spacing:.2px; }
+    .brand-bar img{ height:34px; width:auto; display:block; }
+    .brand-bar .brand span{ color:#fff; font-size:1rem; }
+
+    /* Card spacing now that header is fixed */
+    .page-wrap{ width:100%; flex:1 0 auto; }
+
     .auth-card{
       width:92%; max-width:420px; background:var(--card);
       padding:2rem; border-radius:16px; box-shadow:0 8px 28px rgba(0,0,0,.45);
       border:1px solid var(--soft); text-align:left;
+      margin: 1.25rem auto 3rem;
     }
     .auth-card h1{ margin:0 0 .25rem; font-size:1.6rem; color:var(--accent); text-align:center; }
     .auth-card > p{ margin:.25rem 0 1.25rem; color:var(--muted); text-align:center; }
@@ -55,66 +77,76 @@
 
     /* Mobile tuning */
     @media (max-width: 480px){
-      .auth-card{ padding:1.5rem; }
+      .brand-bar{ height:56px; }
+      .auth-card{ padding:1.25rem; margin: .75rem auto 2rem; }
       .auth-card h1{ font-size:1.4rem; }
       input{ font-size:.98rem; }
     }
   </style>
 </head>
 <body>
-  <main class="auth-card">
-    <h1>Create account</h1>
-    <p>Players sign in with username + password. No email/phone required.</p>
+  <header class="brand-bar">
+    <a class="brand" href="/" aria-label="Foundry Soccer Academy home">
+      <img src="/images/logo.png" alt="Foundry logo" />
+      <span>Foundry Soccer Academy</span>
+    </a>
+  </header>
 
-    <form id="signupForm">
-      <label>Username
-        <input id="su" name="username" type="text" minlength="3" maxlength="24" pattern="[A-Za-z0-9_]+" title="3–24 characters: letters, numbers, underscore only" autocomplete="username" required autofocus />
-      </label>
+  <div class="page-wrap">
+    <main class="auth-card">
+      <h1>Create account</h1>
+      <p>Players sign in with username + password. No email/phone required.</p>
 
-      <label>Password
-        <input id="sp" name="password" type="password" minlength="8" autocomplete="new-password" required
-               pattern="(?=.*[A-Z])(?=.*[a-z])(?=.*[0-9])(?=.*[!@#$%^&*]).{8,}"
-               title="Password must be at least 8 characters and include one uppercase letter, one lowercase letter, one number, and one special symbol." />
-      </label>
-      
-      <label>Confirm password
-        <input id="sp2" name="passwordConfirm" type="password" minlength="8" autocomplete="new-password" title="Re-enter the same password" required />
-      </label>
-      
-      <small style="color:#bbb;display:block;margin-top:-.5rem;margin-bottom:1rem;">
-        Must be at least 8 characters and include 1 uppercase letter, 1 lowercase letter, 1 number, and 1 special symbol.
-      </small>
-      
-      <label style="display:flex;align-items:center;gap:.5rem;font-size:.9rem">
-        <input id="showpw" type="checkbox" />
-        <span>Show password</span>
-      </label>
+      <form id="signupForm">
+        <label>Username
+          <input id="su" name="username" type="text" minlength="3" maxlength="24" pattern="[A-Za-z0-9_]+" title="3–24 characters: letters, numbers, underscore only" autocomplete="username" required autofocus />
+        </label>
 
-      <label>First name
-        <input id="sf" name="firstName" type="text" maxlength="30" autocomplete="given-name" required
-               pattern="[A-Za-z ]+"
-               oninput="this.value=this.value.replace(/[^A-Za-z ]/g,'')"
-        />
-      </label>
+        <label>Password
+          <input id="sp" name="password" type="password" minlength="8" autocomplete="new-password" required
+                 pattern="(?=.*[A-Z])(?=.*[a-z])(?=.*[0-9])(?=.*[!@#$%^&*]).{8,}"
+                 title="Password must be at least 8 characters and include one uppercase letter, one lowercase letter, one number, and one special symbol." />
+        </label>
+        
+        <label>Confirm password
+          <input id="sp2" name="passwordConfirm" type="password" minlength="8" autocomplete="new-password" title="Re-enter the same password" required />
+        </label>
+        
+        <small style="color:#bbb;display:block;margin-top:-.5rem;margin-bottom:1rem;">
+          Must be at least 8 characters and include 1 uppercase letter, 1 lowercase letter, 1 number, and 1 special symbol.
+        </small>
+        
+        <label style="display:flex;align-items:center;gap:.5rem;font-size:.9rem">
+          <input id="showpw" type="checkbox" />
+          <span>Show password</span>
+        </label>
 
-      <label>Last initial
-        <input id="sl" name="lastInitial" type="text" maxlength="1" title="One letter A–Z" required
-               pattern="[A-Za-z]"
-               oninput="this.value = this.value.replace(/[^A-Za-z]/g,'').toUpperCase().slice(0,1)"
-        />
-      </label>
+        <label>First name
+          <input id="sf" name="firstName" type="text" maxlength="30" autocomplete="given-name" required
+                 pattern="[A-Za-z ]+"
+                 oninput="this.value=this.value.replace(/[^A-Za-z ]/g,'')"
+          />
+        </label>
 
-      <label class="consent">
-        <input id="consent" name="consent" type="checkbox" required />
-        <span>Parent/guardian confirms account creation for a minor and agrees to program terms.</span>
-      </label>
+        <label>Last initial
+          <input id="sl" name="lastInitial" type="text" maxlength="1" title="One letter A–Z" required
+                 pattern="[A-Za-z]"
+                 oninput="this.value = this.value.replace(/[^A-Za-z]/g,'').toUpperCase().slice(0,1)"
+          />
+        </label>
 
-      <button type="submit">Create Account</button>
-      <div id="serr" class="error" role="alert" aria-live="polite"></div>
-    </form>
+        <label class="consent">
+          <input id="consent" name="consent" type="checkbox" required />
+          <span>Parent/guardian confirms account creation for a minor and agrees to program terms.</span>
+        </label>
 
-    <p style="margin-top:.75rem;">Already have an account? <a href="/login.html">Sign in</a></p>
-  </main>
+        <button type="submit">Create Account</button>
+        <div id="serr" class="error" role="alert" aria-live="polite"></div>
+      </form>
+
+      <p style="margin-top:.75rem;">Already have an account? <a href="/login.html">Sign in</a></p>
+    </main>
+  </div>
 
   <script>
   document.addEventListener('DOMContentLoaded', () => {
