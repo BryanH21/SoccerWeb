@@ -7,32 +7,96 @@
   <title>Player Portal Login</title>
   <link rel="stylesheet" href="/styles.css" />
   <style>
-    .auth-card {
-      max-width: 440px;
-      margin: 10vh auto;
-      padding: 1.75rem;
-      border-radius: 16px;
-      background: #111;
-      color: #fff;
+    :root {
+      --bg: #0b0b0b;
+      --card: #111;
+      --accent: #f5c542;
+      --text: #fff;
     }
-    .auth-card form { display: grid; gap: 1rem; }
-    .auth-card input[type="text"],
-    .auth-card input[type="password"] {
+    body {
+      margin: 0;
+      padding: 0;
+      background: var(--bg);
+      color: var(--text);
+      font-family: 'Poppins', sans-serif;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      height: 100vh;
+    }
+    .auth-card {
+      width: 90%;
+      max-width: 400px;
+      background: var(--card);
+      padding: 2rem;
+      border-radius: 16px;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.4);
+      text-align: center;
+    }
+    h1 {
+      color: var(--accent);
+      margin-bottom: 0.5rem;
+    }
+    .auth-card p {
+      color: #aaa;
+      margin-bottom: 1.5rem;
+    }
+    form {
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+    }
+    label {
+      text-align: left;
+      font-weight: 500;
+      color: #ddd;
+    }
+    input[type="text"],
+    input[type="password"] {
       width: 100%;
       padding: 0.75rem;
-      border-radius: 10px;
+      border-radius: 8px;
       border: 1px solid #333;
-      background: #0b0b0b;
+      background: #000;
       color: #fff;
+      font-size: 1rem;
     }
-    .auth-card button {
-      padding: 0.85rem 1rem;
-      border: 0;
-      border-radius: 12px;
+    button[type="submit"] {
+      background: var(--accent);
+      color: #000;
+      font-weight: 600;
+      border: none;
+      padding: 0.85rem;
+      border-radius: 10px;
       cursor: pointer;
+      transition: background 0.3s;
     }
-    .error { display: none; color: #ff6b6b; font-size: 0.9rem; }
-    .muted { opacity: 0.8; }
+    button[type="submit"]:hover {
+      background: #dcb83c;
+    }
+    a {
+      color: var(--accent);
+      text-decoration: none;
+    }
+    a:hover {
+      text-decoration: underline;
+    }
+    .error {
+      display: none;
+      color: #ff6b6b;
+      font-size: 0.9rem;
+    }
+    @media (max-width: 480px) {
+      .auth-card {
+        padding: 1.5rem;
+      }
+      h1 {
+        font-size: 1.4rem;
+      }
+      input {
+        font-size: 0.95rem;
+      }
+    }
   </style>
 </head>
 <body>
@@ -52,6 +116,10 @@
       <button type="submit">Sign In</button>
       <div id="lerr" class="error">Invalid username or password</div>
     </form>
+
+    <p style="margin-top: 1rem; text-align:center;">
+      <a href="/reset.html" style="color: #f5c542; text-decoration:none;">Forgot Password?</a>
+    </p>
 
     <p style="margin-top: .75rem;">No account? <a href="/signup.html">Create one</a></p>
   </main>

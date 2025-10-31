@@ -61,6 +61,53 @@
       display: inline-block;
       box-shadow: 0 6px 18px rgba(0,0,0,.35);
     }
+
+    /* Ensure logout button is always visible and content doesn't overlap */
+    body {
+      margin: 0;
+      padding-top: 70px; /* space for fixed header */
+      font-family: 'Poppins', sans-serif;
+      background-color: var(--bg);
+      color: var(--text);
+      overflow-x: hidden;
+    }
+
+    header {
+      position: fixed;
+      top: 0;
+      right: 0;
+      left: 0;
+      background: var(--card);
+      display: flex;
+      justify-content: flex-end;
+      padding: 1rem;
+      z-index: 10000;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.4);
+    }
+
+    /* Responsive tweaks */
+    @media (max-width: 768px) {
+      .wrap {
+        padding: 1rem;
+      }
+
+      h1 {
+        font-size: 1.5rem;
+      }
+
+      .card {
+        padding: 0.8rem;
+      }
+
+      #logoutBtn, #logoutFab {
+        padding: 0.4rem 0.8rem;
+        font-size: 0.9rem;
+      }
+
+      .map {
+        height: 220px;
+      }
+    }
   </style>
 </head>
 <body>

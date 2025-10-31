@@ -7,12 +7,58 @@
   <title>Create Player Account</title>
   <link rel="stylesheet" href="/styles.css" />
   <style>
-    .auth-card{max-width:440px;margin:10vh auto;padding:1.75rem;border-radius:16px;background:#111;color:#fff}
-    .auth-card form{display:grid;gap:1rem}
-    .auth-card input[type="text"],.auth-card input[type="password"]{width:100%;padding:.75rem;border-radius:10px;border:1px solid #333;background:#0b0b0b;color:#fff}
-    .auth-card button{padding:.85rem 1rem;border:0;border-radius:12px;cursor:pointer}
-    .error{display:none;color:#ff6b6b;font-size:.9rem}
-    label.consent{display:flex;gap:.5rem;align-items:flex-start;font-size:.9rem}
+    :root{
+      --bg:#0b0b0b; --card:#111; --soft:#1a1a1a; --accent:#f5c542; --text:#fff; --muted:#aeb4c2;
+    }
+    html,body{height:100%}
+    body{
+      margin:0; padding:0; background:var(--bg); color:var(--text);
+      font-family:'Poppins',system-ui,-apple-system,Segoe UI,Roboto,Ubuntu,'Helvetica Neue',Arial,sans-serif;
+      display:flex; align-items:center; justify-content:center;
+    }
+    .auth-card{
+      width:92%; max-width:420px; background:var(--card);
+      padding:2rem; border-radius:16px; box-shadow:0 8px 28px rgba(0,0,0,.45);
+      border:1px solid var(--soft); text-align:left;
+    }
+    .auth-card h1{ margin:0 0 .25rem; font-size:1.6rem; color:var(--accent); text-align:center; }
+    .auth-card > p{ margin:.25rem 0 1.25rem; color:var(--muted); text-align:center; }
+
+    form{ display:grid; gap:1rem; }
+    label{ font-weight:600; color:#e6e6e6; font-size:.95rem; }
+
+    input[type="text"], input[type="password"]{
+      width:100%; padding:.8rem .9rem; border-radius:10px; border:1px solid #2b2b2b;
+      background:#000; color:var(--text); font-size:1rem; outline:none;
+      transition:border-color .2s, box-shadow .2s;
+    }
+    input[type="text"]:focus, input[type="password"]:focus{
+      border-color:#323232; box-shadow:0 0 0 3px rgba(245,197,66,.2);
+    }
+
+    small{ color:#bdbdbd; line-height:1.35; }
+    label.consent{ display:flex; gap:.6rem; align-items:flex-start; font-size:.9rem; color:#d8d8d8; }
+    label.consent input{ margin-top:.15rem; }
+
+    button[type="submit"]{
+      background:var(--accent); color:#000; font-weight:700; letter-spacing:.2px;
+      border:0; padding:.9rem 1rem; border-radius:12px; cursor:pointer; font-size:1rem;
+      transition:transform .04s ease, background .25s ease;
+    }
+    button[type="submit"]:hover{ background:#e6b938; }
+    button[type="submit"]:active{ transform:translateY(1px); }
+
+    .error{ display:none; color:#ff6b6b; font-size:.92rem; margin-top:-.25rem; }
+    a{ color:var(--accent); text-decoration:none; }
+    a:hover{ text-decoration:underline; }
+    .auth-card > p:last-child{ text-align:center; color:var(--muted); }
+
+    /* Mobile tuning */
+    @media (max-width: 480px){
+      .auth-card{ padding:1.5rem; }
+      .auth-card h1{ font-size:1.4rem; }
+      input{ font-size:.98rem; }
+    }
   </style>
 </head>
 <body>
