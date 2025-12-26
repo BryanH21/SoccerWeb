@@ -1918,6 +1918,76 @@ button[type="submit"]:hover {
     resize: vertical;
 }
 
+/* ---------- Book Now Intro (3-point) ---------- */
+.booknow-intro {
+    background: linear-gradient(to bottom, #0d0d0d, #1a1a1a);
+    color: white;
+    padding: 120px 10% 40px; /* clears fixed nav */
+    text-align: center;
+}
+
+.booknow-intro h1 {
+    font-size: 2.6rem;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    color: #f4f4f4;
+    margin-bottom: 22px;
+}
+
+.booknow-intro-grid {
+    max-width: 1100px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 22px;
+}
+
+.booknow-intro-card {
+    background: #171a1d;
+    border: 1px solid rgba(212,175,55,.18);
+    border-radius: 16px;
+    padding: 22px;
+    text-align: left;
+    box-shadow: 0 10px 28px rgba(0,0,0,.45);
+}
+
+.booknow-intro-card h2 {
+    margin: 0 0 10px;
+    font-size: 1.35rem;
+    color: #d4af37;
+    letter-spacing: .3px;
+}
+
+.booknow-intro-card p {
+    margin: 0;
+    color: #cfcfcf;
+    line-height: 1.65;
+    font-size: 1.05rem;
+}
+
+/* Responsive */
+@media (max-width: 980px) {
+    .booknow-intro {
+        padding: 120px 6% 34px;
+    }
+    .booknow-intro-grid {
+        grid-template-columns: 1fr;
+        max-width: 760px;
+    }
+    .booknow-intro-card {
+        padding: 20px;
+    }
+}
+
+@media (max-width: 640px) {
+    .booknow-intro h1 {
+        font-size: 2.1rem;
+    }
+    .booknow-intro-card p {
+        font-size: 1rem;
+    }
+}
+
 /* ---------- Signup Section ---------- */
 .signup {
     background-color: #111;
