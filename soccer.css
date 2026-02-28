@@ -3104,3 +3104,459 @@ footer {
       grid-template-columns: repeat(3, 1fr);
     }
   }
+/* =========================================================
+   Clinic Landing Page (clinic.html)
+   ========================================================= */
+
+/* Utility helpers used by clinic page */
+.container {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 0 20px;
+}
+
+.muted {
+  color: #ccc;
+}
+
+/* Make the clinic nav CTA stand out without changing global nav */
+.nav-links .nav-cta {
+  background: #d4af37;
+  color: #111;
+  border-radius: 8px;
+  padding: 10px 14px;
+  font-weight: 800;
+}
+
+.nav-links .nav-cta:hover {
+  background: #b98d1a;
+  color: #111;
+}
+
+/* Support the clinic.html nav button (it uses .nav-toggle instead of .hamburger) */
+.nav-toggle {
+  display: none; /* shown on mobile */
+  background: transparent;
+  border: none;
+  color: #fff;
+  font-size: 30px;
+  cursor: pointer;
+}
+
+/* ===== Hero ===== */
+.clinic-hero {
+  padding: 140px 0 70px; /* clears fixed nav */
+  background: linear-gradient(to bottom, #0d0d0d, #111111);
+  color: #fff;
+}
+
+.clinic-badge {
+  display: inline-block;
+  padding: 8px 12px;
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  border-radius: 999px;
+  font-size: 0.9rem;
+  color: #eaeaea;
+  background: rgba(255, 255, 255, 0.04);
+}
+
+.clinic-title {
+  margin: 14px 0 10px;
+  font-size: clamp(2.1rem, 4vw, 3.2rem);
+  line-height: 1.1;
+  color: #fff;
+}
+
+.clinic-subtitle {
+  max-width: 820px;
+  font-size: 1.1rem;
+  line-height: 1.7;
+  color: #cfcfcf;
+}
+
+.clinic-details-grid {
+  margin-top: 26px;
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 14px;
+}
+
+.detail-card {
+  background: #1a1a1a;
+  border: 1px solid rgba(212, 175, 55, 0.18);
+  border-radius: 14px;
+  padding: 18px;
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.45);
+}
+
+.detail-card h3 {
+  margin-bottom: 8px;
+  font-size: 1.1rem;
+  color: #d4af37;
+}
+
+.clinic-hero-actions {
+  margin-top: 22px;
+  display: flex;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+.btn-primary,
+.btn-secondary {
+  display: inline-block;
+  padding: 12px 16px;
+  border-radius: 10px;
+  text-decoration: none;
+  font-weight: 800;
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  transition: transform 0.2s ease-in-out, background 0.25s ease-in-out;
+}
+
+.btn-primary {
+  background: #d4af37;
+  color: #111;
+}
+
+.btn-primary:hover {
+  background: #b98d1a;
+  transform: translateY(-1px);
+}
+
+.btn-secondary {
+  background: rgba(255, 255, 255, 0.06);
+  color: #fff;
+}
+
+.btn-secondary:hover {
+  background: rgba(255, 255, 255, 0.10);
+  transform: translateY(-1px);
+}
+
+/* ===== Sessions ===== */
+.clinic-sessions {
+  padding: 70px 0;
+  background: #111;
+  color: #fff;
+}
+
+.clinic-sessions h2 {
+  font-size: 2.2rem;
+  color: #d4af37;
+  margin-bottom: 8px;
+}
+
+.session-grid {
+  margin-top: 18px;
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 14px;
+}
+
+.session-card {
+  background: #1a1a1a;
+  border: 1px solid rgba(212, 175, 55, 0.18);
+  border-radius: 14px;
+  padding: 20px;
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.45);
+}
+
+.session-card h3 {
+  color: #fff;
+  margin-bottom: 8px;
+  font-size: 1.35rem;
+}
+
+.session-time {
+  margin: 10px 0;
+  color: #eaeaea;
+}
+
+.session-list {
+  margin: 10px 0 0;
+  padding-left: 18px;
+  color: #cfcfcf;
+  line-height: 1.6;
+}
+
+.session-note {
+  margin-top: 12px;
+  color: #bfbfbf;
+}
+
+/* ===== About / Authority ===== */
+.clinic-about {
+  padding: 70px 0;
+  background: #222;
+  color: #fff;
+}
+
+.clinic-about h2 {
+  font-size: 2.2rem;
+  color: #d4af37;
+  margin-bottom: 12px;
+}
+
+.clinic-about p {
+  max-width: 900px;
+  margin: 0 0 18px;
+  color: #cfcfcf;
+  line-height: 1.7;
+}
+
+.clinic-takeaways {
+  margin-top: 16px;
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 14px;
+}
+
+.takeaway {
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid rgba(255, 255, 255, 0.10);
+  border-radius: 14px;
+  padding: 18px;
+}
+
+.takeaway h4 {
+  margin-bottom: 8px;
+  color: #fff;
+}
+
+/* ===== Register / Form ===== */
+.clinic-register {
+  padding: 70px 0 90px;
+  background: #111;
+  color: #fff;
+}
+
+.clinic-register h2 {
+  font-size: 2.2rem;
+  color: #d4af37;
+  margin-bottom: 10px;
+}
+
+.form-embed {
+  margin-top: 18px;
+  background: #1a1a1a;
+  border: 1px solid rgba(212, 175, 55, 0.18);
+  border-radius: 14px;
+  overflow: hidden;
+}
+
+.jotform-iframe {
+  width: 100%;
+  height: 900px;
+  border: 0;
+}
+
+.form-footnote {
+  margin-top: 14px;
+}
+
+.form-footnote a {
+  color: #d4af37;
+  text-decoration: none;
+}
+
+.form-footnote a:hover {
+  color: #b98d1a;
+}
+
+/* ===== Footer (clinic page uses .site-footer wrapper) ===== */
+.site-footer {
+  background: #161616;
+  padding: 30px 0;
+  color: #fff;
+}
+
+/* ===== Responsive ===== */
+@media (max-width: 860px) {
+  .clinic-details-grid {
+    grid-template-columns: 1fr;
+  }
+  .session-grid {
+    grid-template-columns: 1fr;
+  }
+  .clinic-takeaways {
+    grid-template-columns: 1fr;
+  }
+}
+
+
+@media (max-width: 768px) {
+  /* show the clinic nav toggle button on mobile */
+  .nav-toggle {
+    display: block;
+    position: absolute;
+    top: 15px;
+    right: 15px;
+    z-index: 1100;
+  }
+
+  .clinic-hero {
+    padding: 170px 0 60px;
+  }
+
+  .btn-primary,
+  .btn-secondary {
+    width: 100%;
+    text-align: center;
+  }
+
+  .detail-card,
+  .session-card,
+  .takeaway {
+    padding: 18px;
+  }
+
+  .jotform-iframe {
+    height: 980px; /* a bit taller for mobile form steps */
+  }
+}
+
+/* =========================================================
+   TEMP: Homepage Spring Break Clinic CTA (index.html)
+   Delete this block when clinic promo ends.
+   ========================================================= */
+
+.home-clinic-cta {
+  background: #111;
+  color: #fff;
+  padding: 44px 20px;
+}
+
+.home-clinic-cta-inner {
+  max-width: 1100px;
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 18px;
+  background: #171a1d;
+  border: 1px solid rgba(212,175,55,.28);
+  border-radius: 16px;
+  padding: 22px 24px;
+  box-shadow: 0 10px 28px rgba(0,0,0,.45);
+}
+
+.home-clinic-cta-text {
+  flex: 1 1 auto;
+  min-width: 240px;
+}
+
+.home-clinic-pill {
+  display: inline-block;
+  padding: 7px 12px;
+  border-radius: 999px;
+  border: 1px solid rgba(255,255,255,.14);
+  background: rgba(255,255,255,.05);
+  color: #eaeaea;
+  font-size: .9rem;
+  letter-spacing: .3px;
+  margin-bottom: 10px;
+}
+
+.home-clinic-cta h2 {
+  font-size: 2rem;
+  color: #d4af37;
+  margin: 0 0 8px;
+  line-height: 1.15;
+}
+
+.home-clinic-cta .muted {
+  margin: 0;
+  line-height: 1.6;
+}
+
+.home-clinic-cta-actions {
+  display: flex;
+  gap: 12px;
+  flex: 0 0 auto;
+  align-items: center;
+  justify-content: flex-end;
+}
+
+/* Keep buttons aligned with your existing site look */
+.home-clinic-cta-actions .btn-primary,
+.home-clinic-cta-actions .btn-secondary {
+  white-space: nowrap;
+}
+
+@media (max-width: 900px) {
+  .home-clinic-cta-inner {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+  .home-clinic-cta-actions {
+    width: 100%;
+    justify-content: flex-start;
+    flex-wrap: wrap;
+  }
+}
+
+@media (max-width: 768px) {
+  .home-clinic-cta {
+    padding: 34px 16px;
+  }
+  .home-clinic-cta-inner {
+    padding: 18px;
+  }
+  .home-clinic-cta h2 {
+    font-size: 1.6rem;
+  }
+  .home-clinic-cta-actions .btn-primary,
+  .home-clinic-cta-actions .btn-secondary {
+    width: 100%;
+    text-align: center;
+  }
+}
+
+
+/* Thank you page for free clinic */
+/* ===== Clinic Confirmation Page ===== */
+
+.clinic-confirm {
+    padding: 140px 20px 80px;
+    background: #111;
+    color: #fff;
+    text-align: center;
+  }
+  
+  .clinic-confirm h1 {
+    font-size: 3rem;
+    color: #d4af37;
+    margin-bottom: 10px;
+  }
+  
+  .clinic-confirm-sub {
+    font-size: 1.2rem;
+    margin-bottom: 30px;
+    color: #ccc;
+  }
+  
+  .confirm-box,
+  .confirm-zoom,
+  .confirm-next {
+    background: #1a1a1a;
+    border: 1px solid rgba(212,175,55,.2);
+    border-radius: 14px;
+    padding: 24px;
+    margin: 20px auto;
+    max-width: 700px;
+  }
+  
+  .confirm-box ul {
+    list-style: none;
+    padding: 0;
+  }
+  
+  .confirm-box li {
+    margin: 8px 0;
+  }
+  
+  @media (max-width: 768px) {
+    .clinic-confirm h1 {
+      font-size: 2.2rem;
+    }
+  }
