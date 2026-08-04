@@ -1,34 +1,30 @@
 <!DOCTYPE html>
 <html lang="en">
-    <head>
-        <meta charset="utf-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>Book a Soccer Training Call | Youth Coaching Sessions</title>
-        <meta name="description" content="Book a 1-on-1 call to discuss youth soccer training sessions. Flexible options for private group coaching in the Noblesville area.">
-        <link rel="stylesheet" href="soccer.css">
-        <script defer src="script.js/menu.js"></script>
-        <style>
-            button[type="submit"] {
-                margin-bottom: 1em;
-            }
-            .disclaimer {
-                margin-top: 0;
-            }
-        </style>
-        <!-- Future scripts for Firebase Auth, Stripe, or Analytics can be added below -->
-    </head>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Free Trial Soccer Training | Foundry Soccer Academy</title>
+    <meta name="description"
+        content="Claim a free trial soccer training session with Foundry Soccer Academy. Small group, coach-led youth training in the Noblesville area.">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Anton&family=Inter:wght@400;500;600;700;800&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="soccer.css">
+    <script defer src="script.js/menu.js"></script>
+    <!-- Future scripts for Firebase Auth, Stripe, or Analytics can be added below -->
+</head>
+
 <body>
     <!-- COMPONENT: Navigation -->
     <nav>
         <div class="logo">
             <a href="index.html">
-            <img src="images/logo.png" alt="Foundry Soccer Academy Logo">
+                <img src="images/logo.png" alt="Foundry Soccer Academy Logo">
             </a>
         </div>
 
-        <div class="hamburger">&#9776;</div>
-
-        <ul class="nav-links"> 
+        <ul class="nav-links">
             <li><a href="index.html">Home</a></li>
             <li><a href="trainings.html">Training</a></li>
             <li><a href="aboutcoach.html">About Coach</a></li>
@@ -36,129 +32,182 @@
             <li><a href="booknow.html">Sign Up Now</a></li>
             <li><a href="contactus.html">Contact Us</a></li>
         </ul>
-    <!-- END COMPONENT: Navigation -->
+        <a href="booknow.html#trial" class="nav-cta-btn">Free Trial</a>
+        <div class="hamburger">&#9776;</div>
+        <!-- END COMPONENT: Navigation -->
     </nav>
     <main>
 
-    <section class="booknow-intro">
-        <h1>Start Here</h1>
-        <div class="booknow-intro-grid">
-            <div class="booknow-intro-card">
-                <h2>Who This Is For</h2>
-                <p>Players and families who want consistent training, real accountability, and a structured development path not random drop ins.</p>
+        <!-- PAGE HERO -->
+        <section class="page-hero">
+            <div class="wrap">
+                <span class="kicker">Your First Step</span>
+                <h1>Start Here</h1>
+                <p>No commitment, no pressure. Just a chance to see how we train.</p>
             </div>
-            <div class="booknow-intro-card">
-                <h2>How Enrollment Works</h2>
-                <p>1) Submit the form below. 2) We schedule a 1 on 1 call. 3) We recommend the best training structure for your player. 4) If it’s a fit, you enroll.</p>
-            </div>
-            <div class="booknow-intro-card">
-                <h2>Why We Start With a Call</h2>
-                <p>Training structure, schedule, and program investment can vary by season and availability. The call ensures the right fit and a clear plan before you commit.</p>
-            </div>
-        </div>
-    </section>
+        </section>
 
-    <section class="signup" id="intro-meeting">
-        <h1 class="referral-title">Book Your Free Soccer Training Consultation</h1>
-<p class="intro-paragraph">Complete the form below to reserve a time to speak about your player’s goals and how our training program can help. This call is free and helps us determine if we’re the right fit for your family.</p>
-        <form action="https://formspree.io/f/mbldnnwk" method="POST">
-            <div class="signup-group">
-                <label for="first-name">First Name</label>
-                <input type="text" id="first-name" name="first-name" required>
+        <!-- INTRO CARDS -->
+        <section class="start-section">
+            <div class="wrap start-grid">
+                <div class="start-card">
+                    <span class="start-idx">01</span>
+                    <h2>Who This Is For</h2>
+                    <p>Players and families who want consistent training, real accountability, and a structured
+                        development path not random drop ins.</p>
+                </div>
+                <div class="start-card">
+                    <span class="start-idx">02</span>
+                    <h2>How It Works</h2>
+                    <p>Submit the form below, we'll reach out to schedule your free trial session, come train with us
+                        and see the program firsthand, and if it's a fit, choose a membership and get started.</p>
+                </div>
+                <div class="start-card">
+                    <span class="start-idx">03</span>
+                    <h2>Why We Start With a Free Trial</h2>
+                    <p>You shouldn't have to commit before you've seen how we train. The trial lets your player
+                        experience a real session, and lets you see the coaching and environment for yourself before
+                        deciding.</p>
+                </div>
+                <div class="start-card">
+                    <span class="start-idx">04</span>
+                    <h2>After Your Trial</h2>
+                    <p>If it's a fit, you can choose between a Monthly Membership or a discounted Season Membership.
+                        No pressure, no obligation, we'll walk you through it after your trial.</p>
+                </div>
             </div>
-    
-            <div class="signup-group">
-                <label for="last-name">Last Name</label>
-                <input type="text" id="last-name" name="last-name" required>
-            </div>
-    
-            <div class="signup-group">
-                <label for="email">Email</label>
-                <input type="email" id="email" name="email" required>
-            </div>
-    
-            <div class="signup-group">
-                <label for="phone">Phone Number (Optional)</label>
-                <input type="tel" id="phone" name="phone">
-            </div>
-    
-            <div class="signup-group">
-                <label for="player-name">Player Name</label>
-                <input type="text" id="player-name" name="player-name" required>
-            </div>
-    
-            <div class="signup-group">
-                <label for="position">Player Position</label>
-                <select id="position" name="position" required>
-                    <option value="">Select a Position</option>
-                    <option value="goalkeeper">Goalkeeper</option>
-                    <option value="defender">Defender</option>
-                    <option value="midfielder">Midfielder</option>
-                    <option value="forward">Forward</option>
-                </select>
-            </div>
+        </section>
 
-            <div class="signup-group">
-                <label for="heard-from">Where did you hear about us?</label>
-                <select id="heard-from" name="heard-from" required>
-                    <option value="">Select an option</option>
-                    <option value="Facebook">Facebook</option>
-                    <option value="Yard Sign">Yard Sign</option>
-                    <option value="Murphy's">Murphy's</option>
-                    <option value="Instagram">Instagram</option>
-                    <option value="NextDoor">NextDoor</option>
-                    <option value="NUSC">NUSC</option>
-                    <option value="Referral">Referral</option>
-                </select>
-            </div>
-            
-            <div class="signup-group" id="referral-name-group" style="display: none;">
-                <label for="referral-name">Who referred you?</label>
-                <input type="text" id="referral-name" name="referral-name">
-            </div>
+        <!-- TRIAL SIGNUP FORM -->
+        <section class="trial-section" id="trial">
+            <div class="wrap trial-wrap">
+                <div class="trial-heading">
+                    <span class="kicker-dark"></span>
+                    <h2 class="section-title">Claim Your Free Trial Session</h2>
+                    <p class="section-sub">Complete the form below to reserve your player's free trial session. No
+                        commitment required, just a chance to experience Foundry training firsthand.</p>
+                </div>
 
-    
-            <button type="submit">Sign Up</button>
-        </form>
-        <p class="disclaimer"><strong>Disclaimer:</strong> Submitting this form does not guarantee enrollment in the program. After submission, you will be contacted to schedule a one-on-one meeting where we will determine if the program is the right fit for you and your player.</p>
-    </section>
-    </main>
-    <!-- COMPONENT: Footer -->
-    <footer>
-        <div class="footer-container">
-            <div class="footer-logo">
-                <img src="images/logo.png" alt="Foundry Soccer Academy Logo">
+                <form id="signup-form" class="trial-form-card" action="https://formspree.io/f/YOUR_NEW_FORM_ID"
+                    method="POST">
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="first-name">First Name</label>
+                            <input type="text" id="first-name" name="first-name" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="last-name">Last Name</label>
+                            <input type="text" id="last-name" name="last-name" required>
+                        </div>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="email">Email</label>
+                            <input type="email" id="email" name="email" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="phone">Phone Number (Optional)</label>
+                            <input type="tel" id="phone" name="phone">
+                        </div>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="player-name">Player Name</label>
+                            <input type="text" id="player-name" name="player-name" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="position">Player Position</label>
+                            <select id="position" name="position" required>
+                                <option value="">Select a Position</option>
+                                <option value="goalkeeper">Goalkeeper</option>
+                                <option value="defender">Defender</option>
+                                <option value="midfielder">Midfielder</option>
+                                <option value="forward">Forward</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="heard-from">Where did you hear about us?</label>
+                        <select id="heard-from" name="heard-from" required>
+                            <option value="">Select an option</option>
+                            <option value="Facebook">Facebook</option>
+                            <option value="Yard Sign">Yard Sign</option>
+                            <option value="Murphy's">Murphy's</option>
+                            <option value="Instagram">Instagram</option>
+                            <option value="NextDoor">NextDoor</option>
+                            <option value="NUSC">NUSC</option>
+                            <option value="Referral">Referral</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group hidden-field" id="referral-name-group">
+                        <label for="referral-name">Who referred you?</label>
+                        <input type="text" id="referral-name" name="referral-name">
+                    </div>
+
+                    <button type="submit" class="btn btn-gold">Sign Up</button>
+                    <p class="trial-disclaimer"><strong>Disclaimer:</strong> Submitting this form does not guarantee
+                        enrollment in the program. After submission, you will be contacted to schedule your free trial
+                        session and confirm a time that works for your player.</p>
+                </form>
             </div>
-            <div class="footer-links">
-                <h2>Quick Links</h2>
-                <ul>
-                    <li><a href="index.html">Home</a></li>
-                    <li><a href="trainings.html">Training</a></li>
-                    <li><a href="aboutcoach.html">About Coach</a></li>
-                    <li><a href="dates.html">Schedule</a></li>
-                    <li><a href="booknow.html">Sign Up Now</a></li>
-                    <li><a href="contactus.html">Contact Us</a></li>
-                </ul>
-            </div>
-        </div>
-    </footer>
-    <!-- END COMPONENT: Footer -->
-    <script>
-        document.addEventListener("DOMContentLoaded", function () {
-            const heardFrom = document.getElementById("heard-from");
-            const referralGroup = document.getElementById("referral-name-group");
-        
-            heardFrom.addEventListener("change", function () {
-                if (this.value === "Referral") {
-                    referralGroup.style.display = "block";
-                    document.getElementById("referral-name").required = true;
-                } else {
-                    referralGroup.style.display = "none";
-                    document.getElementById("referral-name").required = false;
-                }
+        </section>
+        <script>
+            document.addEventListener("DOMContentLoaded", function () {
+                const heardFrom = document.getElementById("heard-from");
+                const referralGroup = document.getElementById("referral-name-group");
+
+                heardFrom.addEventListener("change", function () {
+                    if (this.value === "Referral") {
+                        referralGroup.style.display = "block";
+                        document.getElementById("referral-name").required = true;
+                    } else {
+                        referralGroup.style.display = "none";
+                        document.getElementById("referral-name").required = false;
+                    }
+                });
             });
-        });
         </script>
-    <div id="auth-hooks" style="display: none;"></div>
+        <!-- COMPONENT: Footer -->
+        <footer>
+            <div class="footer-container">
+                <div class="footer-logo">
+                    <img src="images/logo.png" alt="Foundry Soccer Academy Logo">
+                </div>
+                <div class="footer-links">
+                    <h2>Quick Links</h2>
+                    <ul>
+                        <li><a href="index.html">Home</a></li>
+                        <li><a href="trainings.html">Training</a></li>
+                        <li><a href="aboutcoach.html">About Coach</a></li>
+                        <li><a href="dates.html">Schedule</a></li>
+                        <li><a href="booknow.html">Sign Up Now</a></li>
+                        <li><a href="contactus.html">Contact Us</a></li>
+                    </ul>
+                </div>
+            </div>
+        </footer>
+        <!-- END COMPONENT: Footer -->
+        <script>
+            document.addEventListener("DOMContentLoaded", function () {
+                const heardFrom = document.getElementById("heard-from");
+                const referralGroup = document.getElementById("referral-name-group");
+
+                heardFrom.addEventListener("change", function () {
+                    if (this.value === "Referral") {
+                        referralGroup.style.display = "block";
+                        document.getElementById("referral-name").required = true;
+                    } else {
+                        referralGroup.style.display = "none";
+                        document.getElementById("referral-name").required = false;
+                    }
+                });
+            });
+        </script>
+        <div id="auth-hooks" style="display: none;"></div>
 </body>
+
 </html>

@@ -1,26 +1,30 @@
 <!DOCTYPE html>
 <html lang="en">
-    <head>
-        <meta charset="utf-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <meta name="description" content="Get in touch with Foundry Soccer Academy in Noblesville, Indiana. Ask questions or request details about private and group soccer training sessions.">
-        <title>Contact Foundry Soccer Academy | Private Soccer Training in Noblesville</title>
-        <link rel="stylesheet" href="soccer.css">
-        <script defer src="script.js/menu.js"></script>
-        <!-- Future scripts for Firebase Auth, Stripe, or Analytics can be added below -->
-    </head>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description"
+        content="Get in touch with Foundry Soccer Academy in Noblesville, Indiana. Ask questions or request details about small group soccer training sessions.">
+    <title>Contact Foundry Soccer Academy | Small Group Soccer Training in Noblesville</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Anton&family=Inter:wght@400;500;600;700;800&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="soccer.css">
+    <script defer src="script.js/menu.js"></script>
+    <!-- Future scripts for Firebase Auth, Stripe, or Analytics can be added below -->
+</head>
+
 <body>
     <!-- COMPONENT: Navigation -->
     <nav>
         <div class="logo">
             <a href="index.html">
-            <img src="images/logo.png" alt="Foundry Soccer Academy Logo">
+                <img src="images/logo.png" alt="Foundry Soccer Academy Logo">
             </a>
         </div>
 
-        <div class="hamburger">&#9776;</div>
-
-        <ul class="nav-links"> 
+        <ul class="nav-links">
             <li><a href="index.html">Home</a></li>
             <li><a href="trainings.html">Training</a></li>
             <li><a href="aboutcoach.html">About Coach</a></li>
@@ -28,65 +32,76 @@
             <li><a href="booknow.html">Sign Up Now</a></li>
             <li><a href="contactus.html">Contact Us</a></li>
         </ul>
-    <!-- END COMPONENT: Navigation -->
+        <a href="booknow.html#trial" class="nav-cta-btn">Free Trial</a>
+        <div class="hamburger">&#9776;</div>
+        <!-- END COMPONENT: Navigation -->
     </nav>
 
-<main>
-<section class="contact-us-form">
-    <div class="contact-wrapper">
-    <h1>Contact Foundry Soccer Academy – Noblesville Soccer Training</h1>
-    <p>If you have questions about our private group soccer training sessions in Noblesville and Hamilton County, use the form below and we’ll respond shortly.</p>
-    <form action="https://formspree.io/f/mrbpznvo" method="POST">
-        <div class="contact-group">
-            <label for="first-name">First Name</label>
-            <input type="text" id="first-name" name="first-name" required>
-        </div>
+    <main>
+        <!-- PAGE HERO -->
+        <section class="page-hero">
+            <div class="wrap">
+                <span class="kicker">Get In Touch</span>
+                <h1>Contact Foundry Soccer Academy</h1>
+                <p>Have questions about our small group soccer training in Noblesville and Hamilton County? Send us a
+                    message and we'll respond shortly.</p>
+            </div>
+        </section>
 
-        <div class="contact-group">
-            <label for="last-name">Last Name</label>
-            <input type="text" id="last-name" name="last-name" required>
-        </div>
+        <section class="contact-section">
+            <div class="wrap contact-wrap">
+                <form class="contact-form-card" action="https://formspree.io/f/mrbpznvo" method="POST">
+                    <div class="form-group">
+                        <label for="first-name">First Name</label>
+                        <input type="text" id="first-name" name="first-name" required>
+                    </div>
 
-        <div class="contact-group">
-            <label for="email">Email</label>
-            <input type="email" id="email" name="email" required>
-        </div>
+                    <div class="form-group">
+                        <label for="last-name">Last Name</label>
+                        <input type="text" id="last-name" name="last-name" required>
+                    </div>
 
-        <div class="contact-group">
-            <label for="phone">Phone Number (Optional)</label>
-            <input type="tel" id="phone" name="phone">
-        </div>
+                    <div class="form-group">
+                        <label for="email">Email</label>
+                        <input type="email" id="email" name="email" required>
+                    </div>
 
-        <div class="contact-group">
-            <label for="comments">Comments</label>
-            <textarea id="comments" name="comments" rows="5" required></textarea>
-        </div>
+                    <div class="form-group">
+                        <label for="phone">Phone Number (Optional)</label>
+                        <input type="tel" id="phone" name="phone">
+                    </div>
 
-        <button type="submit">Send Message</button>
-    </form>
-    </div>
-</section>
-</main>
-<!-- COMPONENT: Footer -->
-<footer>
-    <div class="footer-container">
-        <div class="footer-logo">
-            <img src="images/logo.png" alt="Foundry Soccer Academy Logo">
+                    <div class="form-group">
+                        <label for="comments">Comments</label>
+                        <textarea id="comments" name="comments" rows="5" required></textarea>
+                    </div>
+
+                    <button type="submit" class="btn btn-gold">Send Message</button>
+                </form>
+            </div>
+        </section>
+    </main>
+    <!-- COMPONENT: Footer -->
+    <footer>
+        <div class="footer-container">
+            <div class="footer-logo">
+                <img src="images/logo.png" alt="Foundry Soccer Academy Logo">
+            </div>
+            <div class="footer-links">
+                <h2>Quick Links</h2>
+                <ul>
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="trainings.html">Training</a></li>
+                    <li><a href="aboutcoach.html">About Coach</a></li>
+                    <li><a href="dates.html">Schedule</a></li>
+                    <li><a href="booknow.html">Sign Up Now</a></li>
+                    <li><a href="contactus.html">Contact Us</a></li>
+                </ul>
+            </div>
         </div>
-        <div class="footer-links">
-            <h2>Quick Links</h2>
-            <ul>
-                <li><a href="index.html">Home</a></li>
-                <li><a href="trainings.html">Training</a></li>
-                <li><a href="aboutcoach.html">About Coach</a></li>
-                <li><a href="dates.html">Schedule</a></li>
-                <li><a href="booknow.html">Sign Up Now</a></li>
-                <li><a href="contactus.html">Contact Us</a></li>
-            </ul>
-        </div>
-    </div>
-</footer>
-<!-- END COMPONENT: Footer -->
-<div id="auth-hooks" style="display: none;"></div>
+    </footer>
+    <!-- END COMPONENT: Footer -->
+    <div id="auth-hooks" style="display: none;"></div>
 </body>
+
 </html>

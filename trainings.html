@@ -1,164 +1,190 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>Training Options - Foundry Soccer Academy</title>
-    <link rel="stylesheet" href="./soccer.css?v=20250916a">
-    <style>html[data-css-loaded="true"] body{outline-offset:-9999px}</style>
-    <script defer src="./script.js/menu.js"></script>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Training Options - Foundry Soccer Academy</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Anton&family=Inter:wght@400;500;600;700;800&display=swap"
+    rel="stylesheet">
+  <link rel="stylesheet" href="./soccer.css?v=20250916a">
+  <style>
+    html[data-css-loaded="true"] body {
+      outline-offset: -9999px
+    }
+  </style>
+  <script defer src="./script.js/menu.js"></script>
 </head>
+
 <body>
-<main>
+  <main>
     <!-- COMPONENT: Navigation -->
     <nav role="navigation" aria-label="Main navigation">
-        <div class="logo">
-            <a href="index.html">
-            <img src="images/logo.png" alt="Foundry Soccer Academy Logo">
-            </a>
-        </div>
+      <div class="logo">
+        <a href="index.html">
+          <img src="images/logo.png" alt="Foundry Soccer Academy Logo">
+        </a>
+      </div>
 
-        <div class="hamburger">&#9776;</div>
-
-        <ul class="nav-links"> 
-            <li><a href="index.html">Home</a></li>
-            <li><a href="trainings.html">Training</a></li>
-            <li><a href="aboutcoach.html">About Coach</a></li>
-            <li><a href="dates.html">Schedule</a></li>
-            <li><a href="booknow.html">Sign Up Now</a></li>
-            <li><a href="contactus.html">Contact Us</a></li>
-        </ul>
-        <!-- END COMPONENT: Navigation -->
+      <ul class="nav-links">
+        <li><a href="index.html">Home</a></li>
+        <li><a href="trainings.html">Training</a></li>
+        <li><a href="aboutcoach.html">About Coach</a></li>
+        <li><a href="dates.html">Schedule</a></li>
+        <li><a href="booknow.html">Sign Up Now</a></li>
+        <li><a href="contactus.html">Contact Us</a></li>
+      </ul>
+      <a href="booknow.html#trial" class="nav-cta-btn">Free Trial</a>
+      <div class="hamburger">&#9776;</div>
+      <!-- END COMPONENT: Navigation -->
     </nav>
 
-<section id="training-strips" class="container">
-  <header class="strips-header">
-    <h2>Training Options at Foundry</h2>
-    <p>Choose the path that fits your player. Every option delivers high energy sessions, clear coaching points, and visible progress.</p>
-  </header>
+    <!-- PAGE HERO -->
+    <section class="page-hero">
+      <div class="wrap">
+        <span class="kicker">Find Your Path</span>
+        <h1>Training Options at Foundry</h1>
+        <p>Every option delivers high energy sessions, clear coaching points, and visible progress.</p>
+      </div>
+    </section>
 
-  <!-- 1) FLAGSHIP -->
-  <article class="strip">
-    <div class="strip-media">
-      <img src="images/NewHero.jpg" alt="Players training in Foundry Flagship Program">
-    </div>
-    <div class="strip-body">
-      <span class="badge">Flagship Program</span>
-      <h3>Foundry Player Development Program</h3>
-      <p>Our premium, consistency first track for serious growth. Players build strong fundamentals, game IQ, and the mindset to compete on and off the field.</p>
-      <ul class="strip-points">
-        <li>2x/week (Apr–Oct outdoor) • 1x/week winter</li>
-        <li>Technical • Tactical • Mentality • Athleticism</li>
-        <li>Structured assessments and clear goals</li>
-      </ul>
-    </div>
-    <div class="strip-ctas">
-      <a class="btn-gold" href="booknow.html">See Program Plans</a>
-      <a class="btn-ghost" href="booknow.html#intro-meeting">Book Intro Meeting</a>
-    </div>
-  </article>
+    <!-- PROGRAMS -->
+    <section class="programs-section">
+      <div class="wrap">
 
-  <!-- 2) FOOT SKILLS -->
-  <article class="strip">
-    <div class="strip-media">
-      <img src="images/MainFootSkills.jpg" alt="Players training during Friday Night Foot Skills">
-    </div>
-    <div class="strip-body">
-      <span class="badge">Weekly Skills</span>
-      <h3>Friday Night Foot Skills</h3>
-      <p>High tempo ball mastery focusing on first touch, creativity, and 1v1 confidence. A perfect add on for any player.</p>
-      <ul class="strip-points">
-        <li>Fridays • Ages 8–14</li>
-        <li>Creativity, rhythm, 1v1 moves</li>
-        <li>Pairs well with the Flagship Program</li>
-      </ul>
-    </div>
-    <div class="strip-ctas">
-      <a class="btn-outline" href="footskills.html">Register for Foot Skills</a>
-    </div>
-  </article>
-
-  <!-- 3) FREE CLINICS -->
-  <article class="strip">
-    <div class="strip-media">
-      <img src="images/FirstClinic.jpg" alt="Players participating in a Foundry free clinic session">
-    </div>
-    <div class="strip-body">
-      <span class="badge">Try Foundry</span>
-      <h3>Free Clinics</h3>
-      <p>Experience our coaching style, meet Coach Bryan, and see if Foundry is a fit. Low pressure, high fun, and always free.</p>
-      <ul class="strip-points">
-        <li>Seasonal availability</li>
-        <li>Intro to our training environment</li>
-        <li>Great first step for new families</li>
-      </ul>
-    </div>
-    <div class="strip-ctas">
-      <a class="btn-outline" href="freeclinic.html">Join Next Clinic</a>
-    </div>
-  </article>
-
-  <!-- 4) CAMPS -->
-  <article class="strip">
-    <div class="strip-media">
-      <img src="images/FirstCamp.jpg" alt="Players training during Foundry seasonal camp">
-    </div>
-    <div class="strip-body">
-      <span class="badge">Seasonal</span>
-      <h3>Camps</h3>
-      <p>Focused blocks that blend technical reps, tactical games, and competitive play. Great for momentum during school breaks.</p>
-      <ul class="strip-points">
-        <li>Summer & school break sessions</li>
-        <li>Age based groups • Theme days</li>
-        <li>Mix of skills, IQ, and competition</li>
-      </ul>
-    </div>
-    <div class="strip-ctas">
-      <a class="btn-outline" href="camps.html">View Upcoming Camps</a>
-    </div>
-  </article>
-
-  <!-- 5) PRIVATE 1-ON-1 -->
-  <article class="strip">
-    <div class="strip-media">
-      <img src="images/MainPrivateCoach.jpg" alt="Players training during Private 1-on-1 Coaching">
-    </div>
-    <div class="strip-body">
-      <span class="badge">Personalized</span>
-      <h3>Private 1 on 1 Coaching</h3>
-      <p>Customized sessions targeting specific needs position work, weak foot, finishing, speed mechanics, and more.</p>
-      <ul class="strip-points">
-        <li>By appointment • Flexible scheduling</li>
-        <li>Individual focus and feedback</li>
-        <li>Pairs well with team or Flagship training</li>
-      </ul>
-    </div>
-    <div class="strip-ctas">
-      <a class="btn-outline" href="private.html">Book a Private Session</a>
-    </div>
-  </article>
-</section>
-</main>
-<!-- COMPONENT: Footer -->
-<footer>
-    <div class="footer-container">
-        <div class="footer-logo">
-            <img src="images/logo.png" alt="Foundry Soccer Academy Logo">
-        </div>
-        <div class="footer-links">
-            <h2>Quick Links</h2>
-            <ul>
-                <li><a href="index.html">Home</a></li>
-                <li><a href="trainings.html">Training</a></li>
-                <li><a href="aboutcoach.html">About Coach</a></li>
-                <li><a href="dates.html">Schedule</a></li>
-                <li><a href="booknow.html">Sign Up Now</a></li>
-                <li><a href="contactus.html">Contact Us</a></li>
+        <!-- 1) FLAGSHIP -->
+        <article class="program-card featured">
+          <div class="program-media">
+            <img src="images/NewHero.jpg" alt="Players training in Foundry Training Membership">
+          </div>
+          <div class="program-body">
+            <span class="program-badge">Flagship Program</span>
+            <h3>Foundry Training Membership</h3>
+            <p>Our premium, consistency first track for serious growth. Players build strong fundamentals, game IQ, and
+              the mindset to compete on and off the field.</p>
+            <ul class="program-points">
+              <li>2x/week April&ndash;October (on-field)</li>
+              <li>Fall/Winter: 1 on-field session + 1 Foundry Film session weekly &mdash; video breakdowns of pro play,
+                tactics, and individual development</li>
+              <li>Technical • Tactical • Mentality • Athleticism</li>
+              <li>Structured assessments and clear goals</li>
             </ul>
-        </div>
+            <div class="program-ctas">
+              <a class="btn btn-gold" href="booknow.html">See Membership Options</a>
+              <a class="btn btn-outline-dark" href="booknow.html#trial">Start Your Free Trial</a>
+            </div>
+          </div>
+        </article>
+
+        <!-- 2) FOOT SKILLS -->
+        <article class="program-card">
+          <div class="program-media">
+            <img src="images/MainFootSkills.jpg" alt="Players training during Friday Night Foot Skills">
+          </div>
+          <div class="program-body">
+            <span class="program-badge">Weekly Skills</span>
+            <h3>Friday Night Foot Skills</h3>
+            <p>High tempo ball mastery focusing on first touch, creativity, and 1v1 confidence. A perfect add on for any
+              player.</p>
+            <ul class="program-points">
+              <li>Fridays • Ages 8–14</li>
+              <li>Creativity, rhythm, 1v1 moves</li>
+              <li>Pairs well with the Foundry Training Membership</li>
+            </ul>
+            <div class="program-ctas">
+              <a class="btn btn-outline-dark" href="footskills.html">Register for Foot Skills</a>
+            </div>
+          </div>
+        </article>
+
+        <!-- 3) FREE CLINICS -->
+        <article class="program-card">
+          <div class="program-media">
+            <img src="images/FirstClinic.jpg" alt="Players participating in a Foundry free clinic session">
+          </div>
+          <div class="program-body">
+            <span class="program-badge">Try Foundry</span>
+            <h3>Free Clinics</h3>
+            <p>Experience our coaching style, meet Coach Bryan, and see if Foundry is a fit. Low pressure, high fun, and
+              always free. We run clinics periodically throughout the year.</p>
+            <ul class="program-points">
+              <li>Held throughout the year</li>
+              <li>Intro to our training environment</li>
+              <li>Great first step for new families</li>
+            </ul>
+            <div class="program-ctas">
+              <a class="btn btn-outline-dark" href="freeclinic.html">Join the Waitlist</a>
+            </div>
+          </div>
+        </article>
+
+        <!-- 4) CAMPS -->
+        <article class="program-card">
+          <div class="program-media">
+            <img src="images/FirstCamp.jpg" alt="Players training during Foundry seasonal camp">
+          </div>
+          <div class="program-body">
+            <span class="program-badge">Seasonal</span>
+            <h3>Camps</h3>
+            <p>Focused blocks that blend technical reps, tactical games, and competitive play. Great for momentum during
+              school breaks.</p>
+            <ul class="program-points">
+              <li>Summer & school break sessions</li>
+              <li>Age based groups • Theme days</li>
+              <li>Mix of skills, IQ, and competition</li>
+            </ul>
+            <div class="program-ctas">
+              <a class="btn btn-outline-dark" href="camps.html">View Upcoming Camps</a>
+            </div>
+          </div>
+        </article>
+
+        <!-- 5) PRIVATE 1-ON-1 -->
+        <article class="program-card">
+          <div class="program-media">
+            <img src="images/MainPrivateCoach.jpg" alt="Players training during Private 1-on-1 Coaching">
+          </div>
+          <div class="program-body">
+            <span class="program-badge">Personalized</span>
+            <h3>Private 1 on 1 Coaching</h3>
+            <p>Customized sessions targeting specific needs position work, weak foot, finishing, speed mechanics, and
+              more.</p>
+            <ul class="program-points">
+              <li>By appointment • Flexible scheduling</li>
+              <li>Individual focus and feedback</li>
+              <li>Pairs well with the Foundry Training Membership</li>
+            </ul>
+            <div class="program-ctas">
+              <a class="btn btn-outline-dark" href="private.html">Book a Private Session</a>
+            </div>
+          </div>
+        </article>
+
+      </div>
+    </section>
+  </main>
+  <!-- COMPONENT: Footer -->
+  <footer>
+    <div class="footer-container">
+      <div class="footer-logo">
+        <img src="images/logo.png" alt="Foundry Soccer Academy Logo">
+      </div>
+      <div class="footer-links">
+        <h2>Quick Links</h2>
+        <ul>
+          <li><a href="index.html">Home</a></li>
+          <li><a href="trainings.html">Training</a></li>
+          <li><a href="aboutcoach.html">About Coach</a></li>
+          <li><a href="dates.html">Schedule</a></li>
+          <li><a href="booknow.html">Sign Up Now</a></li>
+          <li><a href="contactus.html">Contact Us</a></li>
+        </ul>
+      </div>
     </div>
-</footer>
-<!-- END COMPONENT: Footer -->
-<script>document.documentElement.setAttribute('data-css-loaded','true');</script>
+  </footer>
+  <!-- END COMPONENT: Footer -->
+  <script>document.documentElement.setAttribute('data-css-loaded', 'true');</script>
 </body>
+
 </html>

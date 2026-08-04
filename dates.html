@@ -1,14 +1,20 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="utf-8">
-    <meta name="description" content="Check out the youth soccer training schedule at Foundry Soccer Academy in Noblesville, Indiana. View upcoming practice times and seasonal training dates.">
+    <meta name="description"
+        content="Check out the youth soccer training schedule at Foundry Soccer Academy in Noblesville, Indiana. View upcoming practice times and seasonal training dates.">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Soccer Training Schedule | Foundry Soccer Academy Noblesville</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Anton&family=Inter:wght@400;500;600;700;800&display=swap"
+        rel="stylesheet">
     <link rel="stylesheet" href="soccer.css">
     <script defer src="script.js/menu.js"></script>
     <!-- Future scripts for Firebase Auth, Stripe, or Analytics can be added below -->
 </head>
+
 <body>
     <!-- COMPONENT: Navigation -->
     <nav>
@@ -18,9 +24,7 @@
             </a>
         </div>
 
-        <div class="hamburger">&#9776;</div>
-
-        <ul class="nav-links"> 
+        <ul class="nav-links">
             <li><a href="index.html">Home</a></li>
             <li><a href="trainings.html">Training</a></li>
             <li><a href="aboutcoach.html">About Coach</a></li>
@@ -28,35 +32,46 @@
             <li><a href="booknow.html">Sign Up Now</a></li>
             <li><a href="contactus.html">Contact Us</a></li>
         </ul>
+        <a href="booknow.html#trial" class="nav-cta-btn">Free Trial</a>
+        <div class="hamburger">&#9776;</div>
         <!-- END COMPONENT: Navigation -->
     </nav>
 
     <main>
-        <section class="schedule">
-            <h1>Training Schedule</h1>
-            <p class="schedule-intro">
-                Foundry Soccer Academy training schedules vary by season and field availability.
-            </p>
-
-            <div class="season-status">
-                <span class="status-dot"></span>
-                <span class="status-text"><strong>Now:</strong> Indoor Season</span>
-            </div>
-
-            <div class="current-times">
-                <h2>This Season’s Training Times</h2>
-                <p class="location-note"><strong>Training times vary depending on indoor field availability.</strong><br>Families will be notified directly with current schedules.</p>
-            </div>
-
-            <div class="season-cadence">
-                <h3>Seasonal Training</h3>
-                <ul>
-                    <li><strong>Outdoor (Apr–Oct):</strong> 2 sessions per week</li>
-                    <li><strong>Indoor (Nov–Mar):</strong> 1 session per week (due to limited indoor field availability)</li>
-                </ul>
+        <!-- PAGE HERO -->
+        <section class="page-hero">
+            <div class="wrap">
+                <span class="kicker">Plan Your Week</span>
+                <h1>Training Schedule</h1>
+                <p>Foundry Soccer Academy training schedules vary by season and field availability.</p>
             </div>
         </section>
-        <div class="filler-section"></div>
+
+        <section class="schedule-section">
+            <div class="wrap schedule-wrap">
+
+                <div class="status-badge">
+                    <span class="status-dot"></span>
+                    <span class="status-text" id="season-status-text"><strong>Now:</strong> Loading...</span>
+                </div>
+
+                <div class="info-card">
+                    <h2>This Season's Training Times</h2>
+                    <p class="info-note" id="season-detail-note"><strong>Loading current schedule details...</strong>
+                    </p>
+                </div>
+
+                <div class="cadence-card">
+                    <h3>Seasonal Training</h3>
+                    <ul class="cadence-list">
+                        <li id="cadence-outdoor"><strong>Outdoor (Apr–Oct):</strong> 2 sessions per week, on-field</li>
+                        <li id="cadence-indoor"><strong>Indoor (Nov–Mar):</strong> 1 on-field session + 1 Foundry Film
+                            session per week (due to limited indoor field availability)</li>
+                    </ul>
+                </div>
+
+            </div>
+        </section>
     </main>
     <!-- COMPONENT: Footer -->
     <footer>
@@ -78,6 +93,28 @@
         </div>
     </footer>
     <!-- END COMPONENT: Footer -->
+    <script>
+        (function () {
+            var month = new Date().getMonth() + 1; // 1-12
+            var isOutdoor = month >= 4 && month <= 10;
+
+            var statusText = document.getElementById('season-status-text');
+            var detailNote = document.getElementById('season-detail-note');
+            var cadenceOutdoor = document.getElementById('cadence-outdoor');
+            var cadenceIndoor = document.getElementById('cadence-indoor');
+
+            if (isOutdoor) {
+                statusText.innerHTML = '<strong>Now:</strong> Outdoor Season';
+                detailNote.innerHTML = '<strong>Training runs 2x per week on-field, April through October.</strong><br>Families will be notified directly with current session times.';
+                cadenceOutdoor.classList.add('current-season');
+            } else {
+                statusText.innerHTML = '<strong>Now:</strong> Indoor Season';
+                detailNote.innerHTML = '<strong>Training runs 1 on-field session plus 1 Foundry Film session per week, November through March, due to limited indoor field availability.</strong><br>Families will be notified directly with current session times.';
+                cadenceIndoor.classList.add('current-season');
+            }
+        })();
+    </script>
 </body>
 <div id="auth-hooks" style="display: none;"></div>
+
 </html>
