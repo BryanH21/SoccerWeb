@@ -1,8 +1,15 @@
 {
+  "cleanUrls": true,
+  "trailingSlash": false,
   "redirects": [
     {
       "source": "/:path*",
-      "has": [{ "type": "host", "value": "foundrysocceracademy.com" }],
+      "has": [
+        {
+          "type": "host",
+          "value": "foundrysocceracademy.com"
+        }
+      ],
       "destination": "https://www.foundrysocceracademy.com/:path*",
       "permanent": true
     }
